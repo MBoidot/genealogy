@@ -126,6 +126,10 @@ print("✓ Created family_tree.json")
 # HTML + D3 radial tree
 # -----------------------------
 
+# -----------------------------
+# HTML + D3 radial tree with rotation slider and adaptive labels
+# -----------------------------
+
 html_template = """
 <!DOCTYPE html>
 <html>
@@ -134,7 +138,7 @@ html_template = """
 <title>Genealogy Radial Tree</title>
 <script src="https://d3js.org/d3.v7.min.js"></script>
 <style>
-body { margin:0; padding:20px; font-family:Arial,sans-serif; background:#f5f5f5; display:flex; justify-content:center; align-items:center; min-height:100vh; }
+body { margin:0; padding:20px; font-family:Arial,sans-serif; background:#f5f5f5; display:flex; flex-direction:column; align-items:center; }
 #chart { background:white; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.15); }
 .tooltip { position:absolute; background:#333; color:white; padding:8px 12px; border-radius:4px; font-size:12px; pointer-events:none; display:none; z-index:1000; box-shadow:0 2px 8px rgba(0,0,0,0.3); }
 .node circle { stroke-width:2px; }
@@ -143,9 +147,16 @@ body { margin:0; padding:20px; font-family:Arial,sans-serif; background:#f5f5f5;
 .decade-ring { fill:none; stroke:#ccc; stroke-width:1px; stroke-dasharray:3,3; opacity:0.5; }
 .decade-label { font-size:11px; fill:#999; pointer-events:none; }
 .link { fill:none; stroke:#999; stroke-opacity:0.4; }
+#slider-container { margin:20px; display:flex; align-items:center; gap:10px; font-size:14px; }
 </style>
 </head>
 <body>
+
+<div id="slider-container">
+    <label for="rotation-slider">Rotate Tree:</label>
+    <input type="range" id="rotation-slider" min="0" max="360" value="0">
+</div>
+
 <div id="chart"></div>
 <div class="tooltip"></div>
 
@@ -154,7 +165,7 @@ const data = __DATA__;
 
 const width = 1200;
 const height = 1200;
-const radius = Math.min(width, height)/2 - 40;
+const radius = Math.min(width, height)/2 - 80; // extra space
 
 const svg = d3.select("#chart").append("svg").attr("width", width).attr("height", height);
 const g = svg.append("g").attr("transform", `translate(${width/2},${height/2})`);
@@ -223,17 +234,12 @@ root.each(node => {
 });
 
 // Draw links
-g.selectAll(".link").data(root.links()).join("path").attr("class","link")
+const linkElements = g.selectAll(".link").data(root.links()).join("path").attr("class","link")
     .attr("d", d3.linkRadial().angle(d=>d.x + (d.xOffset||0)).radius(d=>d.y));
 
 // Draw nodes
 const nodes = g.selectAll(".node").data(root.descendants()).join("g")
-    .attr("class", d=>"node"+(d.data.death?" dead":""))
-    .attr("transform", d=> {
-        if(d.data.id===1 || d.data.id===2) return `translate(0,0)`;
-        const angle = d.x + (d.xOffset||0);
-        return `rotate(${angle*180/Math.PI-90})translate(${d.y},0)`;
-    });
+    .attr("class", d=>"node"+(d.data.death?" dead":""));
 
 // Circle styling
 nodes.append("circle")
@@ -250,18 +256,8 @@ nodes.append("text")
         if(d.data.id===1 || d.data.id===2) return d.data.name;
         return d.data.name.split(' ')[0];
     })
-    .attr("text-anchor","middle")
     .attr("font-weight",d=>d.data.gen===0?"bold":"normal")
-    .attr("font-size",d=>d.data.gen===0?"14px":"12px")
-    .attr("transform", d => {
-        if(d.data.id===1) return `translate(0,-28)`;
-        if(d.data.id===2) return `translate(0,-12)`;
-        if(d.data.gen===0) return `translate(0,-20)`;
-        const displayText=d.data.name.split(' ')[0]; const fontSize=12;
-        const offsetDist=estimateTextWidth(displayText,fontSize)/2;
-        const rotation=d.x>Math.PI?180:0; const yOffset=rotation===0?-4:4;
-        return `translate(${offsetDist},${yOffset})rotate(${rotation})`;
-    });
+    .attr("font-size",d=>d.data.gen===0?"14px":"12px");
 
 // Tooltip
 nodes.on("mouseenter", function(event,d) {
@@ -272,6 +268,77 @@ nodes.on("mouseenter", function(event,d) {
     if(d.data.death) info+=`<br/>d: ${d.data.death}`;
     tooltip.html(info).style("left",(event.pageX+10)+"px").style("top",(event.pageY-10)+"px").style("display","block");
 }).on("mouseleave",function(){ tooltip.style("display","none"); });
+
+
+// Click to highlight descendants
+nodes.on("click", function(event, d) {
+    // Reset previous highlights
+    nodes.select("circle").attr("stroke-width", 2.5).attr("stroke", d => colorScale(d.data.gen));
+    nodes.select("text").attr("font-weight", d => d.data.gen===0 ? "bold" : "normal");
+    linkElements.attr("stroke", "#999").attr("stroke-width", 1);
+
+    // Get all descendants of the clicked node
+    const descendants = d.descendants();
+
+    // Highlight descendants
+    descendants.forEach(node => {
+        // Highlight node circle
+        d3.select(nodes.filter(n => n === node).node()).select("circle")
+            .attr("stroke-width", 4)
+            .attr("stroke", "black");
+
+        // Highlight text
+        d3.select(nodes.filter(n => n === node).node()).select("text")
+            .attr("font-weight", "bold");
+    });
+
+    // Highlight links connecting descendants
+    linkElements
+        .filter(l => descendants.includes(l.source) && descendants.includes(l.target))
+        .attr("stroke", "black")   // make line black
+        .attr("stroke-width", 2);  // thicker line
+});
+
+// Rotation slider
+const slider = document.getElementById("rotation-slider");
+
+function updateRotation(angleDeg) {
+    const angleRad = angleDeg * Math.PI / 180;
+
+    nodes.attr("transform", d => {
+        if(d.data.gen === 0) {
+            // Gen0 nodes at the center, horizontal
+            return `translate(0,0)`;
+        } else {
+            const angle = d.x + (d.xOffset||0) + angleRad;
+            return `rotate(${angle*180/Math.PI-90})translate(${d.y},0)`;
+        }
+    });
+
+    linkElements.attr("d", d3.linkRadial().angle(d => d.x + (d.xOffset||0) + angleRad).radius(d => d.y));
+
+    nodes.select("text").attr("transform", d => {
+        if(d.data.id===1) return `translate(0,-28)`;
+        if(d.data.id===2) return `translate(0,-12)`;
+        if(d.data.gen===0) return `translate(0,-20)`; // center, horizontal
+
+        const angle = d.x + (d.xOffset||0) + angleRad;
+        const deg = angle * 180 / Math.PI - 90;
+
+        const displayText = d.data.name.split(' ')[0];
+        const fontSize = d.data.gen===0 ? 14 : 12;
+        const offsetDist = estimateTextWidth(displayText,fontSize)/2;
+
+        let x=offsetDist, y=deg>90 && deg<270 ? 4 : -4;
+        let rotation = deg>90 && deg<270 ? 180 : 0;
+
+        return `translate(${x},${y})rotate(${rotation})`;
+    });
+}
+
+// Initialize
+updateRotation(0);
+slider.addEventListener("input", () => updateRotation(slider.value));
 
 </script>
 </body>
@@ -284,12 +351,4 @@ html_final = html_template.replace("__DATA__", json.dumps(root_tree))
 with open("family_tree.html", "w", encoding="utf-8") as f:
     f.write(html_final)
 
-print("✓ family_tree.html created (export button removed)")
-
-# Insert JSON safely
-html_final = html_template.replace("__DATA__", json.dumps(root_tree))
-
-with open("family_tree.html", "w", encoding="utf-8") as f:
-    f.write(html_final)
-
-print("✓ family_tree.html created")
+print("✓ family_tree.html created with rotation slider and adaptive labels")
