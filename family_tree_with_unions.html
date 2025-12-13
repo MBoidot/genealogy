@@ -1,84 +1,257 @@
-
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-<meta charset="UTF-8">
-<title>Genealogy Radial Tree with Unions</title>
-<script src="https://d3js.org/d3.v7.min.js"></script>
-<style>
-body { font-family: Arial, sans-serif; margin: 0; padding: 20px; background: #f5f5f5; }
-#chart { width: 1200px; height: 1200px; margin: auto; background: white; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
-.node circle { stroke-width: 2px; fill: white; }
-.node text { font-size: 12px; text-anchor: middle; dominant-baseline: middle; pointer-events: none; }
-.link { fill: none; stroke: #999; stroke-opacity: 0.5; }
-.link.former { stroke-dasharray: 4 2; }
-.tooltip { position: absolute; background: #333; color: white; padding: 6px 10px; border-radius: 4px; font-size: 12px; pointer-events: none; display: none; }
-</style>
+    <meta charset="UTF-8">
+    <title>Genealogy Radial Tree</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #chart {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .tooltip {
+            position: absolute;
+            background: #333;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            pointer-events: none;
+            display: none;
+            z-index: 1000;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .node circle {
+            stroke-width: 2px;
+        }
+
+        .node text {
+            font-size: 12px;
+            pointer-events: none;
+            text-anchor: middle;
+            dominant-baseline: middle;
+        }
+
+        .node.dead circle {
+            fill: white;
+        }
+
+        .decade-ring {
+            fill: none;
+            stroke: #ccc;
+            stroke-width: 1px;
+            stroke-dasharray: 3, 3;
+            opacity: 0.5;
+        }
+
+        .decade-label {
+            font-size: 11px;
+            fill: #999;
+            pointer-events: none;
+        }
+
+        .link {
+            fill: none;
+            stroke: #999;
+            stroke-opacity: 0.4;
+        }
+
+        #slider-container {
+            margin: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+        }
+    </style>
 </head>
+
 <body>
 
-<div id="chart"></div>
-<div class="tooltip"></div>
+    <div id="slider-container">
+        <label for="rotation-slider">Rotate Tree:</label>
+        <input type="range" id="rotation-slider" min="0" max="360" value="0">
+    </div>
 
-<script>
-const data = {"id": 1, "name": "Henry\u00a0 BOIDOT", "birth": "14/01/1919", "death": "22/01/2002\u00a0", "gen": 0, "gen_origin": "0", "children": [{"id": 3, "name": "Jean-Paul\u00a0 BOIDOT", "birth": "12/06/1941", "death": "25/03/2015\u00a0", "gen": 1, "gen_origin": "1", "children": [{"id": 5, "name": "V\u00e9ronique\u00a0 BOIDOT", "birth": "31/03/1964", "death": "", "gen": 2, "gen_origin": "2", "children": [], "union_type": "current"}, {"id": 6, "name": "Catherine\u00a0 BOIDOT-MILAN", "birth": "28/05/1968", "death": "", "gen": 2, "gen_origin": "2", "children": [{"id": 8, "name": "Marion\u00a0 MILAN", "birth": "31/03/1997", "death": "", "gen": 3, "gen_origin": "3", "children": [], "union_type": "current"}, {"id": 10, "name": "Bastien\u00a0 MILAN", "birth": "08/11/1998", "death": "", "gen": 3, "gen_origin": "3", "children": [], "union_type": "current"}, {"id": 9, "name": "Tanguy\u00a0 MILAN", "birth": "14/10/2000", "death": "", "gen": 3, "gen_origin": "3", "children": [], "union_type": "current"}, {"id": 11, "name": "Clara\u00a0 MILAN", "birth": "17/07/2004", "death": "", "gen": 3, "gen_origin": "3", "children": [], "union_type": "current"}, {"id": 7, "name": "Marc\u00a0 MILAN", "birth": "11/11/1966", "death": "", "gen": 2, "gen_origin": "2'", "children": [], "isSpouse": true}], "union_type": "current"}, {"id": 12, "name": "H\u00e9l\u00e8ne\u00a0 BOIDOT-DILLENSEGER", "birth": "09/06/1969", "death": "", "gen": 2, "gen_origin": "2", "children": [{"id": 14, "name": "Cl\u00e9ment DILLENSEGER", "birth": "17/09/1999", "death": "", "gen": 3, "gen_origin": "3", "children": [], "union_type": "current"}, {"id": 15, "name": "Camille DILLENSEGER", "birth": "15/09/2002", "death": "", "gen": 3, "gen_origin": "3", "children": [], "union_type": "current"}, {"id": 13, "name": "Rodolphe\u00a0 DILLENSEGER", "birth": "07/01/1970", "death": "", "gen": 2, "gen_origin": "2'", "children": [], "isSpouse": true}], "union_type": "current"}, {"id": 4, "name": "Anne-Marie\u00a0 BOIDOT-FAUSSOT", "birth": "01/01/1945", "death": "", "gen": 1, "gen_origin": "1'", "children": [], "isSpouse": true}], "union_type": "current"}, {"id": 16, "name": "Fran\u00e7ois\u00a0 BOIDOT", "birth": "07/06/1943", "death": "", "gen": 1, "gen_origin": "1", "children": [{"id": 18, "name": "Fr\u00e9d\u00e9rique\u00a0 BOIDOT-LELIEVRE", "birth": "03/09/1970", "death": "", "gen": 2, "gen_origin": "2", "children": [{"id": 20, "name": "Gabin\u00a0 LELIEVRE", "birth": "05/02/2002", "death": "", "gen": 3, "gen_origin": "3", "children": [], "union_type": "current"}, {"id": 21, "name": "Lucile\u00a0 LELIEVRE", "birth": "05/02/2002", "death": "", "gen": 3, "gen_origin": "3", "children": [], "union_type": "current"}, {"id": 19, "name": "Vincent\u00a0 LELIEVRE", "birth": "10/04/1966", "death": "", "gen": 2, "gen_origin": "2'", "children": [], "isSpouse": true}], "union_type": "former"}, {"id": 17, "name": "Brigitte\u00a0 ROYANT", "birth": "29/07/1952", "death": "", "gen": 1, "gen_origin": "1'", "children": [], "isSpouse": true}, {"id": 17, "name": "Brigitte\u00a0 ROYANT", "birth": "29/07/1952", "death": "", "gen": 1, "gen_origin": "1'", "children": [], "isSpouse": true}], "union_type": "current"}, {"id": 22, "name": "Jean-Pierre\u00a0 BOIDOT", "birth": "25/08/1944", "death": "", "gen": 1, "gen_origin": "1", "children": [{"id": 24, "name": "Florence\u00a0 BOIDOT", "birth": "04/02/1968", "death": "", "gen": 2, "gen_origin": "2", "children": [], "union_type": "current"}, {"id": 25, "name": "Delphine\u00a0 BOIDOT", "birth": "16/10/1970", "death": "", "gen": 2, "gen_origin": "2", "children": [{"id": 27, "name": "Joshua\u00a0 BRADLEY", "birth": "01/02/2002", "death": "", "gen": 3, "gen_origin": "3", "children": [], "union_type": "current"}, {"id": 26, "name": "Conjoint\u00a0delphine\u00a0 BRADLEY", "birth": "", "death": "", "gen": 2, "gen_origin": "2'", "children": [], "isSpouse": true}], "union_type": "current"}, {"id": 23, "name": "Claudine\u00a0 BOIDOT-DUFOUR", "birth": "17/05/1948", "death": "", "gen": 1, "gen_origin": "1'", "children": [], "isSpouse": true}], "union_type": "current"}, {"id": 28, "name": "Martine\u00a0 BOIDOT", "birth": "28/08/1945", "death": "", "gen": 1, "gen_origin": "1", "children": [{"id": 29, "name": "Jacques\u00a0 POTY", "birth": "23/01/1950", "death": "", "gen": 1, "gen_origin": "1'", "children": [], "isSpouse": true}], "union_type": "current"}, {"id": 30, "name": "Patrick\u00a0 BOIDOT", "birth": "01/08/1947", "death": "", "gen": 1, "gen_origin": "1", "children": [{"id": 32, "name": "Julien\u00a0 BOIDOT", "birth": "28/08/1981", "death": "", "gen": 2, "gen_origin": "2", "children": [{"id": 34, "name": "Diane\u00a0 BOIDOT", "birth": "26/11/2011", "death": "", "gen": 3, "gen_origin": "3", "children": [], "union_type": "current"}, {"id": 35, "name": "Ir\u00e8ne\u00a0 BOIDOT", "birth": "16/11/2014", "death": "", "gen": 3, "gen_origin": "3", "children": [], "union_type": "current"}, {"id": 33, "name": "Sandra\u00a0 LEROUX", "birth": "10/01/1981", "death": "", "gen": 2, "gen_origin": "2'", "children": [], "isSpouse": true}], "union_type": "current"}, {"id": 36, "name": "Mathieu\u00a0 BOIDOT", "birth": "01/09/1983", "death": "", "gen": 2, "gen_origin": "2", "children": [{"id": 38, "name": "Paulin\u00a0 BOIDOT", "birth": "08/12/2012", "death": "", "gen": 3, "gen_origin": "3", "children": [], "union_type": "current"}, {"id": 39, "name": "Victor\u00a0 BOIDOT", "birth": "22/04/2015", "death": "", "gen": 3, "gen_origin": "3", "children": [], "union_type": "current"}, {"id": 37, "name": "Ga\u00eblle\u00a0 UZU", "birth": "25/08/1982", "death": "", "gen": 2, "gen_origin": "2'", "children": [], "isSpouse": true}], "union_type": "current"}, {"id": 31, "name": "Claudie\u00a0 BOISSEAU", "birth": "16/10/1947", "death": "", "gen": 1, "gen_origin": "1'", "children": [], "isSpouse": true}], "union_type": "current"}, {"id": 40, "name": "Marie-Christine BOIDOT-BURET", "birth": "20/10/1948", "death": "", "gen": 1, "gen_origin": "1", "children": [{"id": 42, "name": "Anne\u00a0 BURET", "birth": "05/08/1972", "death": "", "gen": 2, "gen_origin": "2", "children": [{"id": 43, "name": "Ewen\u00a0 BOURSE", "birth": "09/03/2005", "death": "", "gen": 3, "gen_origin": "3", "children": [], "union_type": "former"}, {"id": 44, "name": "Ethan\u00a0 BOURSE", "birth": "04/04/2010", "death": "", "gen": 3, "gen_origin": "3", "children": [], "union_type": "former"}], "union_type": "current"}, {"id": 45, "name": "Caroline\u00a0 BURET", "birth": "02/01/1979", "death": "", "gen": 2, "gen_origin": "2", "children": [{"id": 109, "name": "Yann DRESAC", "birth": "17/10/1978", "death": "", "gen": 2, "gen_origin": "2'", "children": [], "isSpouse": true}], "union_type": "current"}, {"id": 41, "name": "Yvon\u00a0\u00a0 BURET", "birth": "28/02/1947", "death": "", "gen": 1, "gen_origin": "1", "children": [], "isSpouse": true}], "union_type": "current"}, {"id": 46, "name": "Christian\u00a0 BOIDOT", "birth": "15/12/1949", "death": "", "gen": 1, "gen_origin": "1", "children": [{"id": 49, "name": "Richard\u00a0 BOIDOT", "birth": "06/06/1974", "death": "", "gen": 2, "gen_origin": "2", "children": [{"id": 94, "name": "Az\u00e9lie BOIDOT", "birth": "13/03/2004", "death": "", "gen": 3, "gen_origin": "3", "children": [], "union_type": "current"}, {"id": 95, "name": "Iphyg\u00e9nie BOIDOT", "birth": "16/10/2010", "death": "", "gen": 3, "gen_origin": "3", "children": [], "union_type": "current"}, {"id": 93, "name": "Ludivine\u00a0 LAGRES", "birth": "", "death": "", "gen": 2, "gen_origin": "2'", "children": [], "isSpouse": true}], "union_type": "current"}, {"id": 47, "name": "Dominique\u00a0 ??", "birth": "15/12/1949", "death": "", "gen": 1, "gen_origin": "1", "children": [], "isSpouse": true}, {"id": 48, "name": "Sandrine\u00a0 BOIDOT", "birth": "03/05/1973", "death": "", "gen": 2, "gen_origin": "2", "children": [{"id": 99, "name": "Jonathan de Carvalho", "birth": "15/01/1992", "death": "", "gen": 3, "gen_origin": "3", "children": [{"id": 101, "name": "Louise de Carvalho", "birth": "16/04/2023", "death": "", "gen": 4, "gen_origin": "4", "children": [], "union_type": "current"}, {"id": 100, "name": "Alicia MESTRE", "birth": "01/01/1995", "death": "", "gen": 3, "gen_origin": "3'", "children": [], "isSpouse": true}], "union_type": "current"}, {"id": 102, "name": "Dany de Carvalho", "birth": "04/12/1993", "death": "", "gen": 3, "gen_origin": "3", "children": [{"id": 104, "name": "Rakel de Carvalho", "birth": "25/12/2022", "death": "", "gen": 4, "gen_origin": "4", "children": [], "union_type": "current"}, {"id": 103, "name": "Elodie PERIAU", "birth": "01/01/1997", "death": "", "gen": 3, "gen_origin": "3'", "children": [], "isSpouse": true}], "union_type": "current"}, {"id": 105, "name": "Dylan de Carvalho", "birth": "21/08/1999", "death": "", "gen": 3, "gen_origin": "3", "children": [{"id": 106, "name": "Conjointe Garcon 3 sandrine ??", "birth": "01/01/1999", "death": "", "gen": 3, "gen_origin": "3'", "children": [], "isSpouse": true}], "union_type": "current"}, {"id": 96, "name": "Francisco Ferreira de Carvalho", "birth": "02/12/1973", "death": "", "gen": 2, "gen_origin": "2'", "children": [], "isSpouse": true}], "union_type": "former"}, {"id": 47, "name": "Dominique\u00a0 ??", "birth": "15/12/1949", "death": "", "gen": 1, "gen_origin": "1", "children": [], "isSpouse": true}, {"id": 89, "name": "H\u00e9loise\u00a0 LETINTURIER", "birth": "04/10/2001", "death": "", "gen": 2, "gen_origin": "2", "children": [], "union_type": "former"}, {"id": 47, "name": "Dominique\u00a0 ??", "birth": "15/12/1949", "death": "", "gen": 1, "gen_origin": "1", "children": [], "isSpouse": true}], "union_type": "current"}, {"id": 50, "name": "Fran\u00e7oise\u00a0 BOIDOT-GOAS", "birth": "21/07/1953", "death": "", "gen": 1, "gen_origin": "1", "children": [{"id": 52, "name": "Claire\u00a0 GOAS-MAFFRE", "birth": "03/07/1984", "death": "", "gen": 2, "gen_origin": "2", "children": [{"id": 54, "name": "Mathilde MAFFRE", "birth": "14/02/2010", "death": "", "gen": 3, "gen_origin": "3", "children": [], "union_type": "current"}, {"id": 55, "name": "Arthur MAFFRE", "birth": "27/03/2013", "death": "", "gen": 3, "gen_origin": "3", "children": [], "union_type": "current"}, {"id": 56, "name": "Thomas\u00a0 MAFFRE", "birth": "12/10/2015", "death": "", "gen": 3, "gen_origin": "3", "children": [], "union_type": "current"}, {"id": 57, "name": "Henry\u00a0 MAFFRE", "birth": "10/07/2019", "death": "", "gen": 3, "gen_origin": "3", "children": [], "union_type": "current"}, {"id": 53, "name": "Guillaume\u00a0 MAFFRE", "birth": "02/12/1977", "death": "", "gen": 2, "gen_origin": "2'", "children": [], "isSpouse": true}], "union_type": "current"}, {"id": 58, "name": "Isabelle\u00a0 GOAS-CANTY", "birth": "08/06/1987", "death": "", "gen": 2, "gen_origin": "2", "children": [{"id": 60, "name": "Jeanne CANTY", "birth": "12/10/2014", "death": "", "gen": 3, "gen_origin": "3", "children": [], "union_type": "current"}, {"id": 61, "name": "Cl\u00e9mence\u00a0 CANTY", "birth": "27/03/2019", "death": "", "gen": 3, "gen_origin": "3", "children": [], "union_type": "current"}, {"id": 59, "name": "J\u00e9r\u00e9mie\u00a0 CANTY", "birth": "07/06/1985", "death": "", "gen": 2, "gen_origin": "2", "children": [], "isSpouse": true}], "union_type": "current"}, {"id": 51, "name": "Yves\u00a0 GOAS", "birth": "13/08/1953", "death": "", "gen": 1, "gen_origin": "1", "children": [], "isSpouse": true}], "union_type": "current"}, {"id": 62, "name": "Anne-Marie\u00a0 BOIDOT", "birth": "20/07/1954", "death": "", "gen": 1, "gen_origin": "1", "children": [{"id": 64, "name": "Nicolas\u00a0 MILAN", "birth": "25/04/1986", "death": "", "gen": 2, "gen_origin": "2", "children": [{"id": 66, "name": "Charlie\u00a0\u00a0 MILAN", "birth": "01/12/2021", "death": "", "gen": 3, "gen_origin": "3", "children": [], "union_type": "current"}, {"id": 91, "name": "Am\u00e9lie BARRET", "birth": "25/04/1986", "death": "", "gen": 2, "gen_origin": "2'", "children": [], "isSpouse": true}, {"id": 65, "name": "Timoth\u00e9e\u00a0\u00a0 MILAN", "birth": "29/03/2018", "death": "", "gen": 3, "gen_origin": "3", "children": [], "union_type": "former"}, {"id": 91, "name": "Am\u00e9lie BARRET", "birth": "25/04/1986", "death": "", "gen": 2, "gen_origin": "2'", "children": [], "isSpouse": true}], "union_type": "current"}, {"id": 67, "name": "Marie-Anne\u00a0 MILAN", "birth": "27/12/1988", "death": "", "gen": 2, "gen_origin": "2", "children": [{"id": 69, "name": "Paul\u00a0 CARONI", "birth": "30/03/2017", "death": "", "gen": 3, "gen_origin": "3", "children": [], "union_type": "former"}, {"id": 70, "name": "Agnes\u00a0\u00a0 CARONI", "birth": "09/02/2020", "death": "", "gen": 3, "gen_origin": "3", "children": [], "union_type": "former"}], "union_type": "current"}, {"id": 71, "name": "Ren\u00e9\u00a0 MILAN", "birth": "01/07/1990", "death": "", "gen": 2, "gen_origin": "2", "children": [{"id": 73, "name": "Louis\u00a0 MILAN", "birth": "06/03/2017", "death": "", "gen": 3, "gen_origin": "3", "children": [], "union_type": "current"}, {"id": 74, "name": "Anaelle\u00a0 MILAN", "birth": "02/07/2019", "death": "", "gen": 3, "gen_origin": "3", "children": [], "union_type": "current"}, {"id": 72, "name": "Ludivine\u00a0 ??", "birth": "", "death": "", "gen": 2, "gen_origin": "2'", "children": [], "isSpouse": true}], "union_type": "current"}, {"id": 75, "name": "Cl\u00e9mence\u00a0 MILAN", "birth": "12/08/1992", "death": "", "gen": 2, "gen_origin": "2", "children": [{"id": 77, "name": "Marceau\u00a0 MAGERE", "birth": "15/02/2025", "death": "", "gen": 3, "gen_origin": "3", "children": [], "union_type": "current"}, {"id": 76, "name": "Nicolas\u00a0 MAGERE", "birth": "?\u00a0", "death": "", "gen": 2, "gen_origin": "2'", "children": [], "isSpouse": true}], "union_type": "current"}, {"id": 63, "name": "Pierre\u00a0 MILAN", "birth": "16/08/1958", "death": "", "gen": 1, "gen_origin": "1'", "children": [], "isSpouse": true}], "union_type": "current"}, {"id": 78, "name": "Michel\u00a0 BOIDOT", "birth": "17/07/1957", "death": "", "gen": 1, "gen_origin": "1", "children": [{"id": 80, "name": "Virginie\u00a0 BOIDOT-MINERVINI", "birth": "23/12/1986", "death": "", "gen": 2, "gen_origin": "2", "children": [{"id": 82, "name": "Sacha\u00a0 MINERVINI", "birth": "13/08/2017", "death": "", "gen": 3, "gen_origin": "3", "children": [], "union_type": "current"}, {"id": 83, "name": "Simon\u00a0 MINERVINI", "birth": "09/01/2021", "death": "", "gen": 3, "gen_origin": "3", "children": [], "union_type": "current"}, {"id": 81, "name": "Lucas\u00a0 MINERVINI", "birth": "07/09/1985", "death": "", "gen": 2, "gen_origin": "2'", "children": [], "isSpouse": true}], "union_type": "current"}, {"id": 84, "name": "Thomas\u00a0 BOIDOT", "birth": "24/06/1992", "death": "", "gen": 2, "gen_origin": "2", "children": [{"id": 86, "name": "Milo\u00a0 BOIDOT", "birth": "16/01/2025", "death": "", "gen": 3, "gen_origin": "3", "children": [], "union_type": "current"}, {"id": 85, "name": "Lucie\u00a0 ??", "birth": "04/05/1984", "death": "", "gen": 2, "gen_origin": "2'", "children": [], "isSpouse": true}], "union_type": "current"}, {"id": 79, "name": "Sylvie\u00a0 BOIDOT-ROSSIGNOL", "birth": "21/11/1961", "death": "", "gen": 1, "gen_origin": "1", "children": [], "isSpouse": true}], "union_type": "current"}, {"id": 2, "name": "Simone\u00a0 DURAND", "birth": "08/07/1919", "death": "22/11/2004\u00a0", "gen": 0, "gen_origin": "0'", "children": [], "isSpouse": true}]};
+    <div id="chart"></div>
+    <div class="tooltip"></div>
 
-const width = 1200;
-const height = 1200;
-const radius = Math.min(width, height)/2 - 80;
+    <script>
+        const data = {"id": 1, "name": "Henry  BOIDOT", "birth": "14/01/1919", "death": "22/01/2002 ", "gen": 0, "gen_origin": "0", "children": [{"id": "1_spouse_2", "name": "Simone  DURAND", "birth": "08/07/1919", "death": "22/11/2004 ", "gen": 0, "gen_origin": "0'", "children": [{"id": 3, "name": "Jean-Paul  BOIDOT", "birth": "12/06/1941", "death": "25/03/2015 ", "gen": 1, "gen_origin": "1", "children": [{"id": "3_spouse_4", "name": "Anne-Marie  BOIDOT-FAUSSOT", "birth": "01/01/1945", "death": "", "gen": 1, "gen_origin": "1'", "children": [{"id": 5, "name": "Véronique  BOIDOT", "birth": "31/03/1964", "death": "", "gen": 2, "gen_origin": "2", "children": [], "union_type": "current"}, {"id": 6, "name": "Catherine  BOIDOT-MILAN", "birth": "28/05/1968", "death": "", "gen": 2, "gen_origin": "2", "children": [{"id": "6_spouse_7", "name": "Marc  MILAN", "birth": "11/11/1966", "death": "", "gen": 2, "gen_origin": "2'", "children": [{"id": 8, "name": "Marion  MILAN", "birth": "31/03/1997", "death": "", "gen": 3, "gen_origin": "3", "children": [], "union_type": "current"}, {"id": 9, "name": "Tanguy  MILAN", "birth": "14/10/2000", "death": "", "gen": 3, "gen_origin": "3", "children": [], "union_type": "current"}, {"id": 10, "name": "Bastien  MILAN", "birth": "08/11/1998", "death": "", "gen": 3, "gen_origin": "3", "children": [], "union_type": "current"}, {"id": 11, "name": "Clara  MILAN", "birth": "17/07/2004", "death": "", "gen": 3, "gen_origin": "3", "children": [], "union_type": "current"}], "isSpouse": true, "union_type": "current", "xOffset": 0.0}], "union_type": "current"}, {"id": 12, "name": "Hélène  BOIDOT-DILLENSEGER", "birth": "09/06/1969", "death": "", "gen": 2, "gen_origin": "2", "children": [{"id": "12_spouse_13", "name": "Rodolphe  DILLENSEGER", "birth": "07/01/1970", "death": "", "gen": 2, "gen_origin": "2'", "children": [{"id": 14, "name": "Clément DILLENSEGER", "birth": "17/09/1999", "death": "", "gen": 3, "gen_origin": "3", "children": [], "union_type": "current"}, {"id": 15, "name": "Camille DILLENSEGER", "birth": "15/09/2002", "death": "", "gen": 3, "gen_origin": "3", "children": [], "union_type": "current"}], "isSpouse": true, "union_type": "current", "xOffset": 0.0}], "union_type": "current"}], "isSpouse": true, "union_type": "current", "xOffset": 0.0}], "union_type": "current"}, {"id": 16, "name": "François  BOIDOT", "birth": "07/06/1943", "death": "", "gen": 1, "gen_origin": "1", "children": [{"id": "16_spouse_17", "name": "Brigitte  ROYANT", "birth": "29/07/1952", "death": "", "gen": 1, "gen_origin": "1'", "children": [{"id": 18, "name": "Frédérique  BOIDOT-LELIEVRE", "birth": "03/09/1970", "death": "", "gen": 2, "gen_origin": "2", "children": [{"id": "18_spouse_19", "name": "Vincent  LELIEVRE", "birth": "10/04/1966", "death": "", "gen": 2, "gen_origin": "2'", "children": [{"id": 20, "name": "Gabin  LELIEVRE", "birth": "05/02/2002", "death": "", "gen": 3, "gen_origin": "3", "children": [], "union_type": "current"}, {"id": 21, "name": "Lucile  LELIEVRE", "birth": "05/02/2002", "death": "", "gen": 3, "gen_origin": "3", "children": [], "union_type": "current"}], "isSpouse": true, "union_type": "current", "xOffset": 0.0}], "union_type": "former"}], "isSpouse": true, "union_type": "former", "xOffset": -0.04}, {"id": "16_spouse_17", "name": "Brigitte  ROYANT", "birth": "29/07/1952", "death": "", "gen": 1, "gen_origin": "1'", "children": [], "isSpouse": true, "union_type": "former", "xOffset": 0.04}], "union_type": "current"}, {"id": 22, "name": "Jean-Pierre  BOIDOT", "birth": "25/08/1944", "death": "", "gen": 1, "gen_origin": "1", "children": [{"id": "22_spouse_23", "name": "Claudine  BOIDOT-DUFOUR", "birth": "17/05/1948", "death": "", "gen": 1, "gen_origin": "1'", "children": [{"id": 24, "name": "Florence  BOIDOT", "birth": "04/02/1968", "death": "", "gen": 2, "gen_origin": "2", "children": [], "union_type": "current"}, {"id": 25, "name": "Delphine  BOIDOT", "birth": "16/10/1970", "death": "", "gen": 2, "gen_origin": "2", "children": [{"id": "25_spouse_26", "name": "Conjoint delphine  BRADLEY", "birth": "", "death": "", "gen": 2, "gen_origin": "2'", "children": [{"id": 27, "name": "Joshua  BRADLEY", "birth": "01/02/2002", "death": "", "gen": 3, "gen_origin": "3", "children": [], "union_type": "current"}], "isSpouse": true, "union_type": "current", "xOffset": 0.0}], "union_type": "current"}], "isSpouse": true, "union_type": "current", "xOffset": 0.0}], "union_type": "current"}, {"id": 28, "name": "Martine  BOIDOT", "birth": "28/08/1945", "death": "", "gen": 1, "gen_origin": "1", "children": [{"id": "28_spouse_29", "name": "Jacques  POTY", "birth": "23/01/1950", "death": "", "gen": 1, "gen_origin": "1'", "children": [], "isSpouse": true, "union_type": "former", "xOffset": 0.0}], "union_type": "current"}, {"id": 30, "name": "Patrick  BOIDOT", "birth": "01/08/1947", "death": "", "gen": 1, "gen_origin": "1", "children": [{"id": "30_spouse_31", "name": "Claudie  BOISSEAU", "birth": "16/10/1947", "death": "", "gen": 1, "gen_origin": "1'", "children": [{"id": 32, "name": "Julien  BOIDOT", "birth": "28/08/1981", "death": "", "gen": 2, "gen_origin": "2", "children": [{"id": "32_spouse_33", "name": "Sandra  LEROUX", "birth": "10/01/1981", "death": "", "gen": 2, "gen_origin": "2'", "children": [{"id": 34, "name": "Diane  BOIDOT", "birth": "26/11/2011", "death": "", "gen": 3, "gen_origin": "3", "children": [], "union_type": "current"}, {"id": 35, "name": "Irène  BOIDOT", "birth": "16/11/2014", "death": "", "gen": 3, "gen_origin": "3", "children": [], "union_type": "current"}], "isSpouse": true, "union_type": "current", "xOffset": 0.0}], "union_type": "current"}, {"id": 36, "name": "Mathieu  BOIDOT", "birth": "01/09/1983", "death": "", "gen": 2, "gen_origin": "2", "children": [{"id": "36_spouse_37", "name": "Gaëlle  UZU", "birth": "25/08/1982", "death": "", "gen": 2, "gen_origin": "2'", "children": [{"id": 38, "name": "Paulin  BOIDOT", "birth": "08/12/2012", "death": "", "gen": 3, "gen_origin": "3", "children": [], "union_type": "current"}, {"id": 39, "name": "Victor  BOIDOT", "birth": "22/04/2015", "death": "", "gen": 3, "gen_origin": "3", "children": [], "union_type": "current"}], "isSpouse": true, "union_type": "current", "xOffset": 0.0}], "union_type": "current"}], "isSpouse": true, "union_type": "current", "xOffset": 0.0}], "union_type": "current"}, {"id": 40, "name": "Marie-Christine BOIDOT-BURET", "birth": "20/10/1948", "death": "", "gen": 1, "gen_origin": "1", "children": [{"id": "40_spouse_41", "name": "Yvon   BURET", "birth": "28/02/1947", "death": "", "gen": 1, "gen_origin": "1", "children": [{"id": 42, "name": "Anne  BURET", "birth": "05/08/1972", "death": "", "gen": 2, "gen_origin": "2", "children": [{"id": "42_union_0", "name": "(unknown spouse)", "birth": "", "death": "", "gen": 2, "gen_origin": "2", "children": [{"id": 43, "name": "Ewen  BOURSE", "birth": "09/03/2005", "death": "", "gen": 3, "gen_origin": "3", "children": [], "union_type": "former"}, {"id": 44, "name": "Ethan  BOURSE", "birth": "04/04/2010", "death": "", "gen": 3, "gen_origin": "3", "children": [], "union_type": "former"}], "isSpouse": true, "union_type": "former", "xOffset": 0.0}], "union_type": "current"}, {"id": 45, "name": "Caroline  BURET", "birth": "02/01/1979", "death": "", "gen": 2, "gen_origin": "2", "children": [{"id": "45_spouse_109", "name": "Yann DRESAC", "birth": "17/10/1978", "death": "", "gen": 2, "gen_origin": "2'", "children": [], "isSpouse": true, "union_type": "former", "xOffset": 0.0}], "union_type": "current"}], "isSpouse": true, "union_type": "current", "xOffset": 0.0}], "union_type": "current"}, {"id": 46, "name": "Christian  BOIDOT", "birth": "15/12/1949", "death": "", "gen": 1, "gen_origin": "1", "children": [{"id": "46_spouse_47", "name": "Dominique  ??", "birth": "15/12/1949", "death": "", "gen": 1, "gen_origin": "1", "children": [{"id": 48, "name": "Sandrine  BOIDOT", "birth": "03/05/1973", "death": "", "gen": 2, "gen_origin": "2", "children": [{"id": "48_spouse_96", "name": "Francisco Ferreira de Carvalho", "birth": "02/12/1973", "death": "", "gen": 2, "gen_origin": "2'", "children": [{"id": 99, "name": "Jonathan de Carvalho", "birth": "15/01/1992", "death": "", "gen": 3, "gen_origin": "3", "children": [{"id": "99_spouse_100", "name": "Alicia MESTRE", "birth": "01/01/1995", "death": "", "gen": 3, "gen_origin": "3'", "children": [{"id": 101, "name": "Louise de Carvalho", "birth": "16/04/2023", "death": "", "gen": 4, "gen_origin": "4", "children": [], "union_type": "current"}], "isSpouse": true, "union_type": "current", "xOffset": 0.0}], "union_type": "current"}, {"id": 102, "name": "Dany de Carvalho", "birth": "04/12/1993", "death": "", "gen": 3, "gen_origin": "3", "children": [{"id": "102_spouse_103", "name": "Elodie PERIAU", "birth": "01/01/1997", "death": "", "gen": 3, "gen_origin": "3'", "children": [{"id": 104, "name": "Rakel de Carvalho", "birth": "25/12/2022", "death": "", "gen": 4, "gen_origin": "4", "children": [], "union_type": "current"}], "isSpouse": true, "union_type": "current", "xOffset": 0.0}], "union_type": "current"}, {"id": 105, "name": "Dylan de Carvalho", "birth": "21/08/1999", "death": "", "gen": 3, "gen_origin": "3", "children": [{"id": "105_spouse_106", "name": "Conjointe Garcon 3 sandrine ??", "birth": "01/01/1999", "death": "", "gen": 3, "gen_origin": "3'", "children": [], "isSpouse": true, "union_type": "former", "xOffset": 0.0}], "union_type": "current"}], "isSpouse": true, "union_type": "current", "xOffset": 0.0}], "union_type": "former"}], "isSpouse": true, "union_type": "former", "xOffset": -0.08}, {"id": "46_spouse_47", "name": "Dominique  ??", "birth": "15/12/1949", "death": "", "gen": 1, "gen_origin": "1", "children": [{"id": 49, "name": "Richard  BOIDOT", "birth": "06/06/1974", "death": "", "gen": 2, "gen_origin": "2", "children": [{"id": "49_spouse_93", "name": "Ludivine  LAGRES", "birth": "", "death": "", "gen": 2, "gen_origin": "2'", "children": [{"id": 94, "name": "Azélie BOIDOT", "birth": "13/03/2004", "death": "", "gen": 3, "gen_origin": "3", "children": [], "union_type": "current"}, {"id": 95, "name": "Iphygénie BOIDOT", "birth": "16/10/2010", "death": "", "gen": 3, "gen_origin": "3", "children": [], "union_type": "current"}], "isSpouse": true, "union_type": "current", "xOffset": 0.0}], "union_type": "current"}], "isSpouse": true, "union_type": "current", "xOffset": 0.0}, {"id": "46_spouse_47", "name": "Dominique  ??", "birth": "15/12/1949", "death": "", "gen": 1, "gen_origin": "1", "children": [{"id": 89, "name": "Héloise  LETINTURIER", "birth": "04/10/2001", "death": "", "gen": 2, "gen_origin": "2", "children": [], "union_type": "former"}], "isSpouse": true, "union_type": "former", "xOffset": 0.08}], "union_type": "current"}, {"id": 50, "name": "Françoise  BOIDOT-GOAS", "birth": "21/07/1953", "death": "", "gen": 1, "gen_origin": "1", "children": [{"id": "50_spouse_51", "name": "Yves  GOAS", "birth": "13/08/1953", "death": "", "gen": 1, "gen_origin": "1", "children": [{"id": 52, "name": "Claire  GOAS-MAFFRE", "birth": "03/07/1984", "death": "", "gen": 2, "gen_origin": "2", "children": [{"id": "52_spouse_53", "name": "Guillaume  MAFFRE", "birth": "02/12/1977", "death": "", "gen": 2, "gen_origin": "2'", "children": [{"id": 54, "name": "Mathilde MAFFRE", "birth": "14/02/2010", "death": "", "gen": 3, "gen_origin": "3", "children": [], "union_type": "current"}, {"id": 55, "name": "Arthur MAFFRE", "birth": "27/03/2013", "death": "", "gen": 3, "gen_origin": "3", "children": [], "union_type": "current"}, {"id": 56, "name": "Thomas  MAFFRE", "birth": "12/10/2015", "death": "", "gen": 3, "gen_origin": "3", "children": [], "union_type": "current"}, {"id": 57, "name": "Henry  MAFFRE", "birth": "10/07/2019", "death": "", "gen": 3, "gen_origin": "3", "children": [], "union_type": "current"}], "isSpouse": true, "union_type": "current", "xOffset": 0.0}], "union_type": "current"}, {"id": 58, "name": "Isabelle  GOAS-CANTY", "birth": "08/06/1987", "death": "", "gen": 2, "gen_origin": "2", "children": [{"id": "58_spouse_59", "name": "Jérémie  CANTY", "birth": "07/06/1985", "death": "", "gen": 2, "gen_origin": "2", "children": [{"id": 60, "name": "Jeanne CANTY", "birth": "12/10/2014", "death": "", "gen": 3, "gen_origin": "3", "children": [], "union_type": "current"}, {"id": 61, "name": "Clémence  CANTY", "birth": "27/03/2019", "death": "", "gen": 3, "gen_origin": "3", "children": [], "union_type": "current"}], "isSpouse": true, "union_type": "current", "xOffset": 0.0}], "union_type": "current"}], "isSpouse": true, "union_type": "current", "xOffset": 0.0}], "union_type": "current"}, {"id": 62, "name": "Anne-Marie  BOIDOT", "birth": "20/07/1954", "death": "", "gen": 1, "gen_origin": "1", "children": [{"id": "62_spouse_63", "name": "Pierre  MILAN", "birth": "16/08/1958", "death": "", "gen": 1, "gen_origin": "1'", "children": [{"id": 64, "name": "Nicolas  MILAN", "birth": "25/04/1986", "death": "", "gen": 2, "gen_origin": "2", "children": [{"id": "64_spouse_91", "name": "Amélie BARRET", "birth": "25/02/1986", "death": "", "gen": 2, "gen_origin": "2'", "children": [{"id": 65, "name": "Timothée   MILAN", "birth": "29/03/2018", "death": "", "gen": 3, "gen_origin": "3", "children": [], "union_type": "former"}], "isSpouse": true, "union_type": "former", "xOffset": -0.04}, {"id": "64_spouse_91", "name": "Amélie BARRET", "birth": "25/02/1986", "death": "", "gen": 2, "gen_origin": "2'", "children": [{"id": 66, "name": "Charlie   MILAN", "birth": "01/12/2021", "death": "", "gen": 3, "gen_origin": "3", "children": [], "union_type": "current"}], "isSpouse": true, "union_type": "current", "xOffset": 0.04}], "union_type": "current"}, {"id": 67, "name": "Marie-Anne  MILAN", "birth": "27/12/1988", "death": "", "gen": 2, "gen_origin": "2", "children": [{"id": "67_union_0", "name": "(unknown spouse)", "birth": "", "death": "", "gen": 2, "gen_origin": "2", "children": [{"id": 69, "name": "Paul  CARONI", "birth": "30/03/2017", "death": "", "gen": 3, "gen_origin": "3", "children": [], "union_type": "former"}, {"id": 70, "name": "Agnes   CARONI", "birth": "09/02/2020", "death": "", "gen": 3, "gen_origin": "3", "children": [], "union_type": "former"}], "isSpouse": true, "union_type": "former", "xOffset": 0.0}], "union_type": "current"}, {"id": 71, "name": "René  MILAN", "birth": "01/07/1990", "death": "", "gen": 2, "gen_origin": "2", "children": [{"id": "71_spouse_72", "name": "Ludivine  ??", "birth": "", "death": "", "gen": 2, "gen_origin": "2'", "children": [{"id": 73, "name": "Louis  MILAN", "birth": "06/03/2017", "death": "", "gen": 3, "gen_origin": "3", "children": [], "union_type": "current"}, {"id": 74, "name": "Anaelle  MILAN", "birth": "02/07/2019", "death": "", "gen": 3, "gen_origin": "3", "children": [], "union_type": "current"}], "isSpouse": true, "union_type": "current", "xOffset": 0.0}], "union_type": "current"}, {"id": 75, "name": "Clémence  MILAN", "birth": "12/08/1992", "death": "", "gen": 2, "gen_origin": "2", "children": [{"id": "75_spouse_76", "name": "Nicolas  MAGERE", "birth": "? ", "death": "", "gen": 2, "gen_origin": "2'", "children": [{"id": 77, "name": "Marceau  MAGERE", "birth": "15/02/2025", "death": "", "gen": 3, "gen_origin": "3", "children": [], "union_type": "current"}], "isSpouse": true, "union_type": "current", "xOffset": 0.0}], "union_type": "current"}], "isSpouse": true, "union_type": "current", "xOffset": 0.0}], "union_type": "current"}, {"id": 78, "name": "Michel  BOIDOT", "birth": "17/07/1957", "death": "", "gen": 1, "gen_origin": "1", "children": [{"id": "78_spouse_79", "name": "Sylvie  BOIDOT-ROSSIGNOL", "birth": "21/11/1961", "death": "", "gen": 1, "gen_origin": "1", "children": [{"id": 80, "name": "Virginie  BOIDOT-MINERVINI", "birth": "23/12/1986", "death": "", "gen": 2, "gen_origin": "2", "children": [{"id": "80_spouse_81", "name": "Lucas  MINERVINI", "birth": "07/09/1985", "death": "", "gen": 2, "gen_origin": "2'", "children": [{"id": 82, "name": "Sacha  MINERVINI", "birth": "13/08/2017", "death": "", "gen": 3, "gen_origin": "3", "children": [], "union_type": "current"}, {"id": 83, "name": "Simon  MINERVINI", "birth": "09/01/2021", "death": "", "gen": 3, "gen_origin": "3", "children": [], "union_type": "current"}], "isSpouse": true, "union_type": "current", "xOffset": 0.0}], "union_type": "current"}, {"id": 84, "name": "Thomas  BOIDOT", "birth": "24/06/1992", "death": "", "gen": 2, "gen_origin": "2", "children": [{"id": "84_spouse_85", "name": "Lucie  ??", "birth": "04/05/1984", "death": "", "gen": 2, "gen_origin": "2'", "children": [{"id": 86, "name": "Milo  BOIDOT", "birth": "16/01/2025", "death": "", "gen": 3, "gen_origin": "3", "children": [], "union_type": "current"}], "isSpouse": true, "union_type": "current", "xOffset": 0.0}], "union_type": "current"}], "isSpouse": true, "union_type": "current", "xOffset": 0.0}], "union_type": "current"}], "isSpouse": true, "union_type": "current", "xOffset": 0.0}]};
 
-const svg = d3.select("#chart")
-    .append("svg")
-    .attr("width", width)
-    .attr("height", height);
+        const width = 1200;
+        const height = 1200;
+        const radius = Math.min(width, height) / 2 - 80;
 
-const g = svg.append("g")
-    .attr("transform", `translate(${width/2},${height/2})`);
+        const svg = d3.select("#chart").append("svg").attr("width", width).attr("height", height);
+        const g = svg.append("g").attr("transform", `translate(${width / 2},${height / 2})`);
+        const tooltip = d3.select(".tooltip");
 
-const tooltip = d3.select(".tooltip");
+        const colorScale = d3.scaleOrdinal().domain([0, 1, 2, 3, 4]).range(["#FF6B6B", "#4ECDC4", "#45B7D1", "#FFA07A", "#98D8C8"]);
 
-const tree = d3.tree().size([2*Math.PI, radius]);
-const root = d3.hierarchy(data, d => d.children);
-tree(root);
+        // Collect all birth years
+        const birthDates = [];
+        function getAllPersons(node) { birthDates.push(node); if (node.children) node.children.forEach(getAllPersons); }
+        getAllPersons(data);
 
-// Links
-g.selectAll(".link")
-    .data(root.links())
-    .join("path")
-    .attr("class", d => "link" + (d.target.data.union_type === "former" ? " former" : ""))
-    .attr("d", d3.linkRadial().angle(d => d.x).radius(d => d.y));
+        const birthYears = birthDates.map(p => {
+            if (p.birth && p.birth.trim()) {
+                const parts = p.birth.trim().split('/');
+                if (parts.length >= 3) return parseInt(parts[2]);
+            }
+            return null;
+        }).filter(y => y !== null);
 
-// Nodes
-const nodes = g.selectAll(".node")
-    .data(root.descendants())
-    .join("g")
-    .attr("class", "node")
-    .attr("transform", d => `rotate(${d.x * 180 / Math.PI - 90}) translate(${d.y},0)`);
+        const minYear = Math.min(...birthYears);
+        const maxYear = Math.max(...birthYears);
+        const yearRange = maxYear - minYear || 1;
 
-nodes.append("circle")
-    .attr("r", d => d.data.isSpouse ? 4 : 6)
-    .attr("stroke", "steelblue")
-    .attr("stroke-width", 2);
+        // Decade rings
+        const decadeRings = g.append("g").attr("class", "decade-rings");
+        for (let decade = Math.floor(minYear / 10) * 10; decade <= maxYear; decade += 10) {
+            const decadeRadius = ((decade - minYear) / yearRange) * radius;
+            if (decadeRadius > 0 && decadeRadius < radius) {
+                decadeRings.append("circle").attr("class", "decade-ring").attr("r", decadeRadius);
+                decadeRings.append("text").attr("class", "decade-label").attr("x", 0).attr("y", -decadeRadius)
+                    .attr("text-anchor", "middle").attr("dominant-baseline", "middle").text(decade);
+            }
+        }
 
-nodes.append("text")
-    .attr("dy", "0.31em")
-    .text(d => d.data.name.split(' ')[0]);
+        function getRadiusByBirth(birthStr) {
+            if (!birthStr || !birthStr.trim()) return radius * 0.5;
+            const parts = birthStr.trim().split('/');
+            if (parts.length >= 3) {
+                const year = parseInt(parts[2]);
+                if (!isNaN(year)) return ((year - minYear) / yearRange) * radius;
+            }
+            return radius * 0.5;
+        }
 
-// Tooltip
-nodes.on("mouseenter", function(event,d){
-    tooltip.html(
-        `<strong>${d.data.name}</strong><br/>
-         Gen: ${d.data.gen_origin}<br/>
-         Birth: ${d.data.birth || ""}<br/>
-         Death: ${d.data.death || ""}`
-    )
-    .style("display","block")
-    .style("left", (event.pageX+10)+"px")
-    .style("top", (event.pageY-10)+"px");
-}).on("mouseleave", function(){
-    tooltip.style("display","none");
-});
-</script>
+        // D3 tree layout
+        const tree = d3.tree().size([2 * Math.PI, 1]).separation((a, b) => (a.parent === b.parent ? 2 : 3) / a.depth);
+        const root = d3.hierarchy(data);
+        tree(root);
 
+        // Assign primaryParent explicitly to each child (link children to first non-spouse parent, usually Gen0)
+        function assignPrimaryParents(node) {
+            if (node.children) {
+                node.children.forEach(child => {
+                    // Pick first parent that is not a spouse
+                    child.primaryParent = node.data.isSpouse ? node.parent : node;
+                    assignPrimaryParents(child);
+                });
+            }
+        }
+        assignPrimaryParents(root);
+
+        // Assign radial positions and spouse offsets
+        const baseLinearSpacing = 15; // in pixels along the arc
+        root.each(node => {
+            node.y = getRadiusByBirth(node.data.birth);
+            if (node.data.isSpouse) node.xOffset = baseLinearSpacing / node.y;
+            else node.xOffset = 0;
+        });
+
+        // Build links manually using primaryParent
+        const links = [];
+        root.descendants().forEach(node => {
+            if (node.primaryParent) links.push({ source: node.primaryParent, target: node });
+        });
+
+        const linkElements = g.selectAll(".link").data(links).join("path")
+            .attr("class", "link")
+            .attr("d", d3.linkRadial().angle(d => d.x + (d.data.isSpouse ? d.xOffset : 0)).radius(d => d.y));
+
+        // Nodes
+        const nodes = g.selectAll(".node").data(root.descendants()).join("g")
+            .attr("class", d => "node" + (d.data.death ? " dead" : ""));
+
+        nodes.append("circle")
+            .attr("r", d => d.data.isSpouse ? 4.5 : (d.data.gen === 0 ? 10 : (d.children ? 6 : 4.5)))
+            .attr("fill", "white")
+            .attr("stroke", d => colorScale(d.data.gen))
+            .attr("stroke-width", 2.5);
+
+        function estimateTextWidth(text, fontSize) { return text.length * fontSize * 0.55 + 12; }
+        nodes.append("text")
+            .attr("dy", "0.31em")
+            .text(d => d.data.name.split(' ')[0])
+            .attr("font-weight", d => d.data.gen === 0 ? "bold" : "normal")
+            .attr("font-size", d => d.data.gen === 0 ? "14px" : "12px");
+
+        // Tooltip
+        nodes.on("mouseenter", function (event, d) {
+            let info = d.data.name;
+            if (d.data.isSpouse) info += " (spouse)";
+            info += `<br/>Gen: ${d.data.gen}`;
+            if (d.data.birth) info += `<br/>b: ${d.data.birth}`;
+            if (d.data.death) info += `<br/>d: ${d.data.death}`;
+            tooltip.html(info).style("left", (event.pageX + 10) + "px").style("top", (event.pageY - 10) + "px").style("display", "block");
+        }).on("mouseleave", function () { tooltip.style("display", "none"); });
+
+        // Click highlight
+        nodes.on("click", function (event, d) {
+            nodes.select("circle").attr("stroke-width", 2.5).attr("stroke", d => colorScale(d.data.gen));
+            nodes.select("text").attr("font-weight", d => d.data.gen === 0 ? "bold" : "normal");
+            linkElements.attr("stroke", "#999").attr("stroke-width", 1);
+
+            const descendants = d.descendants();
+            descendants.forEach(node => {
+                d3.select(nodes.filter(n => n === node).node()).select("circle")
+                    .attr("stroke-width", 4).attr("stroke", "black");
+                d3.select(nodes.filter(n => n === node).node()).select("text")
+                    .attr("font-weight", "bold");
+            });
+
+            linkElements.filter(l => descendants.includes(l.source) && descendants.includes(l.target))
+                .attr("stroke", "black").attr("stroke-width", 2);
+        });
+
+        // Rotation slider
+        const slider = document.getElementById("rotation-slider");
+        function updateRotation(angleDeg) {
+            const angleRad = angleDeg * Math.PI / 180;
+
+            nodes.attr("transform", d => {
+                if (d.data.gen === 0) return `translate(0,0)`;
+                const angle = d.x + (d.xOffset || 0) + angleRad;
+                return `rotate(${angle * 180 / Math.PI - 90})translate(${d.y},0)`;
+            });
+
+            linkElements.attr("d", d3.linkRadial().angle(d => d.x + (d.xOffset || 0) + angleRad).radius(d => d.y));
+
+            nodes.select("text").attr("transform", d => {
+                if (d.data.gen === 0) return `translate(0,-20)`;
+                const angle = d.x + (d.xOffset || 0) + angleRad;
+                const deg = angle * 180 / Math.PI - 90;
+                const displayText = d.data.name.split(' ')[0];
+                const fontSize = d.data.gen === 0 ? 14 : 12;
+                const offsetDist = estimateTextWidth(displayText, fontSize) / 2;
+                let x = offsetDist;
+                let y = deg > 90 && deg < 270 ? 4 : -4;
+                let rotation = deg > 90 && deg < 270 ? 180 : 0;
+                return `translate(${x},${y})rotate(${rotation})`;
+            });
+        }
+
+        updateRotation(0);
+        slider.addEventListener("input", () => updateRotation(slider.value));
+
+    </script>
 </body>
+
 </html>

@@ -7,1065 +7,1189 @@
   "gen_origin": "0",
   "children": [
     {
-      "id": 3,
-      "name": "Jean-Paul  BOIDOT",
-      "birth": "12/06/1941",
-      "death": "25/03/2015 ",
-      "gen": 1,
-      "gen_origin": "1",
-      "children": [
-        {
-          "id": 5,
-          "name": "Véronique  BOIDOT",
-          "birth": "31/03/1964",
-          "death": "",
-          "gen": 2,
-          "gen_origin": "2",
-          "children": [],
-          "union_type": "current"
-        },
-        {
-          "id": 6,
-          "name": "Catherine  BOIDOT-MILAN",
-          "birth": "28/05/1968",
-          "death": "",
-          "gen": 2,
-          "gen_origin": "2",
-          "children": [
-            {
-              "id": 8,
-              "name": "Marion  MILAN",
-              "birth": "31/03/1997",
-              "death": "",
-              "gen": 3,
-              "gen_origin": "3",
-              "children": [],
-              "union_type": "current"
-            },
-            {
-              "id": 10,
-              "name": "Bastien  MILAN",
-              "birth": "08/11/1998",
-              "death": "",
-              "gen": 3,
-              "gen_origin": "3",
-              "children": [],
-              "union_type": "current"
-            },
-            {
-              "id": 9,
-              "name": "Tanguy  MILAN",
-              "birth": "14/10/2000",
-              "death": "",
-              "gen": 3,
-              "gen_origin": "3",
-              "children": [],
-              "union_type": "current"
-            },
-            {
-              "id": 11,
-              "name": "Clara  MILAN",
-              "birth": "17/07/2004",
-              "death": "",
-              "gen": 3,
-              "gen_origin": "3",
-              "children": [],
-              "union_type": "current"
-            },
-            {
-              "id": 7,
-              "name": "Marc  MILAN",
-              "birth": "11/11/1966",
-              "death": "",
-              "gen": 2,
-              "gen_origin": "2'",
-              "children": [],
-              "isSpouse": true
-            }
-          ],
-          "union_type": "current"
-        },
-        {
-          "id": 12,
-          "name": "Hélène  BOIDOT-DILLENSEGER",
-          "birth": "09/06/1969",
-          "death": "",
-          "gen": 2,
-          "gen_origin": "2",
-          "children": [
-            {
-              "id": 14,
-              "name": "Clément DILLENSEGER",
-              "birth": "17/09/1999",
-              "death": "",
-              "gen": 3,
-              "gen_origin": "3",
-              "children": [],
-              "union_type": "current"
-            },
-            {
-              "id": 15,
-              "name": "Camille DILLENSEGER",
-              "birth": "15/09/2002",
-              "death": "",
-              "gen": 3,
-              "gen_origin": "3",
-              "children": [],
-              "union_type": "current"
-            },
-            {
-              "id": 13,
-              "name": "Rodolphe  DILLENSEGER",
-              "birth": "07/01/1970",
-              "death": "",
-              "gen": 2,
-              "gen_origin": "2'",
-              "children": [],
-              "isSpouse": true
-            }
-          ],
-          "union_type": "current"
-        },
-        {
-          "id": 4,
-          "name": "Anne-Marie  BOIDOT-FAUSSOT",
-          "birth": "01/01/1945",
-          "death": "",
-          "gen": 1,
-          "gen_origin": "1'",
-          "children": [],
-          "isSpouse": true
-        }
-      ],
-      "union_type": "current"
-    },
-    {
-      "id": 16,
-      "name": "François  BOIDOT",
-      "birth": "07/06/1943",
-      "death": "",
-      "gen": 1,
-      "gen_origin": "1",
-      "children": [
-        {
-          "id": 18,
-          "name": "Frédérique  BOIDOT-LELIEVRE",
-          "birth": "03/09/1970",
-          "death": "",
-          "gen": 2,
-          "gen_origin": "2",
-          "children": [
-            {
-              "id": 20,
-              "name": "Gabin  LELIEVRE",
-              "birth": "05/02/2002",
-              "death": "",
-              "gen": 3,
-              "gen_origin": "3",
-              "children": [],
-              "union_type": "current"
-            },
-            {
-              "id": 21,
-              "name": "Lucile  LELIEVRE",
-              "birth": "05/02/2002",
-              "death": "",
-              "gen": 3,
-              "gen_origin": "3",
-              "children": [],
-              "union_type": "current"
-            },
-            {
-              "id": 19,
-              "name": "Vincent  LELIEVRE",
-              "birth": "10/04/1966",
-              "death": "",
-              "gen": 2,
-              "gen_origin": "2'",
-              "children": [],
-              "isSpouse": true
-            }
-          ],
-          "union_type": "former"
-        },
-        {
-          "id": 17,
-          "name": "Brigitte  ROYANT",
-          "birth": "29/07/1952",
-          "death": "",
-          "gen": 1,
-          "gen_origin": "1'",
-          "children": [],
-          "isSpouse": true
-        },
-        {
-          "id": 17,
-          "name": "Brigitte  ROYANT",
-          "birth": "29/07/1952",
-          "death": "",
-          "gen": 1,
-          "gen_origin": "1'",
-          "children": [],
-          "isSpouse": true
-        }
-      ],
-      "union_type": "current"
-    },
-    {
-      "id": 22,
-      "name": "Jean-Pierre  BOIDOT",
-      "birth": "25/08/1944",
-      "death": "",
-      "gen": 1,
-      "gen_origin": "1",
-      "children": [
-        {
-          "id": 24,
-          "name": "Florence  BOIDOT",
-          "birth": "04/02/1968",
-          "death": "",
-          "gen": 2,
-          "gen_origin": "2",
-          "children": [],
-          "union_type": "current"
-        },
-        {
-          "id": 25,
-          "name": "Delphine  BOIDOT",
-          "birth": "16/10/1970",
-          "death": "",
-          "gen": 2,
-          "gen_origin": "2",
-          "children": [
-            {
-              "id": 27,
-              "name": "Joshua  BRADLEY",
-              "birth": "01/02/2002",
-              "death": "",
-              "gen": 3,
-              "gen_origin": "3",
-              "children": [],
-              "union_type": "current"
-            },
-            {
-              "id": 26,
-              "name": "Conjoint delphine  BRADLEY",
-              "birth": "",
-              "death": "",
-              "gen": 2,
-              "gen_origin": "2'",
-              "children": [],
-              "isSpouse": true
-            }
-          ],
-          "union_type": "current"
-        },
-        {
-          "id": 23,
-          "name": "Claudine  BOIDOT-DUFOUR",
-          "birth": "17/05/1948",
-          "death": "",
-          "gen": 1,
-          "gen_origin": "1'",
-          "children": [],
-          "isSpouse": true
-        }
-      ],
-      "union_type": "current"
-    },
-    {
-      "id": 28,
-      "name": "Martine  BOIDOT",
-      "birth": "28/08/1945",
-      "death": "",
-      "gen": 1,
-      "gen_origin": "1",
-      "children": [
-        {
-          "id": 29,
-          "name": "Jacques  POTY",
-          "birth": "23/01/1950",
-          "death": "",
-          "gen": 1,
-          "gen_origin": "1'",
-          "children": [],
-          "isSpouse": true
-        }
-      ],
-      "union_type": "current"
-    },
-    {
-      "id": 30,
-      "name": "Patrick  BOIDOT",
-      "birth": "01/08/1947",
-      "death": "",
-      "gen": 1,
-      "gen_origin": "1",
-      "children": [
-        {
-          "id": 32,
-          "name": "Julien  BOIDOT",
-          "birth": "28/08/1981",
-          "death": "",
-          "gen": 2,
-          "gen_origin": "2",
-          "children": [
-            {
-              "id": 34,
-              "name": "Diane  BOIDOT",
-              "birth": "26/11/2011",
-              "death": "",
-              "gen": 3,
-              "gen_origin": "3",
-              "children": [],
-              "union_type": "current"
-            },
-            {
-              "id": 35,
-              "name": "Irène  BOIDOT",
-              "birth": "16/11/2014",
-              "death": "",
-              "gen": 3,
-              "gen_origin": "3",
-              "children": [],
-              "union_type": "current"
-            },
-            {
-              "id": 33,
-              "name": "Sandra  LEROUX",
-              "birth": "10/01/1981",
-              "death": "",
-              "gen": 2,
-              "gen_origin": "2'",
-              "children": [],
-              "isSpouse": true
-            }
-          ],
-          "union_type": "current"
-        },
-        {
-          "id": 36,
-          "name": "Mathieu  BOIDOT",
-          "birth": "01/09/1983",
-          "death": "",
-          "gen": 2,
-          "gen_origin": "2",
-          "children": [
-            {
-              "id": 38,
-              "name": "Paulin  BOIDOT",
-              "birth": "08/12/2012",
-              "death": "",
-              "gen": 3,
-              "gen_origin": "3",
-              "children": [],
-              "union_type": "current"
-            },
-            {
-              "id": 39,
-              "name": "Victor  BOIDOT",
-              "birth": "22/04/2015",
-              "death": "",
-              "gen": 3,
-              "gen_origin": "3",
-              "children": [],
-              "union_type": "current"
-            },
-            {
-              "id": 37,
-              "name": "Gaëlle  UZU",
-              "birth": "25/08/1982",
-              "death": "",
-              "gen": 2,
-              "gen_origin": "2'",
-              "children": [],
-              "isSpouse": true
-            }
-          ],
-          "union_type": "current"
-        },
-        {
-          "id": 31,
-          "name": "Claudie  BOISSEAU",
-          "birth": "16/10/1947",
-          "death": "",
-          "gen": 1,
-          "gen_origin": "1'",
-          "children": [],
-          "isSpouse": true
-        }
-      ],
-      "union_type": "current"
-    },
-    {
-      "id": 40,
-      "name": "Marie-Christine BOIDOT-BURET",
-      "birth": "20/10/1948",
-      "death": "",
-      "gen": 1,
-      "gen_origin": "1",
-      "children": [
-        {
-          "id": 42,
-          "name": "Anne  BURET",
-          "birth": "05/08/1972",
-          "death": "",
-          "gen": 2,
-          "gen_origin": "2",
-          "children": [
-            {
-              "id": 43,
-              "name": "Ewen  BOURSE",
-              "birth": "09/03/2005",
-              "death": "",
-              "gen": 3,
-              "gen_origin": "3",
-              "children": [],
-              "union_type": "former"
-            },
-            {
-              "id": 44,
-              "name": "Ethan  BOURSE",
-              "birth": "04/04/2010",
-              "death": "",
-              "gen": 3,
-              "gen_origin": "3",
-              "children": [],
-              "union_type": "former"
-            }
-          ],
-          "union_type": "current"
-        },
-        {
-          "id": 45,
-          "name": "Caroline  BURET",
-          "birth": "02/01/1979",
-          "death": "",
-          "gen": 2,
-          "gen_origin": "2",
-          "children": [
-            {
-              "id": 109,
-              "name": "Yann DRESAC",
-              "birth": "17/10/1978",
-              "death": "",
-              "gen": 2,
-              "gen_origin": "2'",
-              "children": [],
-              "isSpouse": true
-            }
-          ],
-          "union_type": "current"
-        },
-        {
-          "id": 41,
-          "name": "Yvon   BURET",
-          "birth": "28/02/1947",
-          "death": "",
-          "gen": 1,
-          "gen_origin": "1",
-          "children": [],
-          "isSpouse": true
-        }
-      ],
-      "union_type": "current"
-    },
-    {
-      "id": 46,
-      "name": "Christian  BOIDOT",
-      "birth": "15/12/1949",
-      "death": "",
-      "gen": 1,
-      "gen_origin": "1",
-      "children": [
-        {
-          "id": 49,
-          "name": "Richard  BOIDOT",
-          "birth": "06/06/1974",
-          "death": "",
-          "gen": 2,
-          "gen_origin": "2",
-          "children": [
-            {
-              "id": 94,
-              "name": "Azélie BOIDOT",
-              "birth": "13/03/2004",
-              "death": "",
-              "gen": 3,
-              "gen_origin": "3",
-              "children": [],
-              "union_type": "current"
-            },
-            {
-              "id": 95,
-              "name": "Iphygénie BOIDOT",
-              "birth": "16/10/2010",
-              "death": "",
-              "gen": 3,
-              "gen_origin": "3",
-              "children": [],
-              "union_type": "current"
-            },
-            {
-              "id": 93,
-              "name": "Ludivine  LAGRES",
-              "birth": "",
-              "death": "",
-              "gen": 2,
-              "gen_origin": "2'",
-              "children": [],
-              "isSpouse": true
-            }
-          ],
-          "union_type": "current"
-        },
-        {
-          "id": 47,
-          "name": "Dominique  ??",
-          "birth": "15/12/1949",
-          "death": "",
-          "gen": 1,
-          "gen_origin": "1",
-          "children": [],
-          "isSpouse": true
-        },
-        {
-          "id": 48,
-          "name": "Sandrine  BOIDOT",
-          "birth": "03/05/1973",
-          "death": "",
-          "gen": 2,
-          "gen_origin": "2",
-          "children": [
-            {
-              "id": 99,
-              "name": "Jonathan de Carvalho",
-              "birth": "15/01/1992",
-              "death": "",
-              "gen": 3,
-              "gen_origin": "3",
-              "children": [
-                {
-                  "id": 101,
-                  "name": "Louise de Carvalho",
-                  "birth": "16/04/2023",
-                  "death": "",
-                  "gen": 4,
-                  "gen_origin": "4",
-                  "children": [],
-                  "union_type": "current"
-                },
-                {
-                  "id": 100,
-                  "name": "Alicia MESTRE",
-                  "birth": "01/01/1995",
-                  "death": "",
-                  "gen": 3,
-                  "gen_origin": "3'",
-                  "children": [],
-                  "isSpouse": true
-                }
-              ],
-              "union_type": "current"
-            },
-            {
-              "id": 102,
-              "name": "Dany de Carvalho",
-              "birth": "04/12/1993",
-              "death": "",
-              "gen": 3,
-              "gen_origin": "3",
-              "children": [
-                {
-                  "id": 104,
-                  "name": "Rakel de Carvalho",
-                  "birth": "25/12/2022",
-                  "death": "",
-                  "gen": 4,
-                  "gen_origin": "4",
-                  "children": [],
-                  "union_type": "current"
-                },
-                {
-                  "id": 103,
-                  "name": "Elodie PERIAU",
-                  "birth": "01/01/1997",
-                  "death": "",
-                  "gen": 3,
-                  "gen_origin": "3'",
-                  "children": [],
-                  "isSpouse": true
-                }
-              ],
-              "union_type": "current"
-            },
-            {
-              "id": 105,
-              "name": "Dylan de Carvalho",
-              "birth": "21/08/1999",
-              "death": "",
-              "gen": 3,
-              "gen_origin": "3",
-              "children": [
-                {
-                  "id": 106,
-                  "name": "Conjointe Garcon 3 sandrine ??",
-                  "birth": "01/01/1999",
-                  "death": "",
-                  "gen": 3,
-                  "gen_origin": "3'",
-                  "children": [],
-                  "isSpouse": true
-                }
-              ],
-              "union_type": "current"
-            },
-            {
-              "id": 96,
-              "name": "Francisco Ferreira de Carvalho",
-              "birth": "02/12/1973",
-              "death": "",
-              "gen": 2,
-              "gen_origin": "2'",
-              "children": [],
-              "isSpouse": true
-            }
-          ],
-          "union_type": "former"
-        },
-        {
-          "id": 47,
-          "name": "Dominique  ??",
-          "birth": "15/12/1949",
-          "death": "",
-          "gen": 1,
-          "gen_origin": "1",
-          "children": [],
-          "isSpouse": true
-        },
-        {
-          "id": 89,
-          "name": "Héloise  LETINTURIER",
-          "birth": "04/10/2001",
-          "death": "",
-          "gen": 2,
-          "gen_origin": "2",
-          "children": [],
-          "union_type": "former"
-        },
-        {
-          "id": 47,
-          "name": "Dominique  ??",
-          "birth": "15/12/1949",
-          "death": "",
-          "gen": 1,
-          "gen_origin": "1",
-          "children": [],
-          "isSpouse": true
-        }
-      ],
-      "union_type": "current"
-    },
-    {
-      "id": 50,
-      "name": "Françoise  BOIDOT-GOAS",
-      "birth": "21/07/1953",
-      "death": "",
-      "gen": 1,
-      "gen_origin": "1",
-      "children": [
-        {
-          "id": 52,
-          "name": "Claire  GOAS-MAFFRE",
-          "birth": "03/07/1984",
-          "death": "",
-          "gen": 2,
-          "gen_origin": "2",
-          "children": [
-            {
-              "id": 54,
-              "name": "Mathilde MAFFRE",
-              "birth": "14/02/2010",
-              "death": "",
-              "gen": 3,
-              "gen_origin": "3",
-              "children": [],
-              "union_type": "current"
-            },
-            {
-              "id": 55,
-              "name": "Arthur MAFFRE",
-              "birth": "27/03/2013",
-              "death": "",
-              "gen": 3,
-              "gen_origin": "3",
-              "children": [],
-              "union_type": "current"
-            },
-            {
-              "id": 56,
-              "name": "Thomas  MAFFRE",
-              "birth": "12/10/2015",
-              "death": "",
-              "gen": 3,
-              "gen_origin": "3",
-              "children": [],
-              "union_type": "current"
-            },
-            {
-              "id": 57,
-              "name": "Henry  MAFFRE",
-              "birth": "10/07/2019",
-              "death": "",
-              "gen": 3,
-              "gen_origin": "3",
-              "children": [],
-              "union_type": "current"
-            },
-            {
-              "id": 53,
-              "name": "Guillaume  MAFFRE",
-              "birth": "02/12/1977",
-              "death": "",
-              "gen": 2,
-              "gen_origin": "2'",
-              "children": [],
-              "isSpouse": true
-            }
-          ],
-          "union_type": "current"
-        },
-        {
-          "id": 58,
-          "name": "Isabelle  GOAS-CANTY",
-          "birth": "08/06/1987",
-          "death": "",
-          "gen": 2,
-          "gen_origin": "2",
-          "children": [
-            {
-              "id": 60,
-              "name": "Jeanne CANTY",
-              "birth": "12/10/2014",
-              "death": "",
-              "gen": 3,
-              "gen_origin": "3",
-              "children": [],
-              "union_type": "current"
-            },
-            {
-              "id": 61,
-              "name": "Clémence  CANTY",
-              "birth": "27/03/2019",
-              "death": "",
-              "gen": 3,
-              "gen_origin": "3",
-              "children": [],
-              "union_type": "current"
-            },
-            {
-              "id": 59,
-              "name": "Jérémie  CANTY",
-              "birth": "07/06/1985",
-              "death": "",
-              "gen": 2,
-              "gen_origin": "2",
-              "children": [],
-              "isSpouse": true
-            }
-          ],
-          "union_type": "current"
-        },
-        {
-          "id": 51,
-          "name": "Yves  GOAS",
-          "birth": "13/08/1953",
-          "death": "",
-          "gen": 1,
-          "gen_origin": "1",
-          "children": [],
-          "isSpouse": true
-        }
-      ],
-      "union_type": "current"
-    },
-    {
-      "id": 62,
-      "name": "Anne-Marie  BOIDOT",
-      "birth": "20/07/1954",
-      "death": "",
-      "gen": 1,
-      "gen_origin": "1",
-      "children": [
-        {
-          "id": 64,
-          "name": "Nicolas  MILAN",
-          "birth": "25/04/1986",
-          "death": "",
-          "gen": 2,
-          "gen_origin": "2",
-          "children": [
-            {
-              "id": 66,
-              "name": "Charlie   MILAN",
-              "birth": "01/12/2021",
-              "death": "",
-              "gen": 3,
-              "gen_origin": "3",
-              "children": [],
-              "union_type": "current"
-            },
-            {
-              "id": 91,
-              "name": "Amélie BARRET",
-              "birth": "25/04/1986",
-              "death": "",
-              "gen": 2,
-              "gen_origin": "2'",
-              "children": [],
-              "isSpouse": true
-            },
-            {
-              "id": 65,
-              "name": "Timothée   MILAN",
-              "birth": "29/03/2018",
-              "death": "",
-              "gen": 3,
-              "gen_origin": "3",
-              "children": [],
-              "union_type": "former"
-            },
-            {
-              "id": 91,
-              "name": "Amélie BARRET",
-              "birth": "25/04/1986",
-              "death": "",
-              "gen": 2,
-              "gen_origin": "2'",
-              "children": [],
-              "isSpouse": true
-            }
-          ],
-          "union_type": "current"
-        },
-        {
-          "id": 67,
-          "name": "Marie-Anne  MILAN",
-          "birth": "27/12/1988",
-          "death": "",
-          "gen": 2,
-          "gen_origin": "2",
-          "children": [
-            {
-              "id": 69,
-              "name": "Paul  CARONI",
-              "birth": "30/03/2017",
-              "death": "",
-              "gen": 3,
-              "gen_origin": "3",
-              "children": [],
-              "union_type": "former"
-            },
-            {
-              "id": 70,
-              "name": "Agnes   CARONI",
-              "birth": "09/02/2020",
-              "death": "",
-              "gen": 3,
-              "gen_origin": "3",
-              "children": [],
-              "union_type": "former"
-            }
-          ],
-          "union_type": "current"
-        },
-        {
-          "id": 71,
-          "name": "René  MILAN",
-          "birth": "01/07/1990",
-          "death": "",
-          "gen": 2,
-          "gen_origin": "2",
-          "children": [
-            {
-              "id": 73,
-              "name": "Louis  MILAN",
-              "birth": "06/03/2017",
-              "death": "",
-              "gen": 3,
-              "gen_origin": "3",
-              "children": [],
-              "union_type": "current"
-            },
-            {
-              "id": 74,
-              "name": "Anaelle  MILAN",
-              "birth": "02/07/2019",
-              "death": "",
-              "gen": 3,
-              "gen_origin": "3",
-              "children": [],
-              "union_type": "current"
-            },
-            {
-              "id": 72,
-              "name": "Ludivine  ??",
-              "birth": "",
-              "death": "",
-              "gen": 2,
-              "gen_origin": "2'",
-              "children": [],
-              "isSpouse": true
-            }
-          ],
-          "union_type": "current"
-        },
-        {
-          "id": 75,
-          "name": "Clémence  MILAN",
-          "birth": "12/08/1992",
-          "death": "",
-          "gen": 2,
-          "gen_origin": "2",
-          "children": [
-            {
-              "id": 77,
-              "name": "Marceau  MAGERE",
-              "birth": "15/02/2025",
-              "death": "",
-              "gen": 3,
-              "gen_origin": "3",
-              "children": [],
-              "union_type": "current"
-            },
-            {
-              "id": 76,
-              "name": "Nicolas  MAGERE",
-              "birth": "? ",
-              "death": "",
-              "gen": 2,
-              "gen_origin": "2'",
-              "children": [],
-              "isSpouse": true
-            }
-          ],
-          "union_type": "current"
-        },
-        {
-          "id": 63,
-          "name": "Pierre  MILAN",
-          "birth": "16/08/1958",
-          "death": "",
-          "gen": 1,
-          "gen_origin": "1'",
-          "children": [],
-          "isSpouse": true
-        }
-      ],
-      "union_type": "current"
-    },
-    {
-      "id": 78,
-      "name": "Michel  BOIDOT",
-      "birth": "17/07/1957",
-      "death": "",
-      "gen": 1,
-      "gen_origin": "1",
-      "children": [
-        {
-          "id": 80,
-          "name": "Virginie  BOIDOT-MINERVINI",
-          "birth": "23/12/1986",
-          "death": "",
-          "gen": 2,
-          "gen_origin": "2",
-          "children": [
-            {
-              "id": 82,
-              "name": "Sacha  MINERVINI",
-              "birth": "13/08/2017",
-              "death": "",
-              "gen": 3,
-              "gen_origin": "3",
-              "children": [],
-              "union_type": "current"
-            },
-            {
-              "id": 83,
-              "name": "Simon  MINERVINI",
-              "birth": "09/01/2021",
-              "death": "",
-              "gen": 3,
-              "gen_origin": "3",
-              "children": [],
-              "union_type": "current"
-            },
-            {
-              "id": 81,
-              "name": "Lucas  MINERVINI",
-              "birth": "07/09/1985",
-              "death": "",
-              "gen": 2,
-              "gen_origin": "2'",
-              "children": [],
-              "isSpouse": true
-            }
-          ],
-          "union_type": "current"
-        },
-        {
-          "id": 84,
-          "name": "Thomas  BOIDOT",
-          "birth": "24/06/1992",
-          "death": "",
-          "gen": 2,
-          "gen_origin": "2",
-          "children": [
-            {
-              "id": 86,
-              "name": "Milo  BOIDOT",
-              "birth": "16/01/2025",
-              "death": "",
-              "gen": 3,
-              "gen_origin": "3",
-              "children": [],
-              "union_type": "current"
-            },
-            {
-              "id": 85,
-              "name": "Lucie  ??",
-              "birth": "04/05/1984",
-              "death": "",
-              "gen": 2,
-              "gen_origin": "2'",
-              "children": [],
-              "isSpouse": true
-            }
-          ],
-          "union_type": "current"
-        },
-        {
-          "id": 79,
-          "name": "Sylvie  BOIDOT-ROSSIGNOL",
-          "birth": "21/11/1961",
-          "death": "",
-          "gen": 1,
-          "gen_origin": "1",
-          "children": [],
-          "isSpouse": true
-        }
-      ],
-      "union_type": "current"
-    },
-    {
-      "id": 2,
+      "id": "1_spouse_2",
       "name": "Simone  DURAND",
       "birth": "08/07/1919",
       "death": "22/11/2004 ",
       "gen": 0,
       "gen_origin": "0'",
-      "children": [],
-      "isSpouse": true
+      "children": [
+        {
+          "id": 3,
+          "name": "Jean-Paul  BOIDOT",
+          "birth": "12/06/1941",
+          "death": "25/03/2015 ",
+          "gen": 1,
+          "gen_origin": "1",
+          "children": [
+            {
+              "id": "3_spouse_4",
+              "name": "Anne-Marie  BOIDOT-FAUSSOT",
+              "birth": "01/01/1945",
+              "death": "",
+              "gen": 1,
+              "gen_origin": "1'",
+              "children": [
+                {
+                  "id": 5,
+                  "name": "Véronique  BOIDOT",
+                  "birth": "31/03/1964",
+                  "death": "",
+                  "gen": 2,
+                  "gen_origin": "2",
+                  "children": [],
+                  "union_type": "current"
+                },
+                {
+                  "id": 6,
+                  "name": "Catherine  BOIDOT-MILAN",
+                  "birth": "28/05/1968",
+                  "death": "",
+                  "gen": 2,
+                  "gen_origin": "2",
+                  "children": [
+                    {
+                      "id": "6_spouse_7",
+                      "name": "Marc  MILAN",
+                      "birth": "11/11/1966",
+                      "death": "",
+                      "gen": 2,
+                      "gen_origin": "2'",
+                      "children": [
+                        {
+                          "id": 8,
+                          "name": "Marion  MILAN",
+                          "birth": "31/03/1997",
+                          "death": "",
+                          "gen": 3,
+                          "gen_origin": "3",
+                          "children": [],
+                          "union_type": "current"
+                        },
+                        {
+                          "id": 9,
+                          "name": "Tanguy  MILAN",
+                          "birth": "14/10/2000",
+                          "death": "",
+                          "gen": 3,
+                          "gen_origin": "3",
+                          "children": [],
+                          "union_type": "current"
+                        },
+                        {
+                          "id": 10,
+                          "name": "Bastien  MILAN",
+                          "birth": "08/11/1998",
+                          "death": "",
+                          "gen": 3,
+                          "gen_origin": "3",
+                          "children": [],
+                          "union_type": "current"
+                        },
+                        {
+                          "id": 11,
+                          "name": "Clara  MILAN",
+                          "birth": "17/07/2004",
+                          "death": "",
+                          "gen": 3,
+                          "gen_origin": "3",
+                          "children": [],
+                          "union_type": "current"
+                        }
+                      ],
+                      "isSpouse": true,
+                      "union_type": "current",
+                      "xOffset": 0.0
+                    }
+                  ],
+                  "union_type": "current"
+                },
+                {
+                  "id": 12,
+                  "name": "Hélène  BOIDOT-DILLENSEGER",
+                  "birth": "09/06/1969",
+                  "death": "",
+                  "gen": 2,
+                  "gen_origin": "2",
+                  "children": [
+                    {
+                      "id": "12_spouse_13",
+                      "name": "Rodolphe  DILLENSEGER",
+                      "birth": "07/01/1970",
+                      "death": "",
+                      "gen": 2,
+                      "gen_origin": "2'",
+                      "children": [
+                        {
+                          "id": 14,
+                          "name": "Clément DILLENSEGER",
+                          "birth": "17/09/1999",
+                          "death": "",
+                          "gen": 3,
+                          "gen_origin": "3",
+                          "children": [],
+                          "union_type": "current"
+                        },
+                        {
+                          "id": 15,
+                          "name": "Camille DILLENSEGER",
+                          "birth": "15/09/2002",
+                          "death": "",
+                          "gen": 3,
+                          "gen_origin": "3",
+                          "children": [],
+                          "union_type": "current"
+                        }
+                      ],
+                      "isSpouse": true,
+                      "union_type": "current",
+                      "xOffset": 0.0
+                    }
+                  ],
+                  "union_type": "current"
+                }
+              ],
+              "isSpouse": true,
+              "union_type": "current",
+              "xOffset": 0.0
+            }
+          ],
+          "union_type": "current"
+        },
+        {
+          "id": 16,
+          "name": "François  BOIDOT",
+          "birth": "07/06/1943",
+          "death": "",
+          "gen": 1,
+          "gen_origin": "1",
+          "children": [
+            {
+              "id": "16_spouse_17",
+              "name": "Brigitte  ROYANT",
+              "birth": "29/07/1952",
+              "death": "",
+              "gen": 1,
+              "gen_origin": "1'",
+              "children": [
+                {
+                  "id": 18,
+                  "name": "Frédérique  BOIDOT-LELIEVRE",
+                  "birth": "03/09/1970",
+                  "death": "",
+                  "gen": 2,
+                  "gen_origin": "2",
+                  "children": [
+                    {
+                      "id": "18_spouse_19",
+                      "name": "Vincent  LELIEVRE",
+                      "birth": "10/04/1966",
+                      "death": "",
+                      "gen": 2,
+                      "gen_origin": "2'",
+                      "children": [
+                        {
+                          "id": 20,
+                          "name": "Gabin  LELIEVRE",
+                          "birth": "05/02/2002",
+                          "death": "",
+                          "gen": 3,
+                          "gen_origin": "3",
+                          "children": [],
+                          "union_type": "current"
+                        },
+                        {
+                          "id": 21,
+                          "name": "Lucile  LELIEVRE",
+                          "birth": "05/02/2002",
+                          "death": "",
+                          "gen": 3,
+                          "gen_origin": "3",
+                          "children": [],
+                          "union_type": "current"
+                        }
+                      ],
+                      "isSpouse": true,
+                      "union_type": "current",
+                      "xOffset": 0.0
+                    }
+                  ],
+                  "union_type": "former"
+                }
+              ],
+              "isSpouse": true,
+              "union_type": "former",
+              "xOffset": -0.04
+            },
+            {
+              "id": "16_spouse_17",
+              "name": "Brigitte  ROYANT",
+              "birth": "29/07/1952",
+              "death": "",
+              "gen": 1,
+              "gen_origin": "1'",
+              "children": [],
+              "isSpouse": true,
+              "union_type": "former",
+              "xOffset": 0.04
+            }
+          ],
+          "union_type": "current"
+        },
+        {
+          "id": 22,
+          "name": "Jean-Pierre  BOIDOT",
+          "birth": "25/08/1944",
+          "death": "",
+          "gen": 1,
+          "gen_origin": "1",
+          "children": [
+            {
+              "id": "22_spouse_23",
+              "name": "Claudine  BOIDOT-DUFOUR",
+              "birth": "17/05/1948",
+              "death": "",
+              "gen": 1,
+              "gen_origin": "1'",
+              "children": [
+                {
+                  "id": 24,
+                  "name": "Florence  BOIDOT",
+                  "birth": "04/02/1968",
+                  "death": "",
+                  "gen": 2,
+                  "gen_origin": "2",
+                  "children": [],
+                  "union_type": "current"
+                },
+                {
+                  "id": 25,
+                  "name": "Delphine  BOIDOT",
+                  "birth": "16/10/1970",
+                  "death": "",
+                  "gen": 2,
+                  "gen_origin": "2",
+                  "children": [
+                    {
+                      "id": "25_spouse_26",
+                      "name": "Conjoint delphine  BRADLEY",
+                      "birth": "",
+                      "death": "",
+                      "gen": 2,
+                      "gen_origin": "2'",
+                      "children": [
+                        {
+                          "id": 27,
+                          "name": "Joshua  BRADLEY",
+                          "birth": "01/02/2002",
+                          "death": "",
+                          "gen": 3,
+                          "gen_origin": "3",
+                          "children": [],
+                          "union_type": "current"
+                        }
+                      ],
+                      "isSpouse": true,
+                      "union_type": "current",
+                      "xOffset": 0.0
+                    }
+                  ],
+                  "union_type": "current"
+                }
+              ],
+              "isSpouse": true,
+              "union_type": "current",
+              "xOffset": 0.0
+            }
+          ],
+          "union_type": "current"
+        },
+        {
+          "id": 28,
+          "name": "Martine  BOIDOT",
+          "birth": "28/08/1945",
+          "death": "",
+          "gen": 1,
+          "gen_origin": "1",
+          "children": [
+            {
+              "id": "28_spouse_29",
+              "name": "Jacques  POTY",
+              "birth": "23/01/1950",
+              "death": "",
+              "gen": 1,
+              "gen_origin": "1'",
+              "children": [],
+              "isSpouse": true,
+              "union_type": "former",
+              "xOffset": 0.0
+            }
+          ],
+          "union_type": "current"
+        },
+        {
+          "id": 30,
+          "name": "Patrick  BOIDOT",
+          "birth": "01/08/1947",
+          "death": "",
+          "gen": 1,
+          "gen_origin": "1",
+          "children": [
+            {
+              "id": "30_spouse_31",
+              "name": "Claudie  BOISSEAU",
+              "birth": "16/10/1947",
+              "death": "",
+              "gen": 1,
+              "gen_origin": "1'",
+              "children": [
+                {
+                  "id": 32,
+                  "name": "Julien  BOIDOT",
+                  "birth": "28/08/1981",
+                  "death": "",
+                  "gen": 2,
+                  "gen_origin": "2",
+                  "children": [
+                    {
+                      "id": "32_spouse_33",
+                      "name": "Sandra  LEROUX",
+                      "birth": "10/01/1981",
+                      "death": "",
+                      "gen": 2,
+                      "gen_origin": "2'",
+                      "children": [
+                        {
+                          "id": 34,
+                          "name": "Diane  BOIDOT",
+                          "birth": "26/11/2011",
+                          "death": "",
+                          "gen": 3,
+                          "gen_origin": "3",
+                          "children": [],
+                          "union_type": "current"
+                        },
+                        {
+                          "id": 35,
+                          "name": "Irène  BOIDOT",
+                          "birth": "16/11/2014",
+                          "death": "",
+                          "gen": 3,
+                          "gen_origin": "3",
+                          "children": [],
+                          "union_type": "current"
+                        }
+                      ],
+                      "isSpouse": true,
+                      "union_type": "current",
+                      "xOffset": 0.0
+                    }
+                  ],
+                  "union_type": "current"
+                },
+                {
+                  "id": 36,
+                  "name": "Mathieu  BOIDOT",
+                  "birth": "01/09/1983",
+                  "death": "",
+                  "gen": 2,
+                  "gen_origin": "2",
+                  "children": [
+                    {
+                      "id": "36_spouse_37",
+                      "name": "Gaëlle  UZU",
+                      "birth": "25/08/1982",
+                      "death": "",
+                      "gen": 2,
+                      "gen_origin": "2'",
+                      "children": [
+                        {
+                          "id": 38,
+                          "name": "Paulin  BOIDOT",
+                          "birth": "08/12/2012",
+                          "death": "",
+                          "gen": 3,
+                          "gen_origin": "3",
+                          "children": [],
+                          "union_type": "current"
+                        },
+                        {
+                          "id": 39,
+                          "name": "Victor  BOIDOT",
+                          "birth": "22/04/2015",
+                          "death": "",
+                          "gen": 3,
+                          "gen_origin": "3",
+                          "children": [],
+                          "union_type": "current"
+                        }
+                      ],
+                      "isSpouse": true,
+                      "union_type": "current",
+                      "xOffset": 0.0
+                    }
+                  ],
+                  "union_type": "current"
+                }
+              ],
+              "isSpouse": true,
+              "union_type": "current",
+              "xOffset": 0.0
+            }
+          ],
+          "union_type": "current"
+        },
+        {
+          "id": 40,
+          "name": "Marie-Christine BOIDOT-BURET",
+          "birth": "20/10/1948",
+          "death": "",
+          "gen": 1,
+          "gen_origin": "1",
+          "children": [
+            {
+              "id": "40_spouse_41",
+              "name": "Yvon   BURET",
+              "birth": "28/02/1947",
+              "death": "",
+              "gen": 1,
+              "gen_origin": "1",
+              "children": [
+                {
+                  "id": 42,
+                  "name": "Anne  BURET",
+                  "birth": "05/08/1972",
+                  "death": "",
+                  "gen": 2,
+                  "gen_origin": "2",
+                  "children": [
+                    {
+                      "id": "42_union_0",
+                      "name": "(unknown spouse)",
+                      "birth": "",
+                      "death": "",
+                      "gen": 2,
+                      "gen_origin": "2",
+                      "children": [
+                        {
+                          "id": 43,
+                          "name": "Ewen  BOURSE",
+                          "birth": "09/03/2005",
+                          "death": "",
+                          "gen": 3,
+                          "gen_origin": "3",
+                          "children": [],
+                          "union_type": "former"
+                        },
+                        {
+                          "id": 44,
+                          "name": "Ethan  BOURSE",
+                          "birth": "04/04/2010",
+                          "death": "",
+                          "gen": 3,
+                          "gen_origin": "3",
+                          "children": [],
+                          "union_type": "former"
+                        }
+                      ],
+                      "isSpouse": true,
+                      "union_type": "former",
+                      "xOffset": 0.0
+                    }
+                  ],
+                  "union_type": "current"
+                },
+                {
+                  "id": 45,
+                  "name": "Caroline  BURET",
+                  "birth": "02/01/1979",
+                  "death": "",
+                  "gen": 2,
+                  "gen_origin": "2",
+                  "children": [
+                    {
+                      "id": "45_spouse_109",
+                      "name": "Yann DRESAC",
+                      "birth": "17/10/1978",
+                      "death": "",
+                      "gen": 2,
+                      "gen_origin": "2'",
+                      "children": [],
+                      "isSpouse": true,
+                      "union_type": "former",
+                      "xOffset": 0.0
+                    }
+                  ],
+                  "union_type": "current"
+                }
+              ],
+              "isSpouse": true,
+              "union_type": "current",
+              "xOffset": 0.0
+            }
+          ],
+          "union_type": "current"
+        },
+        {
+          "id": 46,
+          "name": "Christian  BOIDOT",
+          "birth": "15/12/1949",
+          "death": "",
+          "gen": 1,
+          "gen_origin": "1",
+          "children": [
+            {
+              "id": "46_spouse_47",
+              "name": "Dominique  ??",
+              "birth": "15/12/1949",
+              "death": "",
+              "gen": 1,
+              "gen_origin": "1",
+              "children": [
+                {
+                  "id": 48,
+                  "name": "Sandrine  BOIDOT",
+                  "birth": "03/05/1973",
+                  "death": "",
+                  "gen": 2,
+                  "gen_origin": "2",
+                  "children": [
+                    {
+                      "id": "48_spouse_96",
+                      "name": "Francisco Ferreira de Carvalho",
+                      "birth": "02/12/1973",
+                      "death": "",
+                      "gen": 2,
+                      "gen_origin": "2'",
+                      "children": [
+                        {
+                          "id": 99,
+                          "name": "Jonathan de Carvalho",
+                          "birth": "15/01/1992",
+                          "death": "",
+                          "gen": 3,
+                          "gen_origin": "3",
+                          "children": [
+                            {
+                              "id": "99_spouse_100",
+                              "name": "Alicia MESTRE",
+                              "birth": "01/01/1995",
+                              "death": "",
+                              "gen": 3,
+                              "gen_origin": "3'",
+                              "children": [
+                                {
+                                  "id": 101,
+                                  "name": "Louise de Carvalho",
+                                  "birth": "16/04/2023",
+                                  "death": "",
+                                  "gen": 4,
+                                  "gen_origin": "4",
+                                  "children": [],
+                                  "union_type": "current"
+                                }
+                              ],
+                              "isSpouse": true,
+                              "union_type": "current",
+                              "xOffset": 0.0
+                            }
+                          ],
+                          "union_type": "current"
+                        },
+                        {
+                          "id": 102,
+                          "name": "Dany de Carvalho",
+                          "birth": "04/12/1993",
+                          "death": "",
+                          "gen": 3,
+                          "gen_origin": "3",
+                          "children": [
+                            {
+                              "id": "102_spouse_103",
+                              "name": "Elodie PERIAU",
+                              "birth": "01/01/1997",
+                              "death": "",
+                              "gen": 3,
+                              "gen_origin": "3'",
+                              "children": [
+                                {
+                                  "id": 104,
+                                  "name": "Rakel de Carvalho",
+                                  "birth": "25/12/2022",
+                                  "death": "",
+                                  "gen": 4,
+                                  "gen_origin": "4",
+                                  "children": [],
+                                  "union_type": "current"
+                                }
+                              ],
+                              "isSpouse": true,
+                              "union_type": "current",
+                              "xOffset": 0.0
+                            }
+                          ],
+                          "union_type": "current"
+                        },
+                        {
+                          "id": 105,
+                          "name": "Dylan de Carvalho",
+                          "birth": "21/08/1999",
+                          "death": "",
+                          "gen": 3,
+                          "gen_origin": "3",
+                          "children": [
+                            {
+                              "id": "105_spouse_106",
+                              "name": "Conjointe Garcon 3 sandrine ??",
+                              "birth": "01/01/1999",
+                              "death": "",
+                              "gen": 3,
+                              "gen_origin": "3'",
+                              "children": [],
+                              "isSpouse": true,
+                              "union_type": "former",
+                              "xOffset": 0.0
+                            }
+                          ],
+                          "union_type": "current"
+                        }
+                      ],
+                      "isSpouse": true,
+                      "union_type": "current",
+                      "xOffset": 0.0
+                    }
+                  ],
+                  "union_type": "former"
+                }
+              ],
+              "isSpouse": true,
+              "union_type": "former",
+              "xOffset": -0.08
+            },
+            {
+              "id": "46_spouse_47",
+              "name": "Dominique  ??",
+              "birth": "15/12/1949",
+              "death": "",
+              "gen": 1,
+              "gen_origin": "1",
+              "children": [
+                {
+                  "id": 49,
+                  "name": "Richard  BOIDOT",
+                  "birth": "06/06/1974",
+                  "death": "",
+                  "gen": 2,
+                  "gen_origin": "2",
+                  "children": [
+                    {
+                      "id": "49_spouse_93",
+                      "name": "Ludivine  LAGRES",
+                      "birth": "",
+                      "death": "",
+                      "gen": 2,
+                      "gen_origin": "2'",
+                      "children": [
+                        {
+                          "id": 94,
+                          "name": "Azélie BOIDOT",
+                          "birth": "13/03/2004",
+                          "death": "",
+                          "gen": 3,
+                          "gen_origin": "3",
+                          "children": [],
+                          "union_type": "current"
+                        },
+                        {
+                          "id": 95,
+                          "name": "Iphygénie BOIDOT",
+                          "birth": "16/10/2010",
+                          "death": "",
+                          "gen": 3,
+                          "gen_origin": "3",
+                          "children": [],
+                          "union_type": "current"
+                        }
+                      ],
+                      "isSpouse": true,
+                      "union_type": "current",
+                      "xOffset": 0.0
+                    }
+                  ],
+                  "union_type": "current"
+                }
+              ],
+              "isSpouse": true,
+              "union_type": "current",
+              "xOffset": 0.0
+            },
+            {
+              "id": "46_spouse_47",
+              "name": "Dominique  ??",
+              "birth": "15/12/1949",
+              "death": "",
+              "gen": 1,
+              "gen_origin": "1",
+              "children": [
+                {
+                  "id": 89,
+                  "name": "Héloise  LETINTURIER",
+                  "birth": "04/10/2001",
+                  "death": "",
+                  "gen": 2,
+                  "gen_origin": "2",
+                  "children": [],
+                  "union_type": "former"
+                }
+              ],
+              "isSpouse": true,
+              "union_type": "former",
+              "xOffset": 0.08
+            }
+          ],
+          "union_type": "current"
+        },
+        {
+          "id": 50,
+          "name": "Françoise  BOIDOT-GOAS",
+          "birth": "21/07/1953",
+          "death": "",
+          "gen": 1,
+          "gen_origin": "1",
+          "children": [
+            {
+              "id": "50_spouse_51",
+              "name": "Yves  GOAS",
+              "birth": "13/08/1953",
+              "death": "",
+              "gen": 1,
+              "gen_origin": "1",
+              "children": [
+                {
+                  "id": 52,
+                  "name": "Claire  GOAS-MAFFRE",
+                  "birth": "03/07/1984",
+                  "death": "",
+                  "gen": 2,
+                  "gen_origin": "2",
+                  "children": [
+                    {
+                      "id": "52_spouse_53",
+                      "name": "Guillaume  MAFFRE",
+                      "birth": "02/12/1977",
+                      "death": "",
+                      "gen": 2,
+                      "gen_origin": "2'",
+                      "children": [
+                        {
+                          "id": 54,
+                          "name": "Mathilde MAFFRE",
+                          "birth": "14/02/2010",
+                          "death": "",
+                          "gen": 3,
+                          "gen_origin": "3",
+                          "children": [],
+                          "union_type": "current"
+                        },
+                        {
+                          "id": 55,
+                          "name": "Arthur MAFFRE",
+                          "birth": "27/03/2013",
+                          "death": "",
+                          "gen": 3,
+                          "gen_origin": "3",
+                          "children": [],
+                          "union_type": "current"
+                        },
+                        {
+                          "id": 56,
+                          "name": "Thomas  MAFFRE",
+                          "birth": "12/10/2015",
+                          "death": "",
+                          "gen": 3,
+                          "gen_origin": "3",
+                          "children": [],
+                          "union_type": "current"
+                        },
+                        {
+                          "id": 57,
+                          "name": "Henry  MAFFRE",
+                          "birth": "10/07/2019",
+                          "death": "",
+                          "gen": 3,
+                          "gen_origin": "3",
+                          "children": [],
+                          "union_type": "current"
+                        }
+                      ],
+                      "isSpouse": true,
+                      "union_type": "current",
+                      "xOffset": 0.0
+                    }
+                  ],
+                  "union_type": "current"
+                },
+                {
+                  "id": 58,
+                  "name": "Isabelle  GOAS-CANTY",
+                  "birth": "08/06/1987",
+                  "death": "",
+                  "gen": 2,
+                  "gen_origin": "2",
+                  "children": [
+                    {
+                      "id": "58_spouse_59",
+                      "name": "Jérémie  CANTY",
+                      "birth": "07/06/1985",
+                      "death": "",
+                      "gen": 2,
+                      "gen_origin": "2",
+                      "children": [
+                        {
+                          "id": 60,
+                          "name": "Jeanne CANTY",
+                          "birth": "12/10/2014",
+                          "death": "",
+                          "gen": 3,
+                          "gen_origin": "3",
+                          "children": [],
+                          "union_type": "current"
+                        },
+                        {
+                          "id": 61,
+                          "name": "Clémence  CANTY",
+                          "birth": "27/03/2019",
+                          "death": "",
+                          "gen": 3,
+                          "gen_origin": "3",
+                          "children": [],
+                          "union_type": "current"
+                        }
+                      ],
+                      "isSpouse": true,
+                      "union_type": "current",
+                      "xOffset": 0.0
+                    }
+                  ],
+                  "union_type": "current"
+                }
+              ],
+              "isSpouse": true,
+              "union_type": "current",
+              "xOffset": 0.0
+            }
+          ],
+          "union_type": "current"
+        },
+        {
+          "id": 62,
+          "name": "Anne-Marie  BOIDOT",
+          "birth": "20/07/1954",
+          "death": "",
+          "gen": 1,
+          "gen_origin": "1",
+          "children": [
+            {
+              "id": "62_spouse_63",
+              "name": "Pierre  MILAN",
+              "birth": "16/08/1958",
+              "death": "",
+              "gen": 1,
+              "gen_origin": "1'",
+              "children": [
+                {
+                  "id": 64,
+                  "name": "Nicolas  MILAN",
+                  "birth": "25/04/1986",
+                  "death": "",
+                  "gen": 2,
+                  "gen_origin": "2",
+                  "children": [
+                    {
+                      "id": "64_spouse_91",
+                      "name": "Amélie BARRET",
+                      "birth": "25/02/1986",
+                      "death": "",
+                      "gen": 2,
+                      "gen_origin": "2'",
+                      "children": [
+                        {
+                          "id": 65,
+                          "name": "Timothée   MILAN",
+                          "birth": "29/03/2018",
+                          "death": "",
+                          "gen": 3,
+                          "gen_origin": "3",
+                          "children": [],
+                          "union_type": "former"
+                        }
+                      ],
+                      "isSpouse": true,
+                      "union_type": "former",
+                      "xOffset": -0.04
+                    },
+                    {
+                      "id": "64_spouse_91",
+                      "name": "Amélie BARRET",
+                      "birth": "25/02/1986",
+                      "death": "",
+                      "gen": 2,
+                      "gen_origin": "2'",
+                      "children": [
+                        {
+                          "id": 66,
+                          "name": "Charlie   MILAN",
+                          "birth": "01/12/2021",
+                          "death": "",
+                          "gen": 3,
+                          "gen_origin": "3",
+                          "children": [],
+                          "union_type": "current"
+                        }
+                      ],
+                      "isSpouse": true,
+                      "union_type": "current",
+                      "xOffset": 0.04
+                    }
+                  ],
+                  "union_type": "current"
+                },
+                {
+                  "id": 67,
+                  "name": "Marie-Anne  MILAN",
+                  "birth": "27/12/1988",
+                  "death": "",
+                  "gen": 2,
+                  "gen_origin": "2",
+                  "children": [
+                    {
+                      "id": "67_union_0",
+                      "name": "(unknown spouse)",
+                      "birth": "",
+                      "death": "",
+                      "gen": 2,
+                      "gen_origin": "2",
+                      "children": [
+                        {
+                          "id": 69,
+                          "name": "Paul  CARONI",
+                          "birth": "30/03/2017",
+                          "death": "",
+                          "gen": 3,
+                          "gen_origin": "3",
+                          "children": [],
+                          "union_type": "former"
+                        },
+                        {
+                          "id": 70,
+                          "name": "Agnes   CARONI",
+                          "birth": "09/02/2020",
+                          "death": "",
+                          "gen": 3,
+                          "gen_origin": "3",
+                          "children": [],
+                          "union_type": "former"
+                        }
+                      ],
+                      "isSpouse": true,
+                      "union_type": "former",
+                      "xOffset": 0.0
+                    }
+                  ],
+                  "union_type": "current"
+                },
+                {
+                  "id": 71,
+                  "name": "René  MILAN",
+                  "birth": "01/07/1990",
+                  "death": "",
+                  "gen": 2,
+                  "gen_origin": "2",
+                  "children": [
+                    {
+                      "id": "71_spouse_72",
+                      "name": "Ludivine  ??",
+                      "birth": "",
+                      "death": "",
+                      "gen": 2,
+                      "gen_origin": "2'",
+                      "children": [
+                        {
+                          "id": 73,
+                          "name": "Louis  MILAN",
+                          "birth": "06/03/2017",
+                          "death": "",
+                          "gen": 3,
+                          "gen_origin": "3",
+                          "children": [],
+                          "union_type": "current"
+                        },
+                        {
+                          "id": 74,
+                          "name": "Anaelle  MILAN",
+                          "birth": "02/07/2019",
+                          "death": "",
+                          "gen": 3,
+                          "gen_origin": "3",
+                          "children": [],
+                          "union_type": "current"
+                        }
+                      ],
+                      "isSpouse": true,
+                      "union_type": "current",
+                      "xOffset": 0.0
+                    }
+                  ],
+                  "union_type": "current"
+                },
+                {
+                  "id": 75,
+                  "name": "Clémence  MILAN",
+                  "birth": "12/08/1992",
+                  "death": "",
+                  "gen": 2,
+                  "gen_origin": "2",
+                  "children": [
+                    {
+                      "id": "75_spouse_76",
+                      "name": "Nicolas  MAGERE",
+                      "birth": "? ",
+                      "death": "",
+                      "gen": 2,
+                      "gen_origin": "2'",
+                      "children": [
+                        {
+                          "id": 77,
+                          "name": "Marceau  MAGERE",
+                          "birth": "15/02/2025",
+                          "death": "",
+                          "gen": 3,
+                          "gen_origin": "3",
+                          "children": [],
+                          "union_type": "current"
+                        }
+                      ],
+                      "isSpouse": true,
+                      "union_type": "current",
+                      "xOffset": 0.0
+                    }
+                  ],
+                  "union_type": "current"
+                }
+              ],
+              "isSpouse": true,
+              "union_type": "current",
+              "xOffset": 0.0
+            }
+          ],
+          "union_type": "current"
+        },
+        {
+          "id": 78,
+          "name": "Michel  BOIDOT",
+          "birth": "17/07/1957",
+          "death": "",
+          "gen": 1,
+          "gen_origin": "1",
+          "children": [
+            {
+              "id": "78_spouse_79",
+              "name": "Sylvie  BOIDOT-ROSSIGNOL",
+              "birth": "21/11/1961",
+              "death": "",
+              "gen": 1,
+              "gen_origin": "1",
+              "children": [
+                {
+                  "id": 80,
+                  "name": "Virginie  BOIDOT-MINERVINI",
+                  "birth": "23/12/1986",
+                  "death": "",
+                  "gen": 2,
+                  "gen_origin": "2",
+                  "children": [
+                    {
+                      "id": "80_spouse_81",
+                      "name": "Lucas  MINERVINI",
+                      "birth": "07/09/1985",
+                      "death": "",
+                      "gen": 2,
+                      "gen_origin": "2'",
+                      "children": [
+                        {
+                          "id": 82,
+                          "name": "Sacha  MINERVINI",
+                          "birth": "13/08/2017",
+                          "death": "",
+                          "gen": 3,
+                          "gen_origin": "3",
+                          "children": [],
+                          "union_type": "current"
+                        },
+                        {
+                          "id": 83,
+                          "name": "Simon  MINERVINI",
+                          "birth": "09/01/2021",
+                          "death": "",
+                          "gen": 3,
+                          "gen_origin": "3",
+                          "children": [],
+                          "union_type": "current"
+                        }
+                      ],
+                      "isSpouse": true,
+                      "union_type": "current",
+                      "xOffset": 0.0
+                    }
+                  ],
+                  "union_type": "current"
+                },
+                {
+                  "id": 84,
+                  "name": "Thomas  BOIDOT",
+                  "birth": "24/06/1992",
+                  "death": "",
+                  "gen": 2,
+                  "gen_origin": "2",
+                  "children": [
+                    {
+                      "id": "84_spouse_85",
+                      "name": "Lucie  ??",
+                      "birth": "04/05/1984",
+                      "death": "",
+                      "gen": 2,
+                      "gen_origin": "2'",
+                      "children": [
+                        {
+                          "id": 86,
+                          "name": "Milo  BOIDOT",
+                          "birth": "16/01/2025",
+                          "death": "",
+                          "gen": 3,
+                          "gen_origin": "3",
+                          "children": [],
+                          "union_type": "current"
+                        }
+                      ],
+                      "isSpouse": true,
+                      "union_type": "current",
+                      "xOffset": 0.0
+                    }
+                  ],
+                  "union_type": "current"
+                }
+              ],
+              "isSpouse": true,
+              "union_type": "current",
+              "xOffset": 0.0
+            }
+          ],
+          "union_type": "current"
+        }
+      ],
+      "isSpouse": true,
+      "union_type": "current",
+      "xOffset": 0.0
     }
   ]
 }

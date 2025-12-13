@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Genealogy Radial Tree</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #chart {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .tooltip {
+            position: absolute;
+            background: #333;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            pointer-events: none;
+            display: none;
+            z-index: 1000;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .node circle {
+            stroke-width: 2px;
+        }
+
+        .node text {
+            font-size: 12px;
+            pointer-events: none;
+            text-anchor: middle;
+            dominant-baseline: middle;
+        }
+
+        .node.dead circle {
+            fill: white;
+        }
+
+        .decade-ring {
+            fill: none;
+            stroke: #ccc;
+            stroke-width: 1px;
+            stroke-dasharray: 3, 3;
+            opacity: 0.5;
+        }
+
+        .decade-label {
+            font-size: 11px;
+            fill: #999;
+            pointer-events: none;
+        }
+
+        .link {
+            fill: none;
+            stroke: #999;
+            stroke-opacity: 0.4;
+        }
+
+        #slider-container {
+            margin: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="slider-container">
+        <label for="rotation-slider">Rotate Tree:</label>
+        <input type="range" id="rotation-slider" min="0" max="360" value="0">
+    </div>
+
+    <div id="chart"></div>
+    <div class="tooltip"></div>
+
+    <script>
+        const data = __DATA__;
+
+        const width = 1200;
+        const height = 1200;
+        const radius = Math.min(width, height) / 2 - 80;
+
+        const svg = d3.select("#chart").append("svg").attr("width", width).attr("height", height);
+        const g = svg.append("g").attr("transform", `translate(${width / 2},${height / 2})`);
+        const tooltip = d3.select(".tooltip");
+
+        const colorScale = d3.scaleOrdinal().domain([0, 1, 2, 3, 4]).range(["#FF6B6B", "#4ECDC4", "#45B7D1", "#FFA07A", "#98D8C8"]);
+
+        // Collect all birth years
+        const birthDates = [];
+        function getAllPersons(node) { birthDates.push(node); if (node.children) node.children.forEach(getAllPersons); }
+        getAllPersons(data);
+
+        const birthYears = birthDates.map(p => {
+            if (p.birth && p.birth.trim()) {
+                const parts = p.birth.trim().split('/');
+                if (parts.length >= 3) return parseInt(parts[2]);
+            }
+            return null;
+        }).filter(y => y !== null);
+
+        const minYear = Math.min(...birthYears);
+        const maxYear = Math.max(...birthYears);
+        const yearRange = maxYear - minYear || 1;
+
+        // Decade rings
+        const decadeRings = g.append("g").attr("class", "decade-rings");
+        for (let decade = Math.floor(minYear / 10) * 10; decade <= maxYear; decade += 10) {
+            const decadeRadius = ((decade - minYear) / yearRange) * radius;
+            if (decadeRadius > 0 && decadeRadius < radius) {
+                decadeRings.append("circle").attr("class", "decade-ring").attr("r", decadeRadius);
+                decadeRings.append("text").attr("class", "decade-label").attr("x", 0).attr("y", -decadeRadius)
+                    .attr("text-anchor", "middle").attr("dominant-baseline", "middle").text(decade);
+            }
+        }
+
+        function getRadiusByBirth(birthStr) {
+            if (!birthStr || !birthStr.trim()) return radius * 0.5;
+            const parts = birthStr.trim().split('/');
+            if (parts.length >= 3) {
+                const year = parseInt(parts[2]);
+                if (!isNaN(year)) return ((year - minYear) / yearRange) * radius;
+            }
+            return radius * 0.5;
+        }
+
+        // D3 tree layout
+        const tree = d3.tree().size([2 * Math.PI, 1]).separation((a, b) => (a.parent === b.parent ? 2 : 3) / a.depth);
+        const root = d3.hierarchy(data);
+        tree(root);
+
+        // Assign primaryParent explicitly to each child (link children to first non-spouse parent, usually Gen0)
+        function assignPrimaryParents(node) {
+            if (node.children) {
+                node.children.forEach(child => {
+                    // Pick first parent that is not a spouse
+                    child.primaryParent = node.data.isSpouse ? node.parent : node;
+                    assignPrimaryParents(child);
+                });
+            }
+        }
+        assignPrimaryParents(root);
+
+        // Assign radial positions and spouse offsets
+        const baseLinearSpacing = 15; // in pixels along the arc
+        root.each(node => {
+            node.y = getRadiusByBirth(node.data.birth);
+            if (node.data.isSpouse) node.xOffset = baseLinearSpacing / node.y;
+            else node.xOffset = 0;
+        });
+
+        // Build links manually using primaryParent
+        const links = [];
+        root.descendants().forEach(node => {
+            if (node.primaryParent) links.push({ source: node.primaryParent, target: node });
+        });
+
+        const linkElements = g.selectAll(".link").data(links).join("path")
+            .attr("class", "link")
+            .attr("d", d3.linkRadial().angle(d => d.x + (d.data.isSpouse ? d.xOffset : 0)).radius(d => d.y));
+
+        // Nodes
+        const nodes = g.selectAll(".node").data(root.descendants()).join("g")
+            .attr("class", d => "node" + (d.data.death ? " dead" : ""));
+
+        nodes.append("circle")
+            .attr("r", d => d.data.isSpouse ? 4.5 : (d.data.gen === 0 ? 10 : (d.children ? 6 : 4.5)))
+            .attr("fill", "white")
+            .attr("stroke", d => colorScale(d.data.gen))
+            .attr("stroke-width", 2.5);
+
+        function estimateTextWidth(text, fontSize) { return text.length * fontSize * 0.55 + 12; }
+        nodes.append("text")
+            .attr("dy", "0.31em")
+            .text(d => d.data.name.split(' ')[0])
+            .attr("font-weight", d => d.data.gen === 0 ? "bold" : "normal")
+            .attr("font-size", d => d.data.gen === 0 ? "14px" : "12px");
+
+        // Tooltip
+        nodes.on("mouseenter", function (event, d) {
+            let info = d.data.name;
+            if (d.data.isSpouse) info += " (spouse)";
+            info += `<br/>Gen: ${d.data.gen}`;
+            if (d.data.birth) info += `<br/>b: ${d.data.birth}`;
+            if (d.data.death) info += `<br/>d: ${d.data.death}`;
+            tooltip.html(info).style("left", (event.pageX + 10) + "px").style("top", (event.pageY - 10) + "px").style("display", "block");
+        }).on("mouseleave", function () { tooltip.style("display", "none"); });
+
+        // Click highlight
+        nodes.on("click", function (event, d) {
+            nodes.select("circle").attr("stroke-width", 2.5).attr("stroke", d => colorScale(d.data.gen));
+            nodes.select("text").attr("font-weight", d => d.data.gen === 0 ? "bold" : "normal");
+            linkElements.attr("stroke", "#999").attr("stroke-width", 1);
+
+            const descendants = d.descendants();
+            descendants.forEach(node => {
+                d3.select(nodes.filter(n => n === node).node()).select("circle")
+                    .attr("stroke-width", 4).attr("stroke", "black");
+                d3.select(nodes.filter(n => n === node).node()).select("text")
+                    .attr("font-weight", "bold");
+            });
+
+            linkElements.filter(l => descendants.includes(l.source) && descendants.includes(l.target))
+                .attr("stroke", "black").attr("stroke-width", 2);
+        });
+
+        // Rotation slider
+        const slider = document.getElementById("rotation-slider");
+        function updateRotation(angleDeg) {
+            const angleRad = angleDeg * Math.PI / 180;
+
+            nodes.attr("transform", d => {
+                if (d.data.gen === 0) return `translate(0,0)`;
+                const angle = d.x + (d.xOffset || 0) + angleRad;
+                return `rotate(${angle * 180 / Math.PI - 90})translate(${d.y},0)`;
+            });
+
+            linkElements.attr("d", d3.linkRadial().angle(d => d.x + (d.xOffset || 0) + angleRad).radius(d => d.y));
+
+            nodes.select("text").attr("transform", d => {
+                if (d.data.gen === 0) return `translate(0,-20)`;
+                const angle = d.x + (d.xOffset || 0) + angleRad;
+                const deg = angle * 180 / Math.PI - 90;
+                const displayText = d.data.name.split(' ')[0];
+                const fontSize = d.data.gen === 0 ? 14 : 12;
+                const offsetDist = estimateTextWidth(displayText, fontSize) / 2;
+                let x = offsetDist;
+                let y = deg > 90 && deg < 270 ? 4 : -4;
+                let rotation = deg > 90 && deg < 270 ? 180 : 0;
+                return `translate(${x},${y})rotate(${rotation})`;
+            });
+        }
+
+        updateRotation(0);
+        slider.addEventListener("input", () => updateRotation(slider.value));
+
+    </script>
+</body>
+
+</html>

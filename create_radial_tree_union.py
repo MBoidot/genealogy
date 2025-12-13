@@ -51,7 +51,6 @@ for _, row in df.iterrows():
             "unions": {},
         },
     )
-    # Track each union
     union_id = row.get("Union_ID")
     if pd.notna(union_id):
         people[pid]["unions"][union_id] = {
@@ -80,7 +79,8 @@ for _, row in df.iterrows():
 
 # -----------------------------
 # Recursive tree builder
-# -----------------------------
+
+
 def build_node(pid, visited=None):
     if visited is None:
         visited = set()
@@ -89,6 +89,7 @@ def build_node(pid, visited=None):
     visited.add(pid)
 
     person = people[pid]
+
     node = {
         "id": pid,
         "name": person["name"],
@@ -99,33 +100,57 @@ def build_node(pid, visited=None):
         "children": [],
     }
 
-    for union in person["unions"].values():
-        if union["role"] != "parent":
-            continue
+    unions = [u for u in person["unions"].values() if u["role"] == "parent"]
+    num_unions = len(unions)
+    base_delta = 0.08  # more space between spouses
+
+    for i, union in enumerate(unions):
         union_type = (
-            "current" if "current" in (union.get("remark") or "").lower() else "former"
+            "current"
+            if union.get("remark") and "current" in union["remark"].lower()
+            else "former"
         )
+
+        children_nodes = []
         for child_id in union["children"]:
             child_node = build_node(child_id, visited.copy())
             if child_node:
-                # mark link type
                 child_node["union_type"] = union_type
-                node["children"].append(child_node)
-        # Add spouse node
+                children_nodes.append(child_node)
+
         spouse_id = union.get("spouse_id")
+        offset = (i - (num_unions - 1) / 2) * base_delta  # distribute spouses evenly
+
         if spouse_id and spouse_id in people:
-            node["children"].append(
-                {
-                    "id": spouse_id,
-                    "name": people[spouse_id]["name"],
-                    "birth": people[spouse_id]["birth"],
-                    "death": people[spouse_id]["death"],
-                    "gen": people[spouse_id]["gen"],
-                    "gen_origin": people[spouse_id]["gen_origin"],
-                    "children": [],
-                    "isSpouse": True,
-                }
-            )
+            spouse_node = {
+                "id": f"{pid}_spouse_{spouse_id}",
+                "name": people[spouse_id]["name"],
+                "birth": people[spouse_id]["birth"],
+                "death": people[spouse_id]["death"],
+                "gen": people[spouse_id]["gen"],
+                "gen_origin": people[spouse_id]["gen_origin"],
+                "children": children_nodes,
+                "isSpouse": True,
+                "union_type": union_type,
+                "xOffset": offset,
+            }
+            node["children"].append(spouse_node)
+        elif children_nodes:
+            # No spouse ID, but children exist
+            placeholder_node = {
+                "id": f"{pid}_union_{i}",
+                "name": "(unknown spouse)",
+                "birth": "",
+                "death": "",
+                "gen": person["gen"],
+                "gen_origin": person["gen_origin"],
+                "children": children_nodes,
+                "isSpouse": True,
+                "union_type": union_type,
+                "xOffset": offset,
+            }
+            node["children"].append(placeholder_node)
+
     return node
 
 
@@ -143,100 +168,24 @@ root_tree = trees[0] if trees else {"name": "Family Tree", "children": []}
 # -----------------------------
 # Export JSON
 # -----------------------------
+# Export JSON
 with open("family_tree_with_unions.json", "w", encoding="utf-8") as f:
     json.dump(root_tree, f, ensure_ascii=False, indent=2)
 
-# -----------------------------
-# Generate HTML directly
-# -----------------------------
-html_template = f"""
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<title>Genealogy Radial Tree with Unions</title>
-<script src="https://d3js.org/d3.v7.min.js"></script>
-<style>
-body {{ font-family: Arial, sans-serif; margin: 0; padding: 20px; background: #f5f5f5; }}
-#chart {{ width: 1200px; height: 1200px; margin: auto; background: white; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.15); }}
-.node circle {{ stroke-width: 2px; fill: white; }}
-.node text {{ font-size: 12px; text-anchor: middle; dominant-baseline: middle; pointer-events: none; }}
-.link {{ fill: none; stroke: #999; stroke-opacity: 0.5; }}
-.link.former {{ stroke-dasharray: 4 2; }}
-.tooltip {{ position: absolute; background: #333; color: white; padding: 6px 10px; border-radius: 4px; font-size: 12px; pointer-events: none; display: none; }}
-</style>
-</head>
-<body>
+# Load HTML template
+with open("template.html", "r", encoding="utf-8") as f:
+    html_template = f.read()
 
-<div id="chart"></div>
-<div class="tooltip"></div>
+# Convert JSON to string safely for JS template literal
+json_data = json.dumps(root_tree, ensure_ascii=False)
 
-<script>
-const data = {json.dumps(root_tree)};
+# Replace __DATA__ with properly escaped JSON in backticks
+html_output = html_template.replace("__DATA__", json_data.replace("`", "\\`"))
 
-const width = 1200;
-const height = 1200;
-const radius = Math.min(width, height)/2 - 80;
-
-const svg = d3.select("#chart")
-    .append("svg")
-    .attr("width", width)
-    .attr("height", height);
-
-const g = svg.append("g")
-    .attr("transform", `translate(${{width/2}},${{height/2}})`);
-
-const tooltip = d3.select(".tooltip");
-
-const tree = d3.tree().size([2*Math.PI, radius]);
-const root = d3.hierarchy(data, d => d.children);
-tree(root);
-
-// Links
-g.selectAll(".link")
-    .data(root.links())
-    .join("path")
-    .attr("class", d => "link" + (d.target.data.union_type === "former" ? " former" : ""))
-    .attr("d", d3.linkRadial().angle(d => d.x).radius(d => d.y));
-
-// Nodes
-const nodes = g.selectAll(".node")
-    .data(root.descendants())
-    .join("g")
-    .attr("class", "node")
-    .attr("transform", d => `rotate(${{d.x * 180 / Math.PI - 90}}) translate(${{d.y}},0)`);
-
-nodes.append("circle")
-    .attr("r", d => d.data.isSpouse ? 4 : 6)
-    .attr("stroke", "steelblue")
-    .attr("stroke-width", 2);
-
-nodes.append("text")
-    .attr("dy", "0.31em")
-    .text(d => d.data.name.split(' ')[0]);
-
-// Tooltip
-nodes.on("mouseenter", function(event,d){{
-    tooltip.html(
-        `<strong>${{d.data.name}}</strong><br/>
-         Gen: ${{d.data.gen_origin}}<br/>
-         Birth: ${{d.data.birth || ""}}<br/>
-         Death: ${{d.data.death || ""}}`
-    )
-    .style("display","block")
-    .style("left", (event.pageX+10)+"px")
-    .style("top", (event.pageY-10)+"px");
-}}).on("mouseleave", function(){{
-    tooltip.style("display","none");
-}});
-</script>
-
-</body>
-</html>
-"""
-
-
+# Write final HTML
 with open("family_tree_with_unions.html", "w", encoding="utf-8") as f:
-    f.write(html_template)
+    f.write(html_output)
 
-print("✓ Created family_tree_with_unions.html with current/former union distinction")
+print(
+    "✓ Created family_tree_with_unions.html with radial placement, rotation, adaptive labels and former unions"
+)
