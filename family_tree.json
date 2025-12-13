@@ -381,7 +381,17 @@
           "birth": "02/01/1979",
           "death": "",
           "gen": 2,
-          "children": [],
+          "children": [
+            {
+              "name": "Copain Caroline BURET",
+              "id": 109,
+              "birth": "02/01/1979",
+              "death": "",
+              "gen": 2,
+              "children": [],
+              "isSpouse": true
+            }
+          ],
           "isSpouse": false
         },
         {
@@ -701,7 +711,7 @@
             {
               "name": "Amélie BARRET",
               "id": 91,
-              "birth": "",
+              "birth": "25/04/1986",
               "death": "",
               "gen": 2,
               "children": [],
