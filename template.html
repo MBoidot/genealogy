@@ -159,7 +159,7 @@
         assignPrimaryParents(root);
 
         // Assign radial positions and spouse offsets
-        const baseLinearSpacing = 15; // in pixels along the arc
+        const baseLinearSpacing = 20; // in pixels along the arc
         root.each(node => {
             node.y = getRadiusByBirth(node.data.birth);
             if (node.data.isSpouse) node.xOffset = baseLinearSpacing / node.y;

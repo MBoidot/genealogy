@@ -67,9 +67,9 @@
                           "union_type": "current"
                         },
                         {
-                          "id": 9,
-                          "name": "Tanguy  MILAN",
-                          "birth": "14/10/2000",
+                          "id": 10,
+                          "name": "Bastien  MILAN",
+                          "birth": "08/11/1998",
                           "death": "",
                           "gen": 3,
                           "gen_origin": "3",
@@ -77,9 +77,9 @@
                           "union_type": "current"
                         },
                         {
-                          "id": 10,
-                          "name": "Bastien  MILAN",
-                          "birth": "08/11/1998",
+                          "id": 9,
+                          "name": "Tanguy  MILAN",
+                          "birth": "14/10/2000",
                           "death": "",
                           "gen": 3,
                           "gen_origin": "3",
@@ -464,12 +464,12 @@
                   "gen_origin": "2",
                   "children": [
                     {
-                      "id": "42_union_0",
-                      "name": "(unknown spouse)",
-                      "birth": "",
+                      "id": "42_spouse_88",
+                      "name": "Ludovic  BOURSE",
+                      "birth": "01/04/1971",
                       "death": "",
                       "gen": 2,
-                      "gen_origin": "2",
+                      "gen_origin": "2'",
                       "children": [
                         {
                           "id": 43,
@@ -479,7 +479,7 @@
                           "gen": 3,
                           "gen_origin": "3",
                           "children": [],
-                          "union_type": "former"
+                          "union_type": "current"
                         },
                         {
                           "id": 44,
@@ -489,11 +489,11 @@
                           "gen": 3,
                           "gen_origin": "3",
                           "children": [],
-                          "union_type": "former"
+                          "union_type": "current"
                         }
                       ],
                       "isSpouse": true,
-                      "union_type": "former",
+                      "union_type": "current",
                       "xOffset": 0.0
                     }
                   ],
@@ -963,12 +963,12 @@
                   "gen_origin": "2",
                   "children": [
                     {
-                      "id": "67_union_0",
-                      "name": "(unknown spouse)",
+                      "id": "67_spouse_68",
+                      "name": "Vincent  CARONI",
                       "birth": "",
                       "death": "",
                       "gen": 2,
-                      "gen_origin": "2",
+                      "gen_origin": "2'",
                       "children": [
                         {
                           "id": 69,
@@ -978,7 +978,7 @@
                           "gen": 3,
                           "gen_origin": "3",
                           "children": [],
-                          "union_type": "former"
+                          "union_type": "current"
                         },
                         {
                           "id": 70,
@@ -988,11 +988,11 @@
                           "gen": 3,
                           "gen_origin": "3",
                           "children": [],
-                          "union_type": "former"
+                          "union_type": "current"
                         }
                       ],
                       "isSpouse": true,
-                      "union_type": "former",
+                      "union_type": "current",
                       "xOffset": 0.0
                     }
                   ],
@@ -1053,7 +1053,7 @@
                     {
                       "id": "75_spouse_76",
                       "name": "Nicolas  MAGERE",
-                      "birth": "? ",
+                      "birth": "25/01/1988",
                       "death": "",
                       "gen": 2,
                       "gen_origin": "2'",

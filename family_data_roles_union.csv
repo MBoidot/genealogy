@@ -1,146 +1,146 @@
 ﻿ID;Prenom;Nom;Gen;Naissance;Lieu de naissance;Deces;ID_pere;ID_mere;ID_Conjoint;Union_ID;Role;Note;Union_ID;Role;Remark;Gen_Origin
-1;Henry ;BOIDOT ;0;14/01/1919;Beauvais ;22/01/2002 ;;;2;U1;parent;;U1;parent;current_union;0
-2;Simone ;DURAND ;0;08/07/1919;Castelnaudary ;22/11/2004 ;;;1;U1;parent;;U1;parent;current_union;0'
-3;Jean-Paul ;BOIDOT ;1;12/06/1941;Issoudun ;25/03/2015 ;1;2;4;U1;child;;U1;child;child;1
-3;Jean-Paul ;BOIDOT ;1;12/06/1941;Issoudun ;25/03/2015 ;1;2;4;U2;parent;;U2;parent;current_union;1
-4;Anne-Marie ;BOIDOT-FAUSSOT ;1;01/01/1945;;;;;3;U2;parent;A vérifier (date);U2;parent;current_union;1'
-5;Véronique ;BOIDOT ;2;31/03/1964;;;3;4;;U2;child;;U2;child;child;2
-6;Catherine ;BOIDOT-MILAN ;2;28/05/1968;;;3;4;7;U2;child;;U2;child;child;2
-6;Catherine ;BOIDOT-MILAN ;2;28/05/1968;;;3;4;7;U3;parent;;U3;parent;current_union;2
-7;Marc ;MILAN ;2;11/11/1966;;;;;6;U3;parent;;U3;parent;current_union;2'
-8;Marion ;MILAN ;3;31/03/1997;;;7;6;;U3;child;;U3;child;child;3
-9;Tanguy ;MILAN ;3;14/10/2000;;;7;6;;U3;child;;U3;child;child;3
-10;Bastien ;MILAN ;3;08/11/1998;;;7;6;;U3;child;;U3;child;child;3
-11;Clara ;MILAN ;3;17/07/2004;;;7;6;;U3;child;;U3;child;child;3
-12;Hélène ;BOIDOT-DILLENSEGER ;2;09/06/1969;concarneau ;;3;4;13;U2;child;;U2;child;child;2
-12;Hélène ;BOIDOT-DILLENSEGER ;2;09/06/1969;concarneau ;;3;4;13;U4;parent;;U4;parent;current_union;2
-13;Rodolphe ;DILLENSEGER ;2;07/01/1970;Rueil Malmaison;;;;12;U4;parent;;U4;parent;current_union;2'
-14;Clément;DILLENSEGER ;3;17/09/1999;le Chesnay;;13;12;;U4;child;;U4;child;child;3
-15;Camille;DILLENSEGER ;3;15/09/2002;le Chesnay;;13;12;;U4;child;;U4;child;child;3
-16;François ;BOIDOT ;1;07/06/1943;Paris 1er ;;1;2;17;U1;child;;U1;child;child;1
-16;François ;BOIDOT ;1;07/06/1943;Paris 1er ;;1;2;17;U5;parent;;U5;parent;former_union;1
-16;François ;BOIDOT ;1;07/06/1943;Paris 1er ;;1;2;17;U33;parent;;U33;parent;union_no_children;1
-17;Brigitte ;ROYANT ;1;29/07/1952;Paris 15 ème ;;;;16;U33;parent;;U33;parent;union_no_children;1'
-18;Frédérique ;BOIDOT-LELIEVRE ;2;03/09/1970;Conflans Ste Honorine ;;16;87;19;U5;child;;U5;child;child;2
-18;Frédérique ;BOIDOT-LELIEVRE ;2;03/09/1970;Conflans Ste Honorine ;;16;87;19;U6;parent;;U6;parent;current_union;2
-19;Vincent ;LELIEVRE ;2;10/04/1966;;;;;18;U6;parent;;U6;parent;current_union;2'
-20;Gabin ;LELIEVRE ;3;05/02/2002;;;19;18;;U6;child;;U6;child;child;3
-21;Lucile ;LELIEVRE ;3;05/02/2002;;;19;18;;U6;child;;U6;child;child;3
-22;Jean-Pierre ;BOIDOT ;1;25/08/1944;Valence en Brie ;;1;2;23;U1;child;;U1;child;child;1
-22;Jean-Pierre ;BOIDOT ;1;25/08/1944;Valence en Brie ;;1;2;23;U7;parent;;U7;parent;current_union;1
-23;Claudine ;BOIDOT-DUFOUR ;1;17/05/1948;Paris 15ème ;;;;22;U7;parent;;U7;parent;current_union;1'
-24;Florence ;BOIDOT ;2;04/02/1968;Enghien les Bains ;;22;23;;U7;child;;U7;child;child;2
-25;Delphine ;BOIDOT ;2;16/10/1970;Versailles ;;22;23;26;U7;child;;U7;child;child;2
-25;Delphine ;BOIDOT ;2;16/10/1970;Versailles ;;22;23;26;U8;parent;;U8;parent;current_union;2
-26;Conjoint delphine ;BRADLEY;2;;;;;;25;U8;parent;A vérifier (date+nom);U8;parent;current_union;2'
-27;Joshua ;BRADLEY;3;01/02/2002;;;26;25;;U8;child;A vérifier (date);U8;child;child;3
-28;Martine ;BOIDOT ;1;28/08/1945;Paris 1er ;;1;2;29;U1;child;;U1;child;child;1
-28;Martine ;BOIDOT ;1;28/08/1945;Paris 1er ;;1;2;29;U34;parent;;U34;parent;union_no_children;1
-29;Jacques ;POTY ;1;23/01/1950;Paris 6ème ;;;;28;U34;parent;;U34;parent;union_no_children;1'
-30;Patrick ;BOIDOT ;1;01/08/1947;Paris ;;1;2;31;U1;child;;U1;child;child;1
-30;Patrick ;BOIDOT ;1;01/08/1947;Paris ;;1;2;31;U9;parent;;U9;parent;current_union;1
-31;Claudie ;BOISSEAU ;1;16/10/1947;Laval ;;;;30;U9;parent;;U9;parent;current_union;1'
-32;Julien ;BOIDOT ;2;28/08/1981;Briey ;;30;31;33;U9;child;;U9;child;child;2
-32;Julien ;BOIDOT ;2;28/08/1981;Briey ;;30;31;33;U10;parent;;U10;parent;current_union;2
-33;Sandra ;LEROUX ;2;10/01/1981;?? ;;;;32;U10;parent;;U10;parent;current_union;2'
-34;Diane ;BOIDOT ;3;26/11/2011;Paris ;;32;33;;U10;child;;U10;child;child;3
-35;Irène ;BOIDOT ;3;16/11/2014;Paris ;;32;33;;U10;child;;U10;child;child;3
-36;Mathieu ;BOIDOT ;2;01/09/1983;Briey ;;30;31;37;U9;child;;U9;child;child;2
-36;Mathieu ;BOIDOT ;2;01/09/1983;Briey ;;30;31;37;U11;parent;;U11;parent;current_union;2
-37;Gaëlle ;UZU ;2;25/08/1982;Moulins ;;;;36;U11;parent;;U11;parent;current_union;2'
-38;Paulin ;BOIDOT ;3;08/12/2012;Grenoble ;;36;37;;U11;child;;U11;child;child;3
-39;Victor ;BOIDOT ;3;22/04/2015;Grenoble ;;36;37;;U11;child;;U11;child;child;3
-40;Marie-Christine;BOIDOT-BURET ;1;20/10/1948;Paris 1er ;;1;2;41;U1;child;;U1;child;child;1
-40;Marie-Christine;BOIDOT-BURET ;1;20/10/1948;Paris 1er ;;1;2;41;U12;parent;;U12;parent;current_union;1
-41;Yvon  ;BURET ;1;28/02/1947;Caen ;;;;40;U12;parent;;U12;parent;current_union;1
-42;Anne ;BURET ;2;05/08/1972;Ris Orangis ;;41;40;;U12;child;;U12;child;child;2
-42;Anne ;BURET ;2;05/08/1972;Ris Orangis ;;41;40;;U13;parent;;U13;parent;former_union;2
-43;Ewen ;BOURSE ;3;09/03/2005;Lyon;;88;42;;U13;child;;U13;child;child;3
-44;Ethan ;BOURSE ;3;04/04/2010;Lyon;;88;42;;U13;child;;U13;child;child;3
-45;Caroline ;BURET ;2;02/01/1979;Ris Orangis ;;41;40;109;U12;child;;U12;child;child;2
-45;Caroline ;BURET ;2;02/01/1979;Ris Orangis ;;41;40;109;U35;parent;;U35;parent;union_no_children;2
-46;Christian ;BOIDOT ;1;15/12/1949;Paris 1er ;;1;2;47;U1;child;;U1;child;child;1
-46;Christian ;BOIDOT ;1;15/12/1949;Paris 1er ;;1;2;47;U14;parent;;U14;parent;former_union;1
-46;Christian ;BOIDOT ;1;15/12/1949;Paris 1er ;;1;2;47;U18;parent;;U18;parent;current_union;1
-46;Christian ;BOIDOT ;1;15/12/1949;Paris 1er ;;1;2;47;U20;parent;;U20;parent;former_union;1
-47;Dominique ;?? ;1;15/12/1949;;;;;46;U18;parent;A vérifier (date);U18;parent;current_union;1
-48;Sandrine ;BOIDOT ;2;03/05/1973;Rodez;;46;97;96;U14;child;;U14;child;child;2
-48;Sandrine ;BOIDOT ;2;03/05/1973;Rodez;;46;97;96;U15;parent;;U15;parent;current_union;2
-49;Richard ;BOIDOT ;2;06/06/1974;;;46;47;93;U18;child;;U18;child;child;2
-49;Richard ;BOIDOT ;2;06/06/1974;;;46;47;93;U19;parent;;U19;parent;current_union;2
-50;Françoise ;BOIDOT-GOAS ;1;21/07/1953;Andrésy ;;1;2;51;U1;child;;U1;child;child;1
-50;Françoise ;BOIDOT-GOAS ;1;21/07/1953;Andrésy ;;1;2;51;U21;parent;;U21;parent;current_union;1
-51;Yves ;GOAS ;1;13/08/1953;Dinard ;;;;50;U21;parent;;U21;parent;current_union;1
-52;Claire ;GOAS-MAFFRE ;2;03/07/1984;Albi ;;51;50;53;U21;child;;U21;child;child;2
-52;Claire ;GOAS-MAFFRE ;2;03/07/1984;Albi ;;51;50;53;U22;parent;;U22;parent;current_union;2
-53;Guillaume ;MAFFRE ;2;02/12/1977;Carcassonne;;;;52;U22;parent;;U22;parent;current_union;2'
-54;Mathilde;MAFFRE ;3;14/02/2010;Albi ;;53;52;;U22;child;;U22;child;child;3
-55;Arthur;MAFFRE ;3;27/03/2013;Albi ;;53;52;;U22;child;;U22;child;child;3
-56;Thomas ;MAFFRE ;3;12/10/2015;Albi ;;53;52;;U22;child;;U22;child;child;3
-57;Henry ;MAFFRE ;3;10/07/2019;Albi ;;53;52;;U22;child;;U22;child;child;3
-58;Isabelle ;GOAS-CANTY ;2;08/06/1987;Albi ;;51;50;59;U21;child;;U21;child;child;2
-58;Isabelle ;GOAS-CANTY ;2;08/06/1987;Albi ;;51;50;59;U23;parent;;U23;parent;current_union;2
-59;Jérémie ;CANTY ;2;07/06/1985;;;;;58;U23;parent;;U23;parent;current_union;2
-60;Jeanne;CANTY ;3;12/10/2014;;;59;58;;U23;child;A vérifier (date);U23;child;child;3
-61;Clémence ;CANTY ;3;27/03/2019;;;59;58;;U23;child;A vérifier (date);U23;child;child;3
-62;Anne-Marie ;BOIDOT ;1;20/07/1954;Andrésy ;;1;2;63;U1;child;;U1;child;child;1
-62;Anne-Marie ;BOIDOT ;1;20/07/1954;Andrésy ;;1;2;63;U24;parent;;U24;parent;current_union;1
-63;Pierre ;MILAN ;1;16/08/1958;Avignon ;;;;62;U24;parent;;U24;parent;current_union;1'
-64;Nicolas ;MILAN ;2;25/04/1986;Avignon ;;63;62;91;U24;child;;U24;child;child;2
-64;Nicolas ;MILAN ;2;25/04/1986;Avignon ;;63;62;91;U25;parent;;U25;parent;former_union;2
-64;Nicolas ;MILAN ;2;25/04/1986;Avignon ;;63;62;91;U26;parent;;U26;parent;current_union;2
-65;Timothée  ;MILAN ;3;29/03/2018;Avignon ;;64;90;;U25;child;;U25;child;child;3
-66;Charlie  ;MILAN ;3;01/12/2021;Marseille  ;;64;91;;U26;child;;U26;child;child;3
-67;Marie-Anne ;MILAN ;2;27/12/1988;Avignon ;;63;62;;U24;child;;U24;child;child;2
-67;Marie-Anne ;MILAN ;2;27/12/1988;Avignon ;;63;62;;U27;parent;;U27;parent;former_union;2
-68;Vincent ;CARONI ;2;;;;;;;U27;parent;;U27;parent;former_union;2'
-69;Paul ;CARONI ;3;30/03/2017;Marseille ;;68;67;;U27;child;;U27;child;child;3
-70;Agnes  ;CARONI ;3;09/02/2020;Marseille ;;68;67;;U27;child;;U27;child;child;3
-71;René ;MILAN ;2;01/07/1990;Avignon ;;63;62;72;U24;child;;U24;child;child;2
-71;René ;MILAN ;2;01/07/1990;Avignon ;;63;62;72;U28;parent;;U28;parent;current_union;2
-72;Ludivine ;?? ;2;;;;;;71;U28;parent;;U28;parent;current_union;2'
-73;Louis ;MILAN ;3;06/03/2017;Avignon ;;71;72;;U28;child;;U28;child;child;3
-74;Anaelle ;MILAN ;3;02/07/2019;Avignon ;;71;72;;U28;child;;U28;child;child;3
-75;Clémence ;MILAN ;2;12/08/1992;Avignon ;;63;62;76;U24;child;;U24;child;child;2
-75;Clémence ;MILAN ;2;12/08/1992;Avignon ;;63;62;76;U29;parent;;U29;parent;current_union;2
-76;Nicolas ;MAGERE ;2;? ;;;;;75;U29;parent;A vérifier (date);U29;parent;current_union;2'
-77;Marceau ;MAGERE ;3;15/02/2025;;;76;75;;U29;child;;U29;child;child;3
-78;Michel ;BOIDOT ;1;17/07/1957;Andrésy ;;1;2;79;U1;child;;U1;child;child;1
-78;Michel ;BOIDOT ;1;17/07/1957;Andrésy ;;1;2;79;U30;parent;;U30;parent;current_union;1
-79;Sylvie ;BOIDOT-ROSSIGNOL ;1;21/11/1961;Evreux ;;;;78;U30;parent;;U30;parent;current_union;1
-80;Virginie ;BOIDOT-MINERVINI ;2;23/12/1986;Montpellier ;;78;79;81;U30;child;;U30;child;child;2
-80;Virginie ;BOIDOT-MINERVINI ;2;23/12/1986;Montpellier ;;78;79;81;U31;parent;;U31;parent;current_union;2
-81;Lucas ;MINERVINI ;2;07/09/1985;Besançon ;;;;80;U31;parent;;U31;parent;current_union;2'
-82;Sacha ;MINERVINI ;3;13/08/2017;;;81;80;;U31;child;;U31;child;child;3
-83;Simon ;MINERVINI ;3;09/01/2021;;;81;80;;U31;child;;U31;child;child;3
-84;Thomas ;BOIDOT ;2;24/06/1992;St Claude ;;78;79;85;U30;child;;U30;child;child;2
-84;Thomas ;BOIDOT ;2;24/06/1992;St Claude ;;78;79;85;U32;parent;;U32;parent;current_union;2
-85;Lucie ;?? ;2;04/05/1984;Angers ? ;;;;84;U32;parent;A vérifier (Nom);U32;parent;current_union;2'
-86;Milo ;BOIDOT ;3;16/01/2025;Angers ;;84;85;;U32;child;;U32;child;child;3
-87;Nicole ;MALAIRAN ;1;23/07/1945;;;;;16;U5;parent;;U5;parent;former_union;1'
-88;Ludovic ;BOURSE ;2;01/04/1971;Pantin;;;;;U13;parent;;U13;parent;former_union;2'
-89;Héloise ;LETINTURIER ;2;04/10/2001;;;46;98;;U20;child;A vérifier (date);U20;child;child;2
-90;Swan ;;2;25/10/1986;;;;;64;U25;parent;A vérifier (Nom);U25;parent;former_union;2'
-91;Amélie;BARRET;2;25/02/1986;;;;;64;U26;parent;A vérifier (date);U26;parent;current_union;2'
-92;Thomas ;LELIEVRE ;3;25/03/1997;;;19;;;;single;;;single;single_parent;3'
-93;Ludivine ;LAGRES;2;;;;;;49;U19;parent;A vérifier (date);U19;parent;current_union;2'
-94;Azélie;BOIDOT ;3;13/03/2004;;;49;93;;U19;child;;U19;child;child;3
-95;Iphygénie;BOIDOT ;3;16/10/2010;;;49;93;;U19;child;;U19;child;child;3
-96;Francisco;Ferreira de Carvalho;2;02/12/1973;;;;;48;U15;parent;A vérifier (date);U15;parent;current_union;2'
+1;Henry ;BOIDOT ;0;14/01/1919;Beauvais ;22/01/2002 ;;;2.0;U1;parent;;U1;parent;current_union;0
+2;Simone ;DURAND ;0;08/07/1919;Castelnaudary ;22/11/2004 ;;;1.0;U1;parent;;U1;parent;current_union;0'
+3;Jean-Paul ;BOIDOT ;1;12/06/1941;Issoudun ;25/03/2015 ;1.0;2.0;4.0;U1;child;;U1;child;child;1
+16;François ;BOIDOT ;1;07/06/1943;Paris 1er ;;1.0;2.0;17.0;U1;child;;U1;child;child;1
+22;Jean-Pierre ;BOIDOT ;1;25/08/1944;Valence en Brie ;;1.0;2.0;23.0;U1;child;;U1;child;child;1
+28;Martine ;BOIDOT ;1;28/08/1945;Paris 1er ;;1.0;2.0;29.0;U1;child;;U1;child;child;1
+30;Patrick ;BOIDOT ;1;01/08/1947;Paris ;;1.0;2.0;31.0;U1;child;;U1;child;child;1
+40;Marie-Christine;BOIDOT-BURET ;1;20/10/1948;Paris 1er ;;1.0;2.0;41.0;U1;child;;U1;child;child;1
+46;Christian ;BOIDOT ;1;15/12/1949;Paris 1er ;;1.0;2.0;47.0;U1;child;;U1;child;child;1
+50;Françoise ;BOIDOT-GOAS ;1;21/07/1953;Andrésy ;;1.0;2.0;51.0;U1;child;;U1;child;child;1
+62;Anne-Marie ;BOIDOT ;1;20/07/1954;Andrésy ;;1.0;2.0;63.0;U1;child;;U1;child;child;1
+78;Michel ;BOIDOT ;1;17/07/1957;Andrésy ;;1.0;2.0;79.0;U1;child;;U1;child;child;1
+3;Jean-Paul ;BOIDOT ;1;12/06/1941;Issoudun ;25/03/2015 ;1.0;2.0;4.0;U2;parent;;U2;parent;current_union;1
+4;Anne-Marie ;BOIDOT-FAUSSOT ;1;01/01/1945;;;;;3.0;U2;parent;A vérifier (date);U2;parent;current_union;1'
+5;Véronique ;BOIDOT ;2;31/03/1964;;;3.0;4.0;;U2;child;;U2;child;child;2
+6;Catherine ;BOIDOT-MILAN ;2;28/05/1968;;;3.0;4.0;7.0;U2;child;;U2;child;child;2
+12;Hélène ;BOIDOT-DILLENSEGER ;2;09/06/1969;concarneau ;;3.0;4.0;13.0;U2;child;;U2;child;child;2
+6;Catherine ;BOIDOT-MILAN ;2;28/05/1968;;;3.0;4.0;7.0;U3;parent;;U3;parent;current_union;2
+7;Marc ;MILAN ;2;11/11/1966;;;;;6.0;U3;parent;;U3;parent;current_union;2'
+8;Marion ;MILAN ;3;31/03/1997;;;7.0;6.0;;U3;child;;U3;child;child;3
+10;Bastien ;MILAN ;3;08/11/1998;;;7.0;6.0;;U3;child;;U3;child;child;3
+9;Tanguy ;MILAN ;3;14/10/2000;;;7.0;6.0;;U3;child;;U3;child;child;3
+11;Clara ;MILAN ;3;17/07/2004;;;7.0;6.0;;U3;child;;U3;child;child;3
+12;Hélène ;BOIDOT-DILLENSEGER ;2;09/06/1969;concarneau ;;3.0;4.0;13.0;U4;parent;;U4;parent;current_union;2
+13;Rodolphe ;DILLENSEGER ;2;07/01/1970;Rueil Malmaison;;;;12.0;U4;parent;;U4;parent;current_union;2'
+14;Clément;DILLENSEGER ;3;17/09/1999;le Chesnay;;13.0;12.0;;U4;child;;U4;child;child;3
+15;Camille;DILLENSEGER ;3;15/09/2002;le Chesnay;;13.0;12.0;;U4;child;;U4;child;child;3
+16;François ;BOIDOT ;1;07/06/1943;Paris 1er ;;1.0;2.0;17.0;U5;parent;;U5;parent;former_union;1
+87;Nicole ;MALAIRAN ;1;23/07/1945;;;;;16.0;U5;parent;;U5;parent;former_union;1'
+18;Frédérique ;BOIDOT-LELIEVRE ;2;03/09/1970;Conflans Ste Honorine ;;16.0;87.0;19.0;U5;child;;U5;child;child;2
+18;Frédérique ;BOIDOT-LELIEVRE ;2;03/09/1970;Conflans Ste Honorine ;;16.0;87.0;19.0;U6;parent;;U6;parent;current_union;2
+19;Vincent ;LELIEVRE ;2;10/04/1966;;;;;18.0;U6;parent;;U6;parent;current_union;2'
+20;Gabin ;LELIEVRE ;3;05/02/2002;;;19.0;18.0;;U6;child;;U6;child;child;3
+21;Lucile ;LELIEVRE ;3;05/02/2002;;;19.0;18.0;;U6;child;;U6;child;child;3
+22;Jean-Pierre ;BOIDOT ;1;25/08/1944;Valence en Brie ;;1.0;2.0;23.0;U7;parent;;U7;parent;current_union;1
+23;Claudine ;BOIDOT-DUFOUR ;1;17/05/1948;Paris 15ème ;;;;22.0;U7;parent;;U7;parent;current_union;1'
+24;Florence ;BOIDOT ;2;04/02/1968;Enghien les Bains ;;22.0;23.0;;U7;child;;U7;child;child;2
+25;Delphine ;BOIDOT ;2;16/10/1970;Versailles ;;22.0;23.0;26.0;U7;child;;U7;child;child;2
+25;Delphine ;BOIDOT ;2;16/10/1970;Versailles ;;22.0;23.0;26.0;U8;parent;;U8;parent;current_union;2
+26;Conjoint delphine ;BRADLEY;2;;;;;;25.0;U8;parent;A vérifier (date+nom);U8;parent;current_union;2'
+27;Joshua ;BRADLEY;3;01/02/2002;;;26.0;25.0;;U8;child;A vérifier (date);U8;child;child;3
+30;Patrick ;BOIDOT ;1;01/08/1947;Paris ;;1.0;2.0;31.0;U9;parent;;U9;parent;current_union;1
+31;Claudie ;BOISSEAU ;1;16/10/1947;Laval ;;;;30.0;U9;parent;;U9;parent;current_union;1'
+32;Julien ;BOIDOT ;2;28/08/1981;Briey ;;30.0;31.0;33.0;U9;child;;U9;child;child;2
+36;Mathieu ;BOIDOT ;2;01/09/1983;Briey ;;30.0;31.0;37.0;U9;child;;U9;child;child;2
+32;Julien ;BOIDOT ;2;28/08/1981;Briey ;;30.0;31.0;33.0;U10;parent;;U10;parent;current_union;2
+33;Sandra ;LEROUX ;2;10/01/1981;?? ;;;;32.0;U10;parent;;U10;parent;current_union;2'
+34;Diane ;BOIDOT ;3;26/11/2011;Paris ;;32.0;33.0;;U10;child;;U10;child;child;3
+35;Irène ;BOIDOT ;3;16/11/2014;Paris ;;32.0;33.0;;U10;child;;U10;child;child;3
+36;Mathieu ;BOIDOT ;2;01/09/1983;Briey ;;30.0;31.0;37.0;U11;parent;;U11;parent;current_union;2
+37;Gaëlle ;UZU ;2;25/08/1982;Moulins ;;;;36.0;U11;parent;;U11;parent;current_union;2'
+38;Paulin ;BOIDOT ;3;08/12/2012;Grenoble ;;36.0;37.0;;U11;child;;U11;child;child;3
+39;Victor ;BOIDOT ;3;22/04/2015;Grenoble ;;36.0;37.0;;U11;child;;U11;child;child;3
+40;Marie-Christine;BOIDOT-BURET ;1;20/10/1948;Paris 1er ;;1.0;2.0;41.0;U12;parent;;U12;parent;current_union;1
+41;Yvon  ;BURET ;1;28/02/1947;Caen ;;;;40.0;U12;parent;;U12;parent;current_union;1
+42;Anne ;BURET ;2;05/08/1972;Ris Orangis ;;41.0;40.0;88.0;U12;child;;U12;child;child;2
+45;Caroline ;BURET ;2;02/01/1979;Ris Orangis ;;41.0;40.0;109.0;U12;child;;U12;child;child;2
+42;Anne ;BURET ;2;05/08/1972;Ris Orangis ;;41.0;40.0;88.0;U13;parent;;U13;parent;current_union;2
+88;Ludovic ;BOURSE ;2;01/04/1971;Pantin;;;;42.0;U13;parent;;U13;parent;current_union;2'
+43;Ewen ;BOURSE ;3;09/03/2005;Lyon;;88.0;42.0;;U13;child;;U13;child;child;3
+44;Ethan ;BOURSE ;3;04/04/2010;Lyon;;88.0;42.0;;U13;child;;U13;child;child;3
+46;Christian ;BOIDOT ;1;15/12/1949;Paris 1er ;;1.0;2.0;47.0;U14;parent;;U14;parent;former_union;1
 97;Marie-José;GINTRAND;1;07/08/1957;Centrès;;;;;U14;parent;;U14;parent;former_union;1'
+48;Sandrine ;BOIDOT ;2;03/05/1973;Rodez;;46.0;97.0;96.0;U14;child;;U14;child;child;2
+48;Sandrine ;BOIDOT ;2;03/05/1973;Rodez;;46.0;97.0;96.0;U15;parent;;U15;parent;current_union;2
+96;Francisco;Ferreira de Carvalho;2;02/12/1973;;;;;48.0;U15;parent;A vérifier (date);U15;parent;current_union;2'
+99;Jonathan;de Carvalho;3;15/01/1992;;;96.0;48.0;100.0;U15;child;;U15;child;child;3
+102;Dany;de Carvalho;3;04/12/1993;;;96.0;48.0;103.0;U15;child;;U15;child;child;3
+105;Dylan;de Carvalho;3;21/08/1999;;;96.0;48.0;106.0;U15;child;;U15;child;child;3
+99;Jonathan;de Carvalho;3;15/01/1992;;;96.0;48.0;100.0;U16;parent;;U16;parent;current_union;3
+100;Alicia;MESTRE;3;01/01/1995;;;;;99.0;U16;parent;A vérifier (date);U16;parent;current_union;3'
+101;Louise;de Carvalho;4;16/04/2023;;;99.0;100.0;;U16;child;;U16;child;child;4
+102;Dany;de Carvalho;3;04/12/1993;;;96.0;48.0;103.0;U17;parent;;U17;parent;current_union;3
+103;Elodie;PERIAU;3;01/01/1997;;;;;102.0;U17;parent;A vérifier (date);U17;parent;current_union;3'
+104;Rakel;de Carvalho;4;25/12/2022;;;102.0;103.0;;U17;child;;U17;child;child;4
+46;Christian ;BOIDOT ;1;15/12/1949;Paris 1er ;;1.0;2.0;47.0;U18;parent;;U18;parent;current_union;1
+47;Dominique ;?? ;1;15/12/1949;;;;;46.0;U18;parent;A vérifier (date);U18;parent;current_union;1
+49;Richard ;BOIDOT ;2;06/06/1974;;;46.0;47.0;93.0;U18;child;;U18;child;child;2
+49;Richard ;BOIDOT ;2;06/06/1974;;;46.0;47.0;93.0;U19;parent;;U19;parent;current_union;2
+93;Ludivine ;LAGRES;2;;;;;;49.0;U19;parent;A vérifier (date);U19;parent;current_union;2'
+94;Azélie;BOIDOT ;3;13/03/2004;;;49.0;93.0;;U19;child;;U19;child;child;3
+95;Iphygénie;BOIDOT ;3;16/10/2010;;;49.0;93.0;;U19;child;;U19;child;child;3
+46;Christian ;BOIDOT ;1;15/12/1949;Paris 1er ;;1.0;2.0;47.0;U20;parent;;U20;parent;former_union;1
 98;Jacqueline;LETINTURIER ;1;15/12/1949;;;;;;U20;parent;A vérifier (date);U20;parent;former_union;1'
-99;Jonathan;de Carvalho;3;15/01/1992;;;96;48;100;U15;child;;U15;child;child;3
-99;Jonathan;de Carvalho;3;15/01/1992;;;96;48;100;U16;parent;;U16;parent;current_union;3
-100;Alicia;MESTRE;3;01/01/1995;;;;;99;U16;parent;A vérifier (date);U16;parent;current_union;3'
-101;Louise;de Carvalho;4;16/04/2023;;;99;100;;U16;child;;U16;child;child;4
-102;Dany;de Carvalho;3;04/12/1993;;;96;48;103;U15;child;;U15;child;child;3
-102;Dany;de Carvalho;3;04/12/1993;;;96;48;103;U17;parent;;U17;parent;current_union;3
-103;Elodie;PERIAU;3;01/01/1997;;;;;102;U17;parent;A vérifier (date);U17;parent;current_union;3'
-104;Rakel;de Carvalho;4;25/12/2022;;;102;103;;U17;child;;U17;child;child;4
-105;Dylan;de Carvalho;3;21/08/1999;;;96;48;106;U15;child;;U15;child;child;3
-105;Dylan;de Carvalho;3;21/08/1999;;;96;48;106;U36;parent;;U36;parent;union_no_children;3
-106;Conjointe Garcon 3 sandrine;?? ;3;01/01/1999;;;;;105;U36;parent;Si existante;U36;parent;union_no_children;3'
-108;Carole;MORVAN;2;03/09/1970;Paris;;;17;;;single;A vérifier (date+nom);;single;single_parent;2
-109;Yann;DRESAC;2;17/10/1978;St Malo;;;;45;U35;parent;;U35;parent;union_no_children;2'
-110;Jules;DRESAC;3;01/10/2006;St Grégoire;;109;;;;single;;;single;single_parent;3
-111;Lili;DRESAC;3;25/05/2009;St Grégoire;;109;;;;single;;;single;single_parent;3
+89;Héloise ;LETINTURIER ;2;04/10/2001;;;46.0;98.0;;U20;child;A vérifier (date);U20;child;child;2
+50;Françoise ;BOIDOT-GOAS ;1;21/07/1953;Andrésy ;;1.0;2.0;51.0;U21;parent;;U21;parent;current_union;1
+51;Yves ;GOAS ;1;13/08/1953;Dinard ;;;;50.0;U21;parent;;U21;parent;current_union;1
+52;Claire ;GOAS-MAFFRE ;2;03/07/1984;Albi ;;51.0;50.0;53.0;U21;child;;U21;child;child;2
+58;Isabelle ;GOAS-CANTY ;2;08/06/1987;Albi ;;51.0;50.0;59.0;U21;child;;U21;child;child;2
+52;Claire ;GOAS-MAFFRE ;2;03/07/1984;Albi ;;51.0;50.0;53.0;U22;parent;;U22;parent;current_union;2
+53;Guillaume ;MAFFRE ;2;02/12/1977;Carcassonne;;;;52.0;U22;parent;;U22;parent;current_union;2'
+54;Mathilde;MAFFRE ;3;14/02/2010;Albi ;;53.0;52.0;;U22;child;;U22;child;child;3
+55;Arthur;MAFFRE ;3;27/03/2013;Albi ;;53.0;52.0;;U22;child;;U22;child;child;3
+56;Thomas ;MAFFRE ;3;12/10/2015;Albi ;;53.0;52.0;;U22;child;;U22;child;child;3
+57;Henry ;MAFFRE ;3;10/07/2019;Albi ;;53.0;52.0;;U22;child;;U22;child;child;3
+58;Isabelle ;GOAS-CANTY ;2;08/06/1987;Albi ;;51.0;50.0;59.0;U23;parent;;U23;parent;current_union;2
+59;Jérémie ;CANTY ;2;07/06/1985;;;;;58.0;U23;parent;;U23;parent;current_union;2
+60;Jeanne;CANTY ;3;12/10/2014;;;59.0;58.0;;U23;child;;U23;child;child;3
+61;Clémence ;CANTY ;3;27/03/2019;;;59.0;58.0;;U23;child;;U23;child;child;3
+62;Anne-Marie ;BOIDOT ;1;20/07/1954;Andrésy ;;1.0;2.0;63.0;U24;parent;;U24;parent;current_union;1
+63;Pierre ;MILAN ;1;16/08/1958;Avignon ;;;;62.0;U24;parent;;U24;parent;current_union;1'
+64;Nicolas ;MILAN ;2;25/04/1986;Avignon ;;63.0;62.0;91.0;U24;child;;U24;child;child;2
+67;Marie-Anne ;MILAN ;2;27/12/1988;Avignon ;;63.0;62.0;68.0;U24;child;;U24;child;child;2
+71;René ;MILAN ;2;01/07/1990;Avignon ;;63.0;62.0;72.0;U24;child;;U24;child;child;2
+75;Clémence ;MILAN ;2;12/08/1992;Avignon ;;63.0;62.0;76.0;U24;child;;U24;child;child;2
+64;Nicolas ;MILAN ;2;25/04/1986;Avignon ;;63.0;62.0;91.0;U25;parent;;U25;parent;former_union;2
+90;Swan ;;2;25/10/1986;;;;;64.0;U25;parent;A vérifier (Nom);U25;parent;former_union;2'
+65;Timothée  ;MILAN ;3;29/03/2018;Avignon ;;64.0;90.0;;U25;child;;U25;child;child;3
+64;Nicolas ;MILAN ;2;25/04/1986;Avignon ;;63.0;62.0;91.0;U26;parent;;U26;parent;current_union;2
+91;Amélie;BARRET;2;25/02/1986;;;;;64.0;U26;parent;A vérifier (date);U26;parent;current_union;2'
+66;Charlie  ;MILAN ;3;01/12/2021;Marseille  ;;64.0;91.0;;U26;child;;U26;child;child;3
+67;Marie-Anne ;MILAN ;2;27/12/1988;Avignon ;;63.0;62.0;68.0;U27;parent;;U27;parent;current_union;2
+68;Vincent ;CARONI ;2;;;;;;67.0;U27;parent;;U27;parent;current_union;2'
+69;Paul ;CARONI ;3;30/03/2017;Marseille ;;68.0;67.0;;U27;child;;U27;child;child;3
+70;Agnes  ;CARONI ;3;09/02/2020;Marseille ;;68.0;67.0;;U27;child;;U27;child;child;3
+71;René ;MILAN ;2;01/07/1990;Avignon ;;63.0;62.0;72.0;U28;parent;;U28;parent;current_union;2
+72;Ludivine ;?? ;2;;;;;;71.0;U28;parent;;U28;parent;current_union;2'
+73;Louis ;MILAN ;3;06/03/2017;Avignon ;;71.0;72.0;;U28;child;;U28;child;child;3
+74;Anaelle ;MILAN ;3;02/07/2019;Avignon ;;71.0;72.0;;U28;child;;U28;child;child;3
+75;Clémence ;MILAN ;2;12/08/1992;Avignon ;;63.0;62.0;76.0;U29;parent;;U29;parent;current_union;2
+76;Nicolas ;MAGERE ;2;25/01/1988;Arles;;;;75.0;U29;parent;;U29;parent;current_union;2'
+77;Marceau ;MAGERE ;3;15/02/2025;;;76.0;75.0;;U29;child;;U29;child;child;3
+78;Michel ;BOIDOT ;1;17/07/1957;Andrésy ;;1.0;2.0;79.0;U30;parent;;U30;parent;current_union;1
+79;Sylvie ;BOIDOT-ROSSIGNOL ;1;21/11/1961;Evreux ;;;;78.0;U30;parent;;U30;parent;current_union;1
+80;Virginie ;BOIDOT-MINERVINI ;2;23/12/1986;Montpellier ;;78.0;79.0;81.0;U30;child;;U30;child;child;2
+84;Thomas ;BOIDOT ;2;24/06/1992;St Claude ;;78.0;79.0;85.0;U30;child;;U30;child;child;2
+80;Virginie ;BOIDOT-MINERVINI ;2;23/12/1986;Montpellier ;;78.0;79.0;81.0;U31;parent;;U31;parent;current_union;2
+81;Lucas ;MINERVINI ;2;07/09/1985;Besançon ;;;;80.0;U31;parent;;U31;parent;current_union;2'
+82;Sacha ;MINERVINI ;3;13/08/2017;;;81.0;80.0;;U31;child;;U31;child;child;3
+83;Simon ;MINERVINI ;3;09/01/2021;;;81.0;80.0;;U31;child;;U31;child;child;3
+84;Thomas ;BOIDOT ;2;24/06/1992;St Claude ;;78.0;79.0;85.0;U32;parent;;U32;parent;current_union;2
+85;Lucie ;?? ;2;04/05/1984;Angers ? ;;;;84.0;U32;parent;A vérifier (Nom);U32;parent;current_union;2'
+86;Milo ;BOIDOT ;3;16/01/2025;Angers ;;84.0;85.0;;U32;child;;U32;child;child;3
+16;François ;BOIDOT ;1;07/06/1943;Paris 1er ;;1.0;2.0;17.0;U33;parent;;U33;parent;union_no_children;1
+17;Brigitte ;ROYANT ;1;29/07/1952;Paris 15 ème ;;;;16.0;U33;parent;;U33;parent;union_no_children;1'
+28;Martine ;BOIDOT ;1;28/08/1945;Paris 1er ;;1.0;2.0;29.0;U34;parent;;U34;parent;union_no_children;1
+29;Jacques ;POTY ;1;23/01/1950;Paris 6ème ;;;;28.0;U34;parent;;U34;parent;union_no_children;1'
+45;Caroline ;BURET ;2;02/01/1979;Ris Orangis ;;41.0;40.0;109.0;U35;parent;;U35;parent;union_no_children;2
+109;Yann;DRESAC;2;17/10/1978;St Malo;;;;45.0;U35;parent;;U35;parent;union_no_children;2'
+105;Dylan;de Carvalho;3;21/08/1999;;;96.0;48.0;106.0;U36;parent;;U36;parent;union_no_children;3
+106;Conjointe Garcon 3 sandrine;?? ;3;01/01/1999;;;;;105.0;U36;parent;Si existante;U36;parent;union_no_children;3'
+108;Carole;MORVAN;2;03/09/1970;Paris;;;17.0;;;single;A vérifier (date+nom);;single;single_parent;2
+92;Thomas ;LELIEVRE ;3;25/03/1997;;;19.0;;;;single;;;single;single_parent;3'
+110;Jules;DRESAC;3;01/10/2006;St Grégoire;;109.0;;;;single;;;single;single_parent;3
+111;Lili;DRESAC;3;25/05/2009;St Grégoire;;109.0;;;;single;;;single;single_parent;3

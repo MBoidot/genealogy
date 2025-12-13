@@ -1,0 +1,5 @@
+ID ;Prenom ;Nom ;Gen ;Naissance ;Lieu de naissance ;Deces;ID_pere ;ID_mere ;ID_Conjoint ;Union_ID;Role;Note
+45 ;Caroline ;BURET ;2 ;02/01/1979;Ris Orangis ;;41 ;40 ;109;;;
+109;Yann;DRESAC;2';17/10/1978;St Malo;;/;/;45;;;
+110;Jules;DRESAC;3;01/10/2006;St Grégoire;;109;/;/;;;
+111;Lili;DRESAC;3;25/05/2009;St Grégoire;;109;/;/;;;

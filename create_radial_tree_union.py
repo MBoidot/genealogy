@@ -102,8 +102,9 @@ def build_node(pid, visited=None):
 
     unions = [u for u in person["unions"].values() if u["role"] == "parent"]
     num_unions = len(unions)
-    base_delta = 0.08  # more space between spouses
+    base_delta = 0.08
 
+    # --- Handle all unions ---
     for i, union in enumerate(unions):
         union_type = (
             "current"
@@ -111,6 +112,7 @@ def build_node(pid, visited=None):
             else "former"
         )
 
+        # Children from this union
         children_nodes = []
         for child_id in union["children"]:
             child_node = build_node(child_id, visited.copy())
@@ -118,9 +120,9 @@ def build_node(pid, visited=None):
                 child_node["union_type"] = union_type
                 children_nodes.append(child_node)
 
+        # Spouse or placeholder
         spouse_id = union.get("spouse_id")
-        offset = (i - (num_unions - 1) / 2) * base_delta  # distribute spouses evenly
-
+        offset = (i - (num_unions - 1) / 2) * base_delta
         if spouse_id and spouse_id in people:
             spouse_node = {
                 "id": f"{pid}_spouse_{spouse_id}",
@@ -136,7 +138,6 @@ def build_node(pid, visited=None):
             }
             node["children"].append(spouse_node)
         elif children_nodes:
-            # No spouse ID, but children exist
             placeholder_node = {
                 "id": f"{pid}_union_{i}",
                 "name": "(unknown spouse)",
@@ -150,6 +151,19 @@ def build_node(pid, visited=None):
                 "xOffset": offset,
             }
             node["children"].append(placeholder_node)
+
+    # --- Handle children with no union (single-parent children) ---
+    for child_id, child in people.items():
+        # Only attach if child is linked to current pid and not already included in unions
+        if (child.get("ID_pere") == pid and child.get("ID_mere") not in people) or (
+            child.get("ID_mere") == pid and child.get("ID_pere") not in people
+        ):
+            # Check if already included
+            if child_id not in [c["id"] for c in node["children"] if "id" in c]:
+                child_node = build_node(child_id, visited.copy())
+                if child_node:
+                    child_node["union_type"] = "single_parent"
+                    node["children"].append(child_node)
 
     return node
 
