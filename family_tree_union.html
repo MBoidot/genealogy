@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Genealogy Radial Tree with Unions</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+
+        #chart {
+            width: 1200px;
+            height: 1200px;
+            margin: auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .node circle {
+            stroke-width: 2px;
+            fill: white;
+        }
+
+        .node text {
+            font-size: 12px;
+            text-anchor: middle;
+            dominant-baseline: middle;
+            pointer-events: none;
+        }
+
+        .link {
+            fill: none;
+            stroke: #999;
+            stroke-opacity: 0.5;
+        }
+
+        .tooltip {
+            position: absolute;
+            background: #333;
+            color: white;
+            padding: 6px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            pointer-events: none;
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="chart"></div>
+    <div class="tooltip"></div>
+
+    <script>
+        // Load JSON
+        d3.json("family_tree_with_unions.json").then(function (data) {
+
+            const width = 1200;
+            const height = 1200;
+            const radius = Math.min(width, height) / 2 - 80;
+
+            const svg = d3.select("#chart")
+                .append("svg")
+                .attr("width", width)
+                .attr("height", height);
+
+            const g = svg.append("g")
+                .attr("transform", `translate(${width / 2},${height / 2})`);
+
+            const tooltip = d3.select(".tooltip");
+
+            // Radial tree layout
+            const tree = d3.tree().size([2 * Math.PI, radius]);
+            const root = d3.hierarchy(data, d => d.children);
+
+            tree(root);
+
+            // Draw links
+            g.selectAll(".link")
+                .data(root.links())
+                .join("path")
+                .attr("class", "link")
+                .attr("d", d3.linkRadial()
+                    .angle(d => d.x)
+                    .radius(d => d.y)
+                );
+
+            // Draw nodes
+            const nodes = g.selectAll(".node")
+                .data(root.descendants())
+                .join("g")
+                .attr("class", "node")
+                .attr("transform", d => `
+          rotate(${d.x * 180 / Math.PI - 90}) 
+          translate(${d.y},0)
+      `);
+
+            nodes.append("circle")
+                .attr("r", d => d.data.isSpouse ? 4 : 6)
+                .attr("stroke", "steelblue")
+                .attr("stroke-width", 2);
+
+            nodes.append("text")
+                .attr("dy", "0.31em")
+                .text(d => d.data.name.split(' ')[0]);
+
+            // Tooltip
+            nodes.on("mouseenter", function (event, d) {
+                tooltip.html(
+                    `<strong>${d.data.name}</strong><br/>
+             Gen: ${d.data.gen_origin}<br/>
+             Birth: ${d.data.birth || ""}<br/>
+             Death: ${d.data.death || ""}`
+                )
+                    .style("display", "block")
+                    .style("left", (event.pageX + 10) + "px")
+                    .style("top", (event.pageY - 10) + "px");
+            }).on("mouseleave", function () {
+                tooltip.style("display", "none");
+            });
+
+        });
+    </script>
+</body>
+
+</html>

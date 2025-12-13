@@ -2,6 +2,9 @@ import pandas as pd
 import json
 import unicodedata
 
+# works with the falimy data.csv file provided.
+
+
 # -----------------------------
 # Load and clean data
 # -----------------------------
