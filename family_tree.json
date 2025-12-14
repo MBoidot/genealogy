@@ -212,6 +212,15 @@
               "gen": 3,
               "children": [],
               "isSpouse": false
+            },
+            {
+              "name": "Conjoint delphine  BRADLEY",
+              "id": 26,
+              "birth": "",
+              "death": "",
+              "gen": 2,
+              "children": [],
+              "isSpouse": true
             }
           ],
           "isSpouse": false
@@ -371,6 +380,15 @@
               "gen": 3,
               "children": [],
               "isSpouse": false
+            },
+            {
+              "name": "Ludovic  BOURSE",
+              "id": 88,
+              "birth": "01/04/1971",
+              "death": "",
+              "gen": 2,
+              "children": [],
+              "isSpouse": true
             }
           ],
           "isSpouse": false
@@ -383,9 +401,9 @@
           "gen": 2,
           "children": [
             {
-              "name": "Copain Caroline BURET",
+              "name": "Yann DRESAC",
               "id": 109,
-              "birth": "02/01/1979",
+              "birth": "17/10/1978",
               "death": "",
               "gen": 2,
               "children": [],
@@ -554,8 +572,8 @@
           "isSpouse": false
         },
         {
-          "name": "Jacqueline LETINTURIER",
-          "id": 98,
+          "name": "Dominique  ??",
+          "id": 47,
           "birth": "15/12/1949",
           "death": "",
           "gen": 1,
@@ -711,7 +729,7 @@
             {
               "name": "Amélie BARRET",
               "id": 91,
-              "birth": "25/04/1986",
+              "birth": "25/02/1986",
               "death": "",
               "gen": 2,
               "children": [],
@@ -744,6 +762,15 @@
               "gen": 3,
               "children": [],
               "isSpouse": false
+            },
+            {
+              "name": "Vincent  CARONI",
+              "id": 68,
+              "birth": "",
+              "death": "",
+              "gen": 2,
+              "children": [],
+              "isSpouse": true
             }
           ],
           "isSpouse": false
@@ -772,6 +799,15 @@
               "gen": 3,
               "children": [],
               "isSpouse": false
+            },
+            {
+              "name": "Ludivine  ??",
+              "id": 72,
+              "birth": "",
+              "death": "",
+              "gen": 2,
+              "children": [],
+              "isSpouse": true
             }
           ],
           "isSpouse": false
@@ -795,7 +831,7 @@
             {
               "name": "Nicolas  MAGERE",
               "id": 76,
-              "birth": "? ",
+              "birth": "25/01/1988",
               "death": "",
               "gen": 2,
               "children": [],
