@@ -165,9 +165,9 @@
           "gen_origin": "1",
           "children": [
             {
-              "id": "16_U5_17",
-              "name": "Brigitte  ROYANT",
-              "birth": "29/07/1952",
+              "id": "16_U5_87",
+              "name": "Nicole  MALAIRAN",
+              "birth": "23/07/1945",
               "death": "",
               "gen": 1,
               "gen_origin": "1'",
@@ -539,12 +539,12 @@
           "gen_origin": "1",
           "children": [
             {
-              "id": "46_U14_47",
-              "name": "Dominique  ??",
-              "birth": "15/12/1949",
+              "id": "46_U14_97",
+              "name": "Marie-José GINTRAND",
+              "birth": "07/08/1957",
               "death": "",
               "gen": 1,
-              "gen_origin": "1",
+              "gen_origin": "1'",
               "children": [
                 {
                   "id": 48,
@@ -724,12 +724,12 @@
               "xOffset": 0.0
             },
             {
-              "id": "46_U20_47",
-              "name": "Dominique  ??",
+              "id": "46_U20_98",
+              "name": "Jacqueline LETINTURIER",
               "birth": "15/12/1949",
               "death": "",
               "gen": 1,
-              "gen_origin": "1",
+              "gen_origin": "1'",
               "children": [
                 {
                   "id": 89,
@@ -906,9 +906,9 @@
                   "gen_origin": "2",
                   "children": [
                     {
-                      "id": "64_U25_91",
-                      "name": "Amélie BARRET",
-                      "birth": "25/02/1986",
+                      "id": "64_U25_90",
+                      "name": "Swan  nan",
+                      "birth": "25/10/1986",
                       "death": "",
                       "gen": 2,
                       "gen_origin": "2'",

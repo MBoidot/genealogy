@@ -2,6 +2,8 @@ import pandas as pd
 import unicodedata
 import tkinter as tk
 from tkinter import filedialog
+import os
+import re
 
 # -----------------------------
 # Select CSV file
@@ -49,22 +51,23 @@ for col in ID_COLS:
 if "Note" not in df.columns:
     df["Note"] = ""
 
-# -----------------------------
-# Prepare helpers
-# -----------------------------
-people = {int(row["ID"]): row for _, row in df.iterrows() if pd.notna(row["ID"])}
 
-
+# -----------------------------
+# Helpers
+# -----------------------------
 def is_valid(x):
     return x is not None and not pd.isna(x)
 
 
+people = {int(row["ID"]): row for _, row in df.iterrows() if is_valid(row.get("ID"))}
+
 # -----------------------------
-# Detect all unions from children
+# Detect unions
 # -----------------------------
 union_map = {}
 union_counter = 1
 
+# From children
 for _, row in df.iterrows():
     p = row.get("ID_pere")
     m = row.get("ID_mere")
@@ -74,9 +77,7 @@ for _, row in df.iterrows():
             union_map[key] = f"U{union_counter}"
             union_counter += 1
 
-# -----------------------------
-# Detect childless unions from ID_Conjoint
-# -----------------------------
+# From explicit spouses
 for _, row in df.iterrows():
     pid = row.get("ID")
     cid = row.get("ID_Conjoint")
@@ -87,14 +88,11 @@ for _, row in df.iterrows():
             union_counter += 1
 
 # -----------------------------
-# Expanded table
+# Expand table
 # -----------------------------
 expanded_cols = list(df.columns) + ["Union_ID", "Role", "Remark"]
 rows = []
 
-# -----------------------------
-# Process each union
-# -----------------------------
 for (p1, p2), union_id in union_map.items():
     p1 = int(p1)
     p2 = int(p2)
@@ -102,55 +100,47 @@ for (p1, p2), union_id in union_map.items():
     p1_row = people.get(p1)
     p2_row = people.get(p2)
 
-    # Determine current vs former safely
+    # Determine current vs former
     is_current = (
         p1_row is not None
         and p2_row is not None
-        and is_valid(p1_row["ID_Conjoint"])
-        and is_valid(p2_row["ID_Conjoint"])
+        and is_valid(p1_row.get("ID_Conjoint"))
+        and is_valid(p2_row.get("ID_Conjoint"))
         and int(p1_row["ID_Conjoint"]) == p2
         and int(p2_row["ID_Conjoint"]) == p1
     )
 
     union_status = "current_union" if is_current else "former_union"
 
-    # Children of this union
+    # Children
     children = df[
         ((df["ID_pere"] == p1) & (df["ID_mere"] == p2))
         | ((df["ID_pere"] == p2) & (df["ID_mere"] == p1))
     ]
 
-    if len(children) > 0:
-        for _, child in children.iterrows():
-            # Parent rows (duplicated per child)
-            for pid in [p1, p2]:
-                parent = people.get(pid)
-                if parent is None:
-                    continue
-                r = parent.to_dict()
-                r.update(
-                    {"Union_ID": union_id, "Role": "parent", "Remark": union_status}
-                )
-                rows.append(r)
+    # --- Parents ---
+    for pid, spouse_id in [(p1, p2), (p2, p1)]:
+        parent = people.get(pid)
+        if parent is None:
+            continue
 
-            # Child row
-            c = child.to_dict()
-            c.update({"Union_ID": union_id, "Role": "child", "Remark": "child"})
-            rows.append(c)
-    else:
-        # Union without children
-        for pid in [p1, p2]:
-            parent = people.get(pid)
-            if parent is None:
-                continue
-            r = parent.to_dict()
-            r.update(
-                {"Union_ID": union_id, "Role": "parent", "Remark": "union_no_children"}
-            )
-            rows.append(r)
+        r = parent.to_dict()
+        r["ID_Conjoint"] = spouse_id  # ✅ CRITICAL FIX
+        r["Union_ID"] = union_id
+        r["Role"] = "parent"
+        r["Remark"] = union_status if len(children) else "union_no_children"
+        rows.append(r)
+
+    # --- Children ---
+    for _, child in children.iterrows():
+        c = child.to_dict()
+        c["Union_ID"] = union_id
+        c["Role"] = "child"
+        c["Remark"] = "child"
+        rows.append(c)
 
 # -----------------------------
-# Singles (no union at all)
+# Singles
 # -----------------------------
 used_ids = {int(r["ID"]) for r in rows if is_valid(r.get("ID"))}
 
@@ -169,43 +159,32 @@ for _, row in df.iterrows():
     rows.append(r)
 
 # -----------------------------
+# Finalize dataframe
+# -----------------------------
+df_expanded = pd.DataFrame(rows, columns=expanded_cols).drop_duplicates()
+
+# -----------------------------
+# Gen / Gen_Origin
+# -----------------------------
+df_expanded["Gen_Origin"] = df_expanded["Gen"].astype(str).str.strip()
+
+
+def extract_gen(val):
+    if pd.isna(val):
+        return 0
+    m = re.search(r"\d+", str(val))
+    return int(m.group()) if m else 0
+
+
+df_expanded["Gen"] = df_expanded["Gen_Origin"].apply(extract_gen)
+
+# -----------------------------
 # Export
 # -----------------------------
-df_expanded = pd.DataFrame(rows, columns=expanded_cols)
-
-# -----------------------------
-# Process Gen and Gen_Origin
-# -----------------------------
-if "Gen" in df_expanded.columns:
-    # Keep original string (strip trailing spaces)
-    df_expanded["Gen_Origin"] = df_expanded["Gen"].astype(str).str.strip()
-
-    # Extract numeric part
-    def extract_gen(val):
-        import re
-
-        if pd.isna(val) or val == "":
-            return 0
-        m = re.search(r"\d+", val)
-        return int(m.group()) if m else 0
-
-    df_expanded["Gen"] = df_expanded["Gen_Origin"].apply(extract_gen)
-else:
-    df_expanded["Gen_Origin"] = ""
-    df_expanded["Gen"] = 0
-
-
-df_expanded = df_expanded.drop_duplicates()
-
-
-# File name
 export_filename = "family_data_roles_union.csv"
-
-# Save in the same folder as this script
 script_dir = os.path.dirname(os.path.abspath(__file__))
 export_path = os.path.join(script_dir, export_filename)
 
-# Export CSV
 df_expanded.to_csv(export_path, sep=";", index=False, encoding="utf-8-sig")
 
 print(f"✓ Expanded CSV saved to {export_path}")
