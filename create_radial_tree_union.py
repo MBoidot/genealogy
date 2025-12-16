@@ -51,17 +51,17 @@ for _, row in df.iterrows():
             "father_id": int(row["ID_pere"]) if pd.notna(row["ID_pere"]) else None,
             "mother_id": int(row["ID_mere"]) if pd.notna(row["ID_mere"]) else None,
             "unions": {},
+            "role": row.get("Role"),  # <--- add this
         },
     )
 
     union_id = row.get("Union_ID")
-    if pd.notna(union_id):
+    if pd.notna(union_id) and row.get("Role") == "parent":
         people[pid]["unions"][union_id] = {
-            "role": row.get("Role"),
-            "remark": row.get("Remark"),
             "spouse_id": (
-                int(row["ID_Conjoint"]) if pd.notna(row["ID_Conjoint"]) else None
+                int(row["ID_Conjoint"]) if pd.notna(row.get("ID_Conjoint")) else None
             ),
+            "remark": row.get("Remark", ""),
             "children": [],
         }
 
@@ -69,18 +69,17 @@ for _, row in df.iterrows():
 # Populate children in unions
 # -----------------------------
 for _, row in df.iterrows():
-    if row.get("Role") != "child" or pd.isna(row.get("Union_ID")):
+    if row.get("Role") != "child":
         continue
 
-    child_id = int(row["ID"])
-    union_id = row["Union_ID"]
+    pid = int(row["ID"])
+    union_id = row.get("Union_ID")
 
-    for parent_id in [
-        int(row["ID_pere"]) if pd.notna(row["ID_pere"]) else None,
-        int(row["ID_mere"]) if pd.notna(row["ID_mere"]) else None,
-    ]:
-        if parent_id and union_id in people[parent_id]["unions"]:
-            people[parent_id]["unions"][union_id]["children"].append(child_id)
+    for parent_id in [row.get("ID_pere"), row.get("ID_mere")]:
+        if pd.notna(parent_id):
+            parent_id = int(parent_id)
+            if union_id in people[parent_id]["unions"]:
+                people[parent_id]["unions"][union_id]["children"].append(pid)
 
 
 # -----------------------------
@@ -93,7 +92,9 @@ def build_node(pid, visited=None):
         return None
     visited.add(pid)
 
-    person = people[pid]
+    person = people.get(pid)
+    if person is None:
+        return None
 
     node = {
         "id": pid,
@@ -105,66 +106,67 @@ def build_node(pid, visited=None):
         "children": [],
     }
 
-    # Only unions where THIS person is a parent
-    parent_unions = {
-        uid: u for uid, u in person["unions"].items() if u["role"] == "parent"
-    }
-
-    num_unions = len(parent_unions)
+    unions = list(person.get("unions", {}).values())
     base_delta = 0.08
 
-    for i, (union_id, union) in enumerate(parent_unions.items()):
-        union_type = (
-            "current"
-            if union.get("remark") and "current" in union["remark"].lower()
-            else "former"
-        )
+    for i, union in enumerate(unions):
+        remark = (union.get("remark") or "").lower()
 
-        # --- children ---
+        if "current" in remark:
+            union_type = "current"
+        elif "former" in remark:
+            union_type = "former"
+        elif "single_parent" in remark:
+            union_type = "single_parent"
+        else:
+            union_type = "other"
+
+        # -----------------------------
+        # Build children
+        # -----------------------------
         children_nodes = []
-        for child_id in union["children"]:
+        for child_id in union.get("children", []):
             child_node = build_node(child_id, visited.copy())
             if child_node:
                 child_node["union_type"] = union_type
                 children_nodes.append(child_node)
 
-        # --- spouse ---
+        if not children_nodes:
+            continue
+
+        offset = (i - (len(unions) - 1) / 2) * base_delta
         spouse_id = union.get("spouse_id")
-        offset = (i - (num_unions - 1) / 2) * base_delta
 
+        # -----------------------------
+        # UNION NODE (always)
+        # -----------------------------
         if spouse_id and spouse_id in people:
-            spouse = people[spouse_id]
-
-            spouse_node = {
-                "id": f"{pid}_{union_id}_{spouse_id}",  # union-specific
-                "name": spouse["name"],
-                "birth": spouse["birth"],
-                "death": spouse["death"],
-                "gen": spouse["gen"],
-                "gen_origin": spouse["gen_origin"],
+            sp = people[spouse_id]
+            union_node = {
+                "id": f"{pid}_union_{union['union_id']}",
+                "name": sp["name"],
+                "birth": sp["birth"],
+                "death": sp["death"],
+                "gen": sp["gen"],
+                "gen_origin": sp["gen_origin"],
                 "children": children_nodes,
                 "isSpouse": True,
                 "union_type": union_type,
                 "xOffset": offset,
             }
-            node["children"].append(spouse_node)
+        else:
+            # ✅ SINGLE-PARENT UNION ANCHOR
+            union_node = {
+                "id": f"{pid}_union_{union['union_id']}",
+                "name": "",  # invisible anchor
+                "children": children_nodes,
+                "isSpouse": True,
+                "isSingleParent": True,
+                "union_type": union_type,
+                "xOffset": offset,
+            }
 
-        elif children_nodes:
-            # real unknown spouse (only if truly missing)
-            node["children"].append(
-                {
-                    "id": f"{pid}_{union_id}_unknown",
-                    "name": "(unknown spouse)",
-                    "birth": "",
-                    "death": "",
-                    "gen": person["gen"],
-                    "gen_origin": person["gen_origin"],
-                    "children": children_nodes,
-                    "isSpouse": True,
-                    "union_type": union_type,
-                    "xOffset": offset,
-                }
-            )
+        node["children"].append(union_node)
 
     return node
 
@@ -187,14 +189,17 @@ root_tree = trees[0] if trees else {"name": "Family Tree", "children": []}
 with open("family_tree_with_unions.json", "w", encoding="utf-8") as f:
     json.dump(root_tree, f, ensure_ascii=False, indent=2)
 
+# -----------------------------
+# Generate final HTML
+# -----------------------------
 with open("template.html", "r", encoding="utf-8") as f:
     html_template = f.read()
 
-html_output = html_template.replace(
-    "__DATA__", json.dumps(root_tree, ensure_ascii=False).replace("`", "\\`")
-)
+json_data = json.dumps(root_tree, ensure_ascii=False)
+
+html_output = html_template.replace("__DATA__", json_data.replace("`", "\\`"))
 
 with open("family_tree_with_unions.html", "w", encoding="utf-8") as f:
     f.write(html_output)
 
-print("✓ Created family_tree_with_unions.html")
+print("✓ HTML generated")

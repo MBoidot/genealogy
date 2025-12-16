@@ -7,7 +7,7 @@
   "gen_origin": "0",
   "children": [
     {
-      "id": "1_U1_2",
+      "id": "1_union_U1",
       "name": "Simone  DURAND",
       "birth": "08/07/1919",
       "death": "22/11/2004 ",
@@ -23,7 +23,7 @@
           "gen_origin": "1",
           "children": [
             {
-              "id": "3_U2_4",
+              "id": "3_union_U2",
               "name": "Anne-Marie  BOIDOT-FAUSSOT",
               "birth": "01/01/1945",
               "death": "",
@@ -49,7 +49,7 @@
                   "gen_origin": "2",
                   "children": [
                     {
-                      "id": "6_U3_7",
+                      "id": "6_union_U3",
                       "name": "Marc  MILAN",
                       "birth": "11/11/1966",
                       "death": "",
@@ -113,7 +113,7 @@
                   "gen_origin": "2",
                   "children": [
                     {
-                      "id": "12_U4_13",
+                      "id": "12_union_U4",
                       "name": "Rodolphe  DILLENSEGER",
                       "birth": "07/01/1970",
                       "death": "",
@@ -165,7 +165,7 @@
           "gen_origin": "1",
           "children": [
             {
-              "id": "16_U5_87",
+              "id": "16_union_U5",
               "name": "Nicole  MALAIRAN",
               "birth": "23/07/1945",
               "death": "",
@@ -181,7 +181,7 @@
                   "gen_origin": "2",
                   "children": [
                     {
-                      "id": "18_U6_19",
+                      "id": "18_union_U6",
                       "name": "Vincent  LELIEVRE",
                       "birth": "10/04/1966",
                       "death": "",
@@ -220,18 +220,6 @@
               "isSpouse": true,
               "union_type": "former",
               "xOffset": -0.04
-            },
-            {
-              "id": "16_U33_17",
-              "name": "Brigitte  ROYANT",
-              "birth": "29/07/1952",
-              "death": "",
-              "gen": 1,
-              "gen_origin": "1'",
-              "children": [],
-              "isSpouse": true,
-              "union_type": "former",
-              "xOffset": 0.04
             }
           ],
           "union_type": "current"
@@ -245,7 +233,7 @@
           "gen_origin": "1",
           "children": [
             {
-              "id": "22_U7_23",
+              "id": "22_union_U7",
               "name": "Claudine  BOIDOT-DUFOUR",
               "birth": "17/05/1948",
               "death": "",
@@ -271,7 +259,7 @@
                   "gen_origin": "2",
                   "children": [
                     {
-                      "id": "25_U8_26",
+                      "id": "25_union_U8",
                       "name": "Conjoint delphine  BRADLEY",
                       "birth": "",
                       "death": "",
@@ -311,20 +299,7 @@
           "death": "",
           "gen": 1,
           "gen_origin": "1",
-          "children": [
-            {
-              "id": "28_U34_29",
-              "name": "Jacques  POTY",
-              "birth": "23/01/1950",
-              "death": "",
-              "gen": 1,
-              "gen_origin": "1'",
-              "children": [],
-              "isSpouse": true,
-              "union_type": "former",
-              "xOffset": 0.0
-            }
-          ],
+          "children": [],
           "union_type": "current"
         },
         {
@@ -336,7 +311,7 @@
           "gen_origin": "1",
           "children": [
             {
-              "id": "30_U9_31",
+              "id": "30_union_U9",
               "name": "Claudie  BOISSEAU",
               "birth": "16/10/1947",
               "death": "",
@@ -352,7 +327,7 @@
                   "gen_origin": "2",
                   "children": [
                     {
-                      "id": "32_U10_33",
+                      "id": "32_union_U10",
                       "name": "Sandra  LEROUX",
                       "birth": "10/01/1981",
                       "death": "",
@@ -396,7 +371,7 @@
                   "gen_origin": "2",
                   "children": [
                     {
-                      "id": "36_U11_37",
+                      "id": "36_union_U11",
                       "name": "Gaëlle  UZU",
                       "birth": "25/08/1982",
                       "death": "",
@@ -448,7 +423,7 @@
           "gen_origin": "1",
           "children": [
             {
-              "id": "40_U12_41",
+              "id": "40_union_U12",
               "name": "Yvon   BURET",
               "birth": "28/02/1947",
               "death": "",
@@ -464,7 +439,7 @@
                   "gen_origin": "2",
                   "children": [
                     {
-                      "id": "42_U13_88",
+                      "id": "42_union_U13",
                       "name": "Ludovic  BOURSE",
                       "birth": "01/04/1971",
                       "death": "",
@@ -506,20 +481,7 @@
                   "death": "",
                   "gen": 2,
                   "gen_origin": "2",
-                  "children": [
-                    {
-                      "id": "45_U35_109",
-                      "name": "Yann DRESAC",
-                      "birth": "17/10/1978",
-                      "death": "",
-                      "gen": 2,
-                      "gen_origin": "2'",
-                      "children": [],
-                      "isSpouse": true,
-                      "union_type": "former",
-                      "xOffset": 0.0
-                    }
-                  ],
+                  "children": [],
                   "union_type": "current"
                 }
               ],
@@ -539,7 +501,7 @@
           "gen_origin": "1",
           "children": [
             {
-              "id": "46_U14_97",
+              "id": "46_union_U14",
               "name": "Marie-José GINTRAND",
               "birth": "07/08/1957",
               "death": "",
@@ -555,7 +517,7 @@
                   "gen_origin": "2",
                   "children": [
                     {
-                      "id": "48_U15_96",
+                      "id": "48_union_U15",
                       "name": "Francisco Ferreira de Carvalho",
                       "birth": "02/12/1973",
                       "death": "",
@@ -571,7 +533,7 @@
                           "gen_origin": "3",
                           "children": [
                             {
-                              "id": "99_U16_100",
+                              "id": "99_union_U16",
                               "name": "Alicia MESTRE",
                               "birth": "01/01/1995",
                               "death": "",
@@ -605,7 +567,7 @@
                           "gen_origin": "3",
                           "children": [
                             {
-                              "id": "102_U17_103",
+                              "id": "102_union_U17",
                               "name": "Elodie PERIAU",
                               "birth": "01/01/1997",
                               "death": "",
@@ -637,20 +599,7 @@
                           "death": "",
                           "gen": 3,
                           "gen_origin": "3",
-                          "children": [
-                            {
-                              "id": "105_U36_106",
-                              "name": "Conjointe Garcon 3 sandrine ??",
-                              "birth": "01/01/1999",
-                              "death": "",
-                              "gen": 3,
-                              "gen_origin": "3'",
-                              "children": [],
-                              "isSpouse": true,
-                              "union_type": "former",
-                              "xOffset": 0.0
-                            }
-                          ],
+                          "children": [],
                           "union_type": "current"
                         }
                       ],
@@ -667,7 +616,7 @@
               "xOffset": -0.08
             },
             {
-              "id": "46_U18_47",
+              "id": "46_union_U18",
               "name": "Dominique  ??",
               "birth": "15/12/1949",
               "death": "",
@@ -683,7 +632,7 @@
                   "gen_origin": "2",
                   "children": [
                     {
-                      "id": "49_U19_93",
+                      "id": "49_union_U19",
                       "name": "Ludivine  LAGRES",
                       "birth": "",
                       "death": "",
@@ -724,7 +673,7 @@
               "xOffset": 0.0
             },
             {
-              "id": "46_U20_98",
+              "id": "46_union_U20",
               "name": "Jacqueline LETINTURIER",
               "birth": "15/12/1949",
               "death": "",
@@ -758,7 +707,7 @@
           "gen_origin": "1",
           "children": [
             {
-              "id": "50_U21_51",
+              "id": "50_union_U21",
               "name": "Yves  GOAS",
               "birth": "13/08/1953",
               "death": "",
@@ -774,7 +723,7 @@
                   "gen_origin": "2",
                   "children": [
                     {
-                      "id": "52_U22_53",
+                      "id": "52_union_U22",
                       "name": "Guillaume  MAFFRE",
                       "birth": "02/12/1977",
                       "death": "",
@@ -838,7 +787,7 @@
                   "gen_origin": "2",
                   "children": [
                     {
-                      "id": "58_U23_59",
+                      "id": "58_union_U23",
                       "name": "Jérémie  CANTY",
                       "birth": "07/06/1985",
                       "death": "",
@@ -890,7 +839,7 @@
           "gen_origin": "1",
           "children": [
             {
-              "id": "62_U24_63",
+              "id": "62_union_U24",
               "name": "Pierre  MILAN",
               "birth": "16/08/1958",
               "death": "",
@@ -906,7 +855,7 @@
                   "gen_origin": "2",
                   "children": [
                     {
-                      "id": "64_U25_90",
+                      "id": "64_union_U25",
                       "name": "Swan  nan",
                       "birth": "25/10/1986",
                       "death": "",
@@ -929,7 +878,7 @@
                       "xOffset": -0.04
                     },
                     {
-                      "id": "64_U26_91",
+                      "id": "64_union_U26",
                       "name": "Amélie BARRET",
                       "birth": "25/02/1986",
                       "death": "",
@@ -963,7 +912,7 @@
                   "gen_origin": "2",
                   "children": [
                     {
-                      "id": "67_U27_68",
+                      "id": "67_union_U27",
                       "name": "Vincent  CARONI",
                       "birth": "",
                       "death": "",
@@ -1007,7 +956,7 @@
                   "gen_origin": "2",
                   "children": [
                     {
-                      "id": "71_U28_72",
+                      "id": "71_union_U28",
                       "name": "Ludivine  ??",
                       "birth": "",
                       "death": "",
@@ -1051,7 +1000,7 @@
                   "gen_origin": "2",
                   "children": [
                     {
-                      "id": "75_U29_76",
+                      "id": "75_union_U29",
                       "name": "Nicolas  MAGERE",
                       "birth": "25/01/1988",
                       "death": "",
@@ -1093,7 +1042,7 @@
           "gen_origin": "1",
           "children": [
             {
-              "id": "78_U30_79",
+              "id": "78_union_U30",
               "name": "Sylvie  BOIDOT-ROSSIGNOL",
               "birth": "21/11/1961",
               "death": "",
@@ -1109,7 +1058,7 @@
                   "gen_origin": "2",
                   "children": [
                     {
-                      "id": "80_U31_81",
+                      "id": "80_union_U31",
                       "name": "Lucas  MINERVINI",
                       "birth": "07/09/1985",
                       "death": "",
@@ -1153,7 +1102,7 @@
                   "gen_origin": "2",
                   "children": [
                     {
-                      "id": "84_U32_85",
+                      "id": "84_union_U32",
                       "name": "Lucie  ??",
                       "birth": "04/05/1984",
                       "death": "",

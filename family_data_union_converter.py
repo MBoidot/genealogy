@@ -139,6 +139,48 @@ for (p1, p2), union_id in union_map.items():
         c["Remark"] = "child"
         rows.append(c)
 
+
+# -----------------------------
+# Single-parent unions (CRITICAL FIX)
+# -----------------------------
+single_union_counter = 10000  # safe offset to avoid collision
+
+for _, row in df.iterrows():
+    cid = row.get("ID")
+    if not is_valid(cid):
+        continue
+
+    father = row.get("ID_pere")
+    mother = row.get("ID_mere")
+
+    # exactly ONE known parent
+    parent_ids = [p for p in [father, mother] if is_valid(p)]
+    if len(parent_ids) != 1:
+        continue
+
+    parent_id = int(parent_ids[0])
+    child_id = int(cid)
+
+    union_id = f"US{single_union_counter}"
+    single_union_counter += 1
+
+    # --- Parent row ---
+    parent = people.get(parent_id)
+    if parent is not None:
+        r = parent.to_dict()
+        r["Union_ID"] = union_id
+        r["Role"] = "parent"
+        r["Remark"] = "single_parent"
+        r["ID_Conjoint"] = None
+        rows.append(r)
+
+    # --- Child row ---
+    c = row.to_dict()
+    c["Union_ID"] = union_id
+    c["Role"] = "child"
+    c["Remark"] = "single_parent"
+    rows.append(c)
+
 # -----------------------------
 # Singles
 # -----------------------------
