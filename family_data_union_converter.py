@@ -1,25 +1,17 @@
 import pandas as pd
 import unicodedata
-import tkinter as tk
-from tkinter import filedialog
 import os
 import re
 
 # -----------------------------
-# Select CSV file
+# Load CSV automatically
 # -----------------------------
-root = tk.Tk()
-root.withdraw()
+script_dir = os.path.dirname(os.path.abspath(__file__))
+file_path = os.path.join(script_dir, "family_data.csv")
 
-file_path = filedialog.askopenfilename(
-    title="Select family CSV file", filetypes=[("CSV files", "*.csv")]
-)
-if not file_path:
-    raise SystemExit("No file selected.")
+if not os.path.exists(file_path):
+    raise FileNotFoundError(f"{file_path} not found.")
 
-# -----------------------------
-# Load CSV
-# -----------------------------
 df = pd.read_csv(file_path, sep=";", encoding="cp1252", dtype=str)
 
 
@@ -45,7 +37,25 @@ for col in ID_COLS:
         df[col] = (
             df[col].astype(str).str.strip().replace({"/": None, "?": None, "nan": None})
         )
-        df[col] = pd.to_numeric(df[col], errors="coerce")
+
+# -----------------------------
+# Keep original parent IDs
+# -----------------------------
+df["ID_pere_original"] = df.get("ID_pere", "").copy()
+df["ID_mere_original"] = df.get("ID_mere", "").copy()
+
+
+# Extract digits only for tree construction
+def digits_only_series(s):
+    s = s.fillna("").astype(str).str.strip()
+    digits = s.str.extract(r"(\d+)")[0]
+    return pd.to_numeric(digits, errors="coerce")
+
+
+df["ID_pere"] = digits_only_series(df["ID_pere"])
+df["ID_mere"] = digits_only_series(df["ID_mere"])
+df["ID_Conjoint"] = digits_only_series(df["ID_Conjoint"])
+df["ID"] = digits_only_series(df["ID"])
 
 # Ensure Note exists
 if "Note" not in df.columns:
@@ -67,7 +77,7 @@ people = {int(row["ID"]): row for _, row in df.iterrows() if is_valid(row.get("I
 union_map = {}
 union_counter = 1
 
-# From children
+# From children (two parents)
 for _, row in df.iterrows():
     p = row.get("ID_pere")
     m = row.get("ID_mere")
@@ -93,6 +103,15 @@ for _, row in df.iterrows():
 expanded_cols = list(df.columns) + ["Union_ID", "Role", "Remark"]
 rows = []
 
+
+def get_children(p1, p2):
+    """Return children with digit-only parent IDs"""
+    return df[
+        ((df["ID_pere"] == p1) & (df["ID_mere"] == p2))
+        | ((df["ID_pere"] == p2) & (df["ID_mere"] == p1))
+    ]
+
+
 for (p1, p2), union_id in union_map.items():
     p1 = int(p1)
     p2 = int(p2)
@@ -109,23 +128,18 @@ for (p1, p2), union_id in union_map.items():
         and int(p1_row["ID_Conjoint"]) == p2
         and int(p2_row["ID_Conjoint"]) == p1
     )
-
     union_status = "current_union" if is_current else "former_union"
 
     # Children
-    children = df[
-        ((df["ID_pere"] == p1) & (df["ID_mere"] == p2))
-        | ((df["ID_pere"] == p2) & (df["ID_mere"] == p1))
-    ]
+    children = get_children(p1, p2)
 
     # --- Parents ---
     for pid, spouse_id in [(p1, p2), (p2, p1)]:
         parent = people.get(pid)
         if parent is None:
             continue
-
         r = parent.to_dict()
-        r["ID_Conjoint"] = spouse_id  # ✅ CRITICAL FIX
+        r["ID_Conjoint"] = spouse_id
         r["Union_ID"] = union_id
         r["Role"] = "parent"
         r["Remark"] = union_status if len(children) else "union_no_children"
@@ -139,11 +153,10 @@ for (p1, p2), union_id in union_map.items():
         c["Remark"] = "child"
         rows.append(c)
 
-
 # -----------------------------
-# Single-parent unions (CRITICAL FIX)
+# Single-parent unions
 # -----------------------------
-single_union_counter = 10000  # safe offset to avoid collision
+single_union_counter = 10000
 
 for _, row in df.iterrows():
     cid = row.get("ID")
@@ -192,11 +205,11 @@ for _, row in df.iterrows():
         continue
 
     r = row.to_dict()
-    if not is_valid(row.get("ID_pere")) and not is_valid(row.get("ID_mere")):
-        remark = "no_parents"
-    else:
-        remark = "single_parent"
-
+    remark = (
+        "no_parents"
+        if not is_valid(row.get("ID_pere")) and not is_valid(row.get("ID_mere"))
+        else "single_parent"
+    )
     r.update({"Union_ID": "", "Role": "single", "Remark": remark})
     rows.append(r)
 
@@ -209,22 +222,14 @@ df_expanded = pd.DataFrame(rows, columns=expanded_cols).drop_duplicates()
 # Gen / Gen_Origin
 # -----------------------------
 df_expanded["Gen_Origin"] = df_expanded["Gen"].astype(str).str.strip()
-
-
-def extract_gen(val):
-    if pd.isna(val):
-        return 0
-    m = re.search(r"\d+", str(val))
-    return int(m.group()) if m else 0
-
-
-df_expanded["Gen"] = df_expanded["Gen_Origin"].apply(extract_gen)
+df_expanded["Gen"] = (
+    df_expanded["Gen_Origin"].str.extract(r"(\d+)").astype(float).fillna(0).astype(int)
+)
 
 # -----------------------------
 # Export
 # -----------------------------
 export_filename = "family_data_roles_union.csv"
-script_dir = os.path.dirname(os.path.abspath(__file__))
 export_path = os.path.join(script_dir, export_filename)
 
 df_expanded.to_csv(export_path, sep=";", index=False, encoding="utf-8-sig")

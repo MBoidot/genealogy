@@ -33,13 +33,11 @@ for col in ["ID", "ID_pere", "ID_mere", "ID_Conjoint"]:
 # Build people registry
 # -----------------------------
 people = {}
-
 for _, row in df.iterrows():
     if pd.isna(row["ID"]):
         continue
 
     pid = int(row["ID"])
-
     people.setdefault(
         pid,
         {
@@ -78,7 +76,6 @@ for _, row in df.iterrows():
 for _, row in df.iterrows():
     if row.get("Role") != "child":
         continue
-
     if pd.isna(row["ID"]) or pd.isna(row["Union_ID"]):
         continue
 
@@ -91,17 +88,35 @@ for _, row in df.iterrows():
             if pid in people and uid in people[pid]["unions"]:
                 people[pid]["unions"][uid]["children"].append(cid)
 
+# -----------------------------
+# Detect former-union children
+# -----------------------------
+former_union_children = []
+for cid, child_row in df[df["Role"] == "child"].iterrows():
+    # Count parents who have this child in a union
+    parent_ids = [
+        int(child_row[c]) for c in ["ID_pere", "ID_mere"] if pd.notna(child_row[c])
+    ]
+    if len(parent_ids) == 1:
+        pid = parent_ids[0]
+        name = f"{child_row.get('Prenom','')} {child_row.get('Nom','')}".strip()
+        former_union_children.append((pid, name, int(child_row["ID"])))
+
+if former_union_children:
+    print("⚡ Former-union children to reattach:")
+    for pid, name, cid in former_union_children:
+        print(f"Parent: {people[pid]['name']} (ID {pid}) → Child: {name}")
 
 # -----------------------------
 # Recursive tree builder
 # -----------------------------
-def build_node(pid, visited=None):
-    if visited is None:
-        visited = set()
+visited_global = set()  # global to prevent skipping children
 
-    if pid in visited:
+
+def build_node(pid):
+    if pid in visited_global:
         return None
-    visited.add(pid)
+    visited_global.add(pid)
 
     person = people.get(pid)
     if not person:
@@ -122,20 +137,20 @@ def build_node(pid, visited=None):
 
     for i, union in enumerate(unions):
         remark = (union["remark"] or "").lower()
-
-        if "single_parent" in remark:
-            union_type = "single_parent"
-        elif "former" in remark:
-            union_type = "former"
-        elif "union_no_children" in remark:
-            union_type = "union_no_children"
-        else:
-            union_type = "current"
+        union_type = (
+            "single_parent"
+            if "single_parent" in remark
+            else (
+                "former"
+                if "former" in remark
+                else "union_no_children" if "union_no_children" in remark else "current"
+            )
+        )
 
         # Build children
         children_nodes = []
         for cid in union["children"]:
-            child_node = build_node(cid, visited.copy())
+            child_node = build_node(cid)
             if child_node:
                 child_node["union_type"] = union_type
                 children_nodes.append(child_node)
@@ -143,7 +158,7 @@ def build_node(pid, visited=None):
         offset = (i - (len(unions) - 1) / 2) * base_delta
         spouse_id = union.get("spouse_id")
 
-        # Build spouse / union node (ALWAYS)
+        # Build spouse / union node
         if spouse_id and spouse_id in people:
             sp = people[spouse_id]
             union_node = {
@@ -159,7 +174,6 @@ def build_node(pid, visited=None):
                 "xOffset": offset,
             }
         else:
-            # Single parent or unknown spouse
             union_node = {
                 "id": f"{pid}_{union['union_id']}",
                 "name": "",
@@ -176,6 +190,23 @@ def build_node(pid, visited=None):
 
 
 # -----------------------------
+# Attach former-union children
+# -----------------------------
+for pid, name, cid in former_union_children:
+    person = people[pid]
+    if not person["unions"]:
+        continue
+    # Attach to first union that has a spouse
+    for union in person["unions"].values():
+        if union.get("spouse_id"):
+            if cid not in union["children"]:
+                union["children"].append(cid)
+                print(
+                    f"🔹 Attaching former-union child {name} to union of {person['name']}"
+                )
+            break
+
+# -----------------------------
 # Identify roots
 # -----------------------------
 roots = [
@@ -185,10 +216,8 @@ roots = [
 ]
 
 trees = []
-visited_global = set()
-
 for pid in sorted(roots):
-    n = build_node(pid, visited_global)
+    n = build_node(pid)  # call build_node only once per root
     if n:
         trees.append(n)
 
