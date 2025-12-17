@@ -58,6 +58,7 @@ for _, row in df.iterrows():
     union_id = row.get("Union_ID")
     if pd.notna(union_id) and row.get("Role") == "parent":
         people[pid]["unions"][union_id] = {
+            "union_id": union_id,  # <<< add this line
             "spouse_id": (
                 int(row["ID_Conjoint"]) if pd.notna(row.get("ID_Conjoint")) else None
             ),
