@@ -122,6 +122,7 @@ def build_node(pid):
     if not person:
         return None
 
+    # Base node
     node = {
         "id": pid,
         "name": person["name"],
@@ -133,10 +134,10 @@ def build_node(pid):
     }
 
     unions = list(person["unions"].values())
-    base_delta = 0.08
+    base_delta = 0.08  # offset for spouse layout
 
     for i, union in enumerate(unions):
-        remark = (union["remark"] or "").lower()
+        remark = (union.get("remark") or "").lower()
         union_type = (
             "single_parent"
             if "single_parent" in remark
@@ -147,18 +148,37 @@ def build_node(pid):
             )
         )
 
-        # Build children
+        # --- Build children ---
         children_nodes = []
         for cid in union["children"]:
             child_node = build_node(cid)
             if child_node:
                 child_node["union_type"] = union_type
+
+                # Detect non-biological parents
+                # Convert IDs to string for safe comparison
+                df_child = df[df["ID"].astype(str).str.replace("'", "") == str(cid)]
+                if not df_child.empty:
+                    row = df_child.iloc[0]
+                    non_bio_father = pd.notna(
+                        row.get("ID_pere_original")
+                    ) and "'" in str(row["ID_pere_original"])
+                    non_bio_mother = pd.notna(
+                        row.get("ID_mere_original")
+                    ) and "'" in str(row["ID_mere_original"])
+                    child_node["non_bio_father"] = non_bio_father
+                    child_node["non_bio_mother"] = non_bio_mother
+                else:
+                    child_node["non_bio_father"] = False
+                    child_node["non_bio_mother"] = False
+
                 children_nodes.append(child_node)
 
+        # Offset for multiple unions (for visualization)
         offset = (i - (len(unions) - 1) / 2) * base_delta
         spouse_id = union.get("spouse_id")
 
-        # Build spouse / union node
+        # Build spouse/union node
         if spouse_id and spouse_id in people:
             sp = people[spouse_id]
             union_node = {
@@ -174,6 +194,7 @@ def build_node(pid):
                 "xOffset": offset,
             }
         else:
+            # Single parent union (no spouse)
             union_node = {
                 "id": f"{pid}_{union['union_id']}",
                 "name": "",

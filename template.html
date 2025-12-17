@@ -171,11 +171,10 @@
         root.descendants().forEach(node => {
             if (node.primaryParent) links.push({ source: node.primaryParent, target: node });
         });
-
         const linkElements = g.selectAll(".link").data(links).join("path")
             .attr("class", "link")
-            .attr("d", d3.linkRadial().angle(d => d.x + (d.data.isSpouse ? d.xOffset : 0)).radius(d => d.y));
-
+            .attr("d", d3.linkRadial().angle(d => d.x + (d.data.isSpouse ? d.xOffset : 0)).radius(d => d.y))
+            .attr("stroke-dasharray", d => d.target.data.non_bio_parent ? "4,2" : "0");
         // Nodes
         const nodes = g.selectAll(".node").data(root.descendants()).join("g")
             .attr("class", d => "node" + (d.data.death ? " dead" : ""));
