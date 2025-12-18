@@ -168,46 +168,38 @@
         // Assign radial positions
         root.each(node => node.y = getRadiusByBirth(node.data.birth));
 
-        // Spouse offsets using fixed linear distance (pixels along the arc)
         function assignSpouseOffsets(node) {
             if (!node.children) return;
-
             const spouses = node.children.filter(c => c.data.isSpouse);
             const n = spouses.length;
-            if (n === 0) return;
+            const linearOffset = 20; // pixels along arc
 
-            const baseDistance = 180; // pixels along arc (tweak this)
+            spouses.forEach((spouse, i) => {
+                const radius = spouse.y || 50;
+                const baseAngular = linearOffset / radius; // rad
+                let multiplier = 0;
 
-            if (n === 1) {
-                // Single spouse → small positive offset
-                const r = spouses[0].y || 1;
-                spouses[0].xOffset = baseDistance / r;
-            }
+                if (n === 1) {
+                    multiplier = 1;                  // single spouse slightly offset
+                } else if (n === 2) {
+                    multiplier = i === 0 ? 2.5 : -2.5;   // two spouses opposite
+                } else if (n === 3) {
+                    // bring them closer: +1, -1, +1.5
+                    multiplier = i === 0 ? 1 : (i === 1 ? -1 : -0.5);
+                } else {
+                    // more than 3 → alternate + and - and increase magnitude
+                    const sign = i % 2 === 0 ? 1 : -1;
+                    const mag = Math.ceil((i + 1) / 2);
+                    multiplier = sign * mag;
+                }
 
-            else if (n === 2) {
-                // Two spouses → symmetric
-                spouses.forEach((spouse, i) => {
-                    const r = spouse.y || 1;
-                    const sign = i === 0 ? 1 : -1;
-                    spouse.xOffset = sign * baseDistance / r;
-                });
-            }
+                spouse.xOffset = baseAngular * multiplier;
+            });
 
-            else {
-                // 3+ spouses → zig-zag with increasing magnitude
-                spouses.forEach((spouse, i) => {
-                    const r = spouse.y || 1;
-                    const sign = i % 2 === 0 ? 1 : -1;          // +, -, +, -
-                    const magnitude = Math.ceil((i + 1) / 2);  // 1,1,2,2,3,3
-                    spouse.xOffset = sign * magnitude * baseDistance / r;
-                });
-            }
-
-            // Recurse
             node.children.forEach(assignSpouseOffsets);
         }
-
         assignSpouseOffsets(root);
+
 
         // Build links manually using primaryParent
         const links = [];

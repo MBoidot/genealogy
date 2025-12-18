@@ -168,22 +168,38 @@
         // Assign radial positions
         root.each(node => node.y = getRadiusByBirth(node.data.birth));
 
-        // Angular offset for spouses: first spouse small positive offset
         function assignSpouseOffsets(node) {
             if (!node.children) return;
             const spouses = node.children.filter(c => c.data.isSpouse);
             const n = spouses.length;
-            const baseOffset = 0.1; // rad (~3°)
+            const linearOffset = 20; // pixels along arc
 
             spouses.forEach((spouse, i) => {
-                const sign = i % 2 === 0 ? 1 : -1;       // +, -, +, -, ...
-                const magnitude = Math.ceil((i + 1) / 2); // 1, 1, 2, 2, ...
-                spouse.xOffset = sign * magnitude * baseOffset;
+                const radius = spouse.y || 50;
+                const baseAngular = linearOffset / radius; // rad
+                let multiplier = 0;
+
+                if (n === 1) {
+                    multiplier = 1;                  // single spouse slightly offset
+                } else if (n === 2) {
+                    multiplier = i === 0 ? 2.5 : -2.5;   // two spouses opposite
+                } else if (n === 3) {
+                    // bring them closer: +1, -1, +1.5
+                    multiplier = i === 0 ? 1 : (i === 1 ? -1 : -0.5);
+                } else {
+                    // more than 3 → alternate + and - and increase magnitude
+                    const sign = i % 2 === 0 ? 1 : -1;
+                    const mag = Math.ceil((i + 1) / 2);
+                    multiplier = sign * mag;
+                }
+
+                spouse.xOffset = baseAngular * multiplier;
             });
 
             node.children.forEach(assignSpouseOffsets);
         }
         assignSpouseOffsets(root);
+
 
         // Build links manually using primaryParent
         const links = [];
