@@ -70,6 +70,11 @@
             stroke-opacity: 0.4;
         }
 
+        .link.non-bio {
+            stroke-dasharray: 6, 4;
+            stroke-opacity: 0.8;
+        }
+
         #slider-container {
             margin: 20px;
             display: flex;
@@ -168,13 +173,33 @@
 
         // Build links manually using primaryParent
         const links = [];
+
         root.descendants().forEach(node => {
-            if (node.primaryParent) links.push({ source: node.primaryParent, target: node });
+            if (!node.primaryParent) return;
+
+            let isNonBio = false;
+
+            // Child connected through a union node
+            if (node.parent?.data?.isSpouse) {
+                if (node.data.non_bio_father || node.data.non_bio_mother) {
+                    isNonBio = true;
+                }
+            }
+
+            links.push({
+                source: node.primaryParent,
+                target: node,
+                nonBio: isNonBio
+            });
         });
-        const linkElements = g.selectAll(".link").data(links).join("path")
-            .attr("class", "link")
-            .attr("d", d3.linkRadial().angle(d => d.x + (d.data.isSpouse ? d.xOffset : 0)).radius(d => d.y))
-            .attr("stroke-dasharray", d => d.target.data.non_bio_parent ? "4,2" : "0");
+        const linkElements = g.selectAll(".link")
+            .data(links)
+            .join("path")
+            .attr("class", d => d.nonBio ? "link non-bio" : "link")
+            .attr("d", d3.linkRadial()
+                .angle(d => d.x + (d.data.isSpouse ? d.xOffset : 0))
+                .radius(d => d.y)
+            );
         // Nodes
         const nodes = g.selectAll(".node").data(root.descendants()).join("g")
             .attr("class", d => "node" + (d.data.death ? " dead" : ""));
