@@ -70,6 +70,13 @@
             stroke-opacity: 0.4;
         }
 
+        .link.non-bio {
+            stroke: #666;
+            stroke-width: 1;
+            stroke-dasharray: 6, 4;
+            stroke-opacity: 0.8;
+        }
+
         #slider-container {
             margin: 20px;
             display: flex;
@@ -101,7 +108,8 @@
         const g = svg.append("g").attr("transform", `translate(${width / 2},${height / 2})`);
         const tooltip = d3.select(".tooltip");
 
-        const colorScale = d3.scaleOrdinal().domain([0, 1, 2, 3, 4]).range(["#FF6B6B", "#4ECDC4", "#45B7D1", "#FFA07A", "#98D8C8"]);
+        const colorScale = d3.scaleOrdinal().domain([0, 1, 2, 3, 4])
+            .range(["#FF6B6B", "#4ECDC4", "#45B7D1", "#FFA07A", "#98D8C8"]);
 
         // Collect all birth years
         const birthDates = [];
@@ -146,11 +154,10 @@
         const root = d3.hierarchy(data);
         tree(root);
 
-        // Assign primaryParent explicitly to each child (link children to first non-spouse parent, usually Gen0)
+        // Assign primaryParent explicitly
         function assignPrimaryParents(node) {
             if (node.children) {
                 node.children.forEach(child => {
-                    // Pick first parent that is not a spouse
                     child.primaryParent = node.data.isSpouse ? node.parent : node;
                     assignPrimaryParents(child);
                 });
@@ -158,23 +165,61 @@
         }
         assignPrimaryParents(root);
 
-        // Assign radial positions and spouse offsets
-        const baseLinearSpacing = 20; // in pixels along the arc
-        root.each(node => {
-            node.y = getRadiusByBirth(node.data.birth);
-            if (node.data.isSpouse) node.xOffset = baseLinearSpacing / node.y;
-            else node.xOffset = 0;
-        });
+        // Assign radial positions
+        root.each(node => node.y = getRadiusByBirth(node.data.birth));
+
+        function assignSpouseOffsets(node) {
+            if (!node.children) return;
+            const spouses = node.children.filter(c => c.data.isSpouse);
+            const n = spouses.length;
+            const linearOffset = 20; // pixels along arc
+
+            spouses.forEach((spouse, i) => {
+                const radius = spouse.y || 50;
+                const baseAngular = linearOffset / radius; // rad
+                let multiplier = 0;
+
+                if (n === 1) {
+                    multiplier = 1;                  // single spouse slightly offset
+                } else if (n === 2) {
+                    multiplier = i === 0 ? 2.5 : -2.5;   // two spouses opposite
+                } else if (n === 3) {
+                    // bring them closer: +1, -1, +1.5
+                    multiplier = i === 0 ? 1 : (i === 1 ? -1 : -0.5);
+                } else {
+                    // more than 3 → alternate + and - and increase magnitude
+                    const sign = i % 2 === 0 ? 1 : -1;
+                    const mag = Math.ceil((i + 1) / 2);
+                    multiplier = sign * mag;
+                }
+
+                spouse.xOffset = baseAngular * multiplier;
+            });
+
+            node.children.forEach(assignSpouseOffsets);
+        }
+        assignSpouseOffsets(root);
+
 
         // Build links manually using primaryParent
         const links = [];
         root.descendants().forEach(node => {
-            if (node.primaryParent) links.push({ source: node.primaryParent, target: node });
+            if (!node.primaryParent) return;
+            let isNonBio = false;
+            if (node.parent?.data?.isSpouse) {
+                if (node.data.non_bio_father || node.data.non_bio_mother) isNonBio = true;
+            }
+            links.push({ source: node.primaryParent, target: node, nonBio: isNonBio });
         });
 
-        const linkElements = g.selectAll(".link").data(links).join("path")
-            .attr("class", "link")
-            .attr("d", d3.linkRadial().angle(d => d.x + (d.data.isSpouse ? d.xOffset : 0)).radius(d => d.y));
+        const linkElements = g.selectAll(".link")
+            .data(links)
+            .join("path")
+            .attr("class", d => d.nonBio ? "link non-bio" : "link")
+            .attr("d", d3.linkRadial()
+                .angle(d => d.x + (d.xOffset || 0))
+                .radius(d => d.y)
+            );
 
         // Nodes
         const nodes = g.selectAll(".node").data(root.descendants()).join("g")
@@ -200,40 +245,21 @@
             info += `<br/>Gen: ${d.data.gen}`;
             if (d.data.birth) info += `<br/>b: ${d.data.birth}`;
             if (d.data.death) info += `<br/>d: ${d.data.death}`;
-            tooltip.html(info).style("left", (event.pageX + 10) + "px").style("top", (event.pageY - 10) + "px").style("display", "block");
+            tooltip.html(info).style("left", (event.pageX + 10) + "px")
+                .style("top", (event.pageY - 10) + "px")
+                .style("display", "block");
         }).on("mouseleave", function () { tooltip.style("display", "none"); });
-
-        // Click highlight
-        nodes.on("click", function (event, d) {
-            nodes.select("circle").attr("stroke-width", 2.5).attr("stroke", d => colorScale(d.data.gen));
-            nodes.select("text").attr("font-weight", d => d.data.gen === 0 ? "bold" : "normal");
-            linkElements.attr("stroke", "#999").attr("stroke-width", 1);
-
-            const descendants = d.descendants();
-            descendants.forEach(node => {
-                d3.select(nodes.filter(n => n === node).node()).select("circle")
-                    .attr("stroke-width", 4).attr("stroke", "black");
-                d3.select(nodes.filter(n => n === node).node()).select("text")
-                    .attr("font-weight", "bold");
-            });
-
-            linkElements.filter(l => descendants.includes(l.source) && descendants.includes(l.target))
-                .attr("stroke", "black").attr("stroke-width", 2);
-        });
 
         // Rotation slider
         const slider = document.getElementById("rotation-slider");
         function updateRotation(angleDeg) {
             const angleRad = angleDeg * Math.PI / 180;
-
             nodes.attr("transform", d => {
                 if (d.data.gen === 0) return `translate(0,0)`;
                 const angle = d.x + (d.xOffset || 0) + angleRad;
                 return `rotate(${angle * 180 / Math.PI - 90})translate(${d.y},0)`;
             });
-
             linkElements.attr("d", d3.linkRadial().angle(d => d.x + (d.xOffset || 0) + angleRad).radius(d => d.y));
-
             nodes.select("text").attr("transform", d => {
                 if (d.data.gen === 0) return `translate(0,-20)`;
                 const angle = d.x + (d.xOffset || 0) + angleRad;
@@ -247,10 +273,8 @@
                 return `translate(${x},${y})rotate(${rotation})`;
             });
         }
-
         updateRotation(0);
         slider.addEventListener("input", () => updateRotation(slider.value));
-
     </script>
 </body>
 

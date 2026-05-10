@@ -68,8 +68,10 @@ def get_gen_color(gen_value, is_dead=False):
 df = pd.read_csv(file_path, sep=";", encoding="cp1252", dtype=str)
 df.columns = df.columns.str.strip().str.replace("\xa0", "", regex=False)
 
+print(df.columns.tolist())
+
 birth_col = [c for c in df.columns if "Naissance" in c][0]
-death_col = [c for c in df.columns if "Déc" in c][0]
+death_col = [c for c in df.columns if "Deces" in c][0]
 prenom_col = [c for c in df.columns if "Prénom" in c or "Prenom" in c][0]
 nom_col = [c for c in df.columns if c.startswith("Nom")][0]
 gen_col = [c for c in df.columns if c.startswith("Gen")][0]
