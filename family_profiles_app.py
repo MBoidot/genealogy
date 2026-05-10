@@ -1,6 +1,7 @@
 import os
 import pandas as pd
 from dash import Dash, html, dcc, Input, Output
+from datetime import datetime
 
 # ============================================================
 # CONFIG
@@ -10,37 +11,35 @@ DATA_FILE = "family_data_roles_union.csv"
 PHOTO_FOLDER = "photos"
 
 # ============================================================
+# SAFE ID CLEANER
+# ============================================================
+
+
+def clean_id(x):
+    return str(x).replace(".0", "").strip()
+
+
+# ============================================================
 # LOAD DATA
 # ============================================================
 
-# Read CSV
-# Separator is ';' according to your files
-
 df = pd.read_csv(DATA_FILE, sep=";", dtype=str, encoding="utf-8-sig")
-
-# Clean columns
 
 df.columns = [c.strip() for c in df.columns]
 
-# Replace NaN
-
 df = df.fillna("")
+df = df.apply(lambda col: col.str.strip() if col.dtype == "object" else col)
+
+# Normalize IDs
+for col in ["ID", "ID_pere", "ID_mere", "ID_Conjoint"]:
+    if col in df.columns:
+        df[col] = df[col].apply(clean_id)
 
 # ============================================================
-# KEEP ONLY UNIQUE PEOPLE
+# PEOPLE TABLE
 # ============================================================
-
-# One person may appear multiple times because of unions/roles.
-# Keep only one row per ID.
 
 people_df = df.drop_duplicates(subset=["ID"])
-
-# ============================================================
-# FILTER GEN0 + GEN1
-# ============================================================
-
-# Your Gen field sometimes contains apostrophes.
-# Example: '0 or '1
 
 
 def clean_gen(g):
@@ -55,13 +54,13 @@ people_df["GEN_CLEAN"] = people_df["Gen"].apply(clean_gen)
 visible_df = people_df[people_df["GEN_CLEAN"].isin([0, 1])]
 
 # ============================================================
-# BUILD PERSON LOOKUP
+# LOOKUP DICTIONARY (INCLUDES NOTE NOW)
 # ============================================================
 
 people = {}
 
 for _, row in people_df.iterrows():
-    pid = row["ID"]
+    pid = clean_id(row["ID"])
 
     people[pid] = {
         "id": pid,
@@ -72,21 +71,16 @@ for _, row in people_df.iterrows():
         "death": row.get("Deces", ""),
         "gen": row.get("Gen", ""),
         "gen_origin": row.get("Gen_Origin", ""),
-        "father_id": row.get("ID_pere", ""),
-        "mother_id": row.get("ID_mere", ""),
-        "spouse_id": row.get("ID_Conjoint", ""),
+        "father_id": clean_id(row.get("ID_pere", "")),
+        "mother_id": clean_id(row.get("ID_mere", "")),
+        "spouse_id": clean_id(row.get("ID_Conjoint", "")),
+        "note": row.get("Note", ""),  # ✅ ADDED HERE
         "remark": row.get("Remark", ""),
     }
 
-# ============================================================
-# HELPERS
-# ============================================================
-
 
 def get_person_name(pid):
-    if pid in people:
-        return people[pid]["name"]
-    return ""
+    return people.get(clean_id(pid), {}).get("name", "")
 
 
 # ============================================================
@@ -96,18 +90,19 @@ def get_person_name(pid):
 app = Dash(__name__)
 
 # ============================================================
-# DROPDOWN OPTIONS
+# DROPDOWN
 # ============================================================
 
 person_options = []
 
 for _, row in visible_df.sort_values(["GEN_CLEAN", "Nom", "Prenom"]).iterrows():
+    pid = clean_id(row["ID"])
     label = f"Gen {row['GEN_CLEAN']} — {row['Prenom']} {row['Nom']}"
 
-    person_options.append({"label": label, "value": row["ID"]})
+    person_options.append({"label": label, "value": pid})
 
 # ============================================================
-# APP LAYOUT
+# LAYOUT
 # ============================================================
 
 app.layout = html.Div(
@@ -145,33 +140,37 @@ app.layout = html.Div(
 )
 
 # ============================================================
-# PROFILE CALLBACK
+# CALLBACK
 # ============================================================
 
 
 @app.callback(Output("profile-card", "children"), Input("person-dropdown", "value"))
 def update_profile(person_id):
 
-    if not person_id or person_id not in people:
+    if not person_id:
         return html.Div("Personne introuvable")
 
+    person_id = clean_id(person_id)
+
+    if person_id not in people:
+        return html.Div(f"Personne inconnue: {person_id}")
+
     p = people[person_id]
+
+    # ========================================================
+    # NOTE (NOW CLEAN FROM PEOPLE DICT)
+    # ========================================================
+
+    row_note = df.loc[df["ID"] == person_id, "Note"].values
+    row_note = row_note[0] if len(row_note) > 0 else ""
 
     # ========================================================
     # PHOTO
     # ========================================================
 
     image_path = None
-
-    # Expected filename format:
-    # photos/123.jpg
-    # photos/123.png
-
-    possible_extensions = ["jpg", "jpeg", "png", "webp"]
-
-    for ext in possible_extensions:
+    for ext in ["jpg", "jpeg", "png", "webp"]:
         test_path = os.path.join(PHOTO_FOLDER, f"{person_id}.{ext}")
-
         if os.path.exists(test_path):
             image_path = test_path.replace("\\", "/")
             break
@@ -185,18 +184,55 @@ def update_profile(person_id):
     spouse_name = get_person_name(p["spouse_id"])
 
     # ========================================================
-    # CHILDREN
+    # CHILDREN (SORTED BY BIRTH DATE + SPOUSE LOGIC)
     # ========================================================
 
-    children = []
+    children_rows = []
 
-    for pid, pdata in people.items():
+    for _, row in df.iterrows():
 
-        if pdata["father_id"] == person_id or pdata["mother_id"] == person_id:
-            children.append(pdata["name"])
+        remark = str(row.get("Remark", "")).lower().strip()
+        if "child" not in remark:
+            continue
+
+        father_id = clean_id(row.get("ID_pere", ""))
+        mother_id = clean_id(row.get("ID_mere", ""))
+
+        if father_id != person_id and mother_id != person_id:
+            continue
+
+        child_name = (
+            f"{row.get('Prenom','').strip()} {row.get('Nom','').strip()}".strip()
+        )
+        birth = row.get("Naissance", "").strip()
+
+        other_parent_id = mother_id if father_id == person_id else father_id
+        other_parent_name = get_person_name(other_parent_id)
+
+        # Hide spouse duplication
+        if other_parent_id == p["spouse_id"]:
+            other_parent_name = ""
+
+        children_rows.append(
+            {"name": child_name, "birth": birth, "other_parent": other_parent_name}
+        )
+
+    def parse_date(d):
+        try:
+            return datetime.strptime(d, "%d/%m/%Y")
+        except:
+            return datetime.max
+
+    children_rows = sorted(children_rows, key=lambda x: parse_date(x["birth"]))
+
+    children = [
+        f"{c['name']} ({c['birth'] or '??'})"
+        + (f" — {c['other_parent']}" if c["other_parent"] else "")
+        for c in children_rows
+    ]
 
     # ========================================================
-    # PHOTO BLOCK
+    # PHOTO
     # ========================================================
 
     if image_path:
@@ -215,13 +251,11 @@ def update_profile(person_id):
             style={
                 "width": "240px",
                 "height": "320px",
-                "backgroundColor": "#dddddd",
+                "backgroundColor": "#ddd",
                 "borderRadius": "16px",
                 "display": "flex",
                 "alignItems": "center",
                 "justifyContent": "center",
-                "color": "#666",
-                "fontSize": "20px",
             },
         )
 
@@ -234,13 +268,10 @@ def update_profile(person_id):
             html.Div([image_component], style={"flex": "0 0 260px"}),
             html.Div(
                 [
-                    html.H2(p["name"], style={"marginTop": "0", "fontSize": "36px"}),
+                    html.H2(p["name"], style={"fontSize": "36px"}),
                     html.H4(f"Génération : {p['gen']}"),
                     html.P([html.B("Naissance : "), p["birth"] or "Inconnue"]),
                     html.P([html.B("Décès : "), p["death"] or "—"]),
-                    html.P(
-                        [html.B("Origine de génération : "), p["gen_origin"] or "—"]
-                    ),
                     html.P([html.B("Père : "), father_name or "—"]),
                     html.P([html.B("Mère : "), mother_name or "—"]),
                     html.P([html.B("Conjoint : "), spouse_name or "—"]),
@@ -248,13 +279,13 @@ def update_profile(person_id):
                         [
                             html.B("Enfants :"),
                             (
-                                html.Ul([html.Li(child) for child in children])
+                                html.Ul([html.Li(c) for c in children])
                                 if children
                                 else html.P("Aucun enfant")
                             ),
                         ]
                     ),
-                    html.P([html.B("Remarque : "), p["remark"] or "—"]),
+                    html.P([html.B("Note : "), row_note or "—"]),  # ✅ FINAL FIX
                 ],
                 style={"flex": "1", "paddingLeft": "40px"},
             ),
@@ -266,13 +297,12 @@ def update_profile(person_id):
             "backgroundColor": "white",
             "padding": "40px",
             "borderRadius": "20px",
-            "boxShadow": "0 4px 16px rgba(0,0,0,0.15)",
         },
     )
 
 
 # ============================================================
-# MAIN
+# RUN
 # ============================================================
 
 if __name__ == "__main__":
