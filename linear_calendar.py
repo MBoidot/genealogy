@@ -5,6 +5,8 @@ import colorsys
 import random
 from collections import defaultdict
 import numpy as np
+import os
+import webbrowser
 
 # -------------------------------------------------------------------
 # CONFIG
@@ -258,4 +260,22 @@ fig.update_layout(
     paper_bgcolor="white",
 )
 
-fig.show()
+# -------------------------------------------------------------------
+# EXPORT HTML
+# -------------------------------------------------------------------
+output_html = "linear_calendar.html"
+
+fig.write_html(
+    output_html,
+    include_plotlyjs="cdn",
+    full_html=True,
+)
+
+# -------------------------------------------------------------------
+# OPEN AUTOMATICALLY
+# -------------------------------------------------------------------
+html_path = os.path.abspath(output_html)
+
+print(f"✓ Linear calendar generated correctly:\n{html_path}")
+
+webbrowser.open(f"file://{html_path}")

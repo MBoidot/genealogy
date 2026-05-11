@@ -1,6 +1,14 @@
 import pandas as pd
 import json
 import unicodedata
+import subprocess
+import webbrowser
+
+subprocess.run(["python", "family_data_union_converter.py"], check=True)
+
+df = pd.read_csv(
+    "family_data_roles_union.csv", sep=";", encoding="utf-8-sig", dtype=str
+)
 
 # -----------------------------
 # Load CSV
@@ -32,6 +40,7 @@ for col in ["ID", "ID_pere", "ID_mere", "ID_Conjoint"]:
 # -----------------------------
 # Build people registry
 # -----------------------------
+
 people = {}
 for _, row in df.iterrows():
     if pd.isna(row["ID"]):
@@ -263,4 +272,13 @@ html_output = html_template.replace(
 with open("family_tree_with_unions.html", "w", encoding="utf-8") as f:
     f.write(html_output)
 
-print("✓ HTML generated correctly")
+
+html_path = os.path.abspath("family_tree_with_unions.html")
+
+print(f"✓ HTML generated correctly:\n{html_path}")
+
+webbrowser.open(f"file://{html_path}")
+
+subprocess.run(["python", "Timeline.py"], check=True)
+timeline_path = os.path.abspath("family_timeline.png")
+subprocess.run(["python", "linear_calendar.py"], check=True)

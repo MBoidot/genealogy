@@ -394,7 +394,7 @@
           "id": 30,
           "name": "Patrick  BOIDOT",
           "birth": "01/08/1947",
-          "death": NaN,
+          "death": "22/01/2026",
           "gen": 1,
           "gen_origin": "1",
           "children": [
@@ -1059,7 +1059,7 @@
                   "children": [
                     {
                       "id": "64_U27",
-                      "name": "Swan  nan",
+                      "name": "Swann BOURDAIS MASSENET",
                       "birth": "25/10/1986",
                       "death": NaN,
                       "gen": 2,
